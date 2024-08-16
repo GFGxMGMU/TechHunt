@@ -37,5 +37,6 @@ func main() {
 		claims := user.Claims.(*application.JwtCustomClaims)
 		return c.String(http.StatusOK, "meow, "+claims.TeamName)
 	})
+	e.GET("/leaderboard", app.LeaderBoard)
 	e.Logger.Fatal(e.Start("localhost:1323"))
 }

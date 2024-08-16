@@ -18,6 +18,15 @@ type JSONError struct {
 	Message string `json:"message"`
 }
 
+type LeaderBoard struct {
+	LeaderBoard []*LeaderBoardEntry `json:"leaderboard"`
+}
+type LeaderBoardEntry struct {
+	TeamName  string    `json:"team_name"`
+	Round     int       `json:"round"`
+	EnteredAt time.Time `json:"entered_at"`
+}
+
 func (app *Application) Login(c echo.Context) error {
 	team := c.FormValue("team")
 	key := c.FormValue("key")
@@ -55,6 +64,24 @@ func (app *Application) Questions(c echo.Context) error {
 		return c.JSON(http.StatusOK, struct{ Name string }{Name: "jhol bhidu"})
 	}
 	return c.JSON(http.StatusOK, game)
+}
+
+func (app *Application) LeaderBoard(c echo.Context) error {
+	rows, err := app.DB.Pool.Query(context.Background(), "select team_name, round_num, entered_at from user_rounds ur natural join users y order by round_num desc, entered_at asc")
+	if err != nil {
+		c.String(http.StatusOK, "Jhol bhidu")
+	}
+	currentLeaderBoard := LeaderBoard{LeaderBoard: make([]*LeaderBoardEntry, 0)}
+	for {
+		if !rows.Next() {
+			break
+		}
+		currentLeaderBoardEntry := LeaderBoardEntry{}
+		rows.Scan(&currentLeaderBoardEntry.TeamName, &currentLeaderBoardEntry.Round, &currentLeaderBoardEntry.EnteredAt)
+		currentLeaderBoard.LeaderBoard = append(currentLeaderBoard.LeaderBoard, &currentLeaderBoardEntry)
+	}
+	return c.JSON(http.StatusOK, currentLeaderBoard)
+
 }
 
 // func (app *Application) QuestionAnswers(c echo.Context) error {
