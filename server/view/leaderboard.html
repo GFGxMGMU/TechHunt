@@ -1,0 +1,20 @@
+{{define "body"}}
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Team Name</th>
+      <th scope="col">Round</th>
+      <th scope="col">Entered At</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .}}
+    <tr>
+      <th scope="row">{{.TeamName}}</th>
+      <td>{{.RoundNum}}</td>
+      <td>{{.EnteredAt}}</td>
+    </tr>
+    {{end}}
+  </tbody>
+</table>
+{{end}}

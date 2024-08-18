@@ -24,10 +24,8 @@ func (app *Application) JwtMiddleWare(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+func (app *Application) UserMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		fmt.Println("hohoho")
-		code := c.QueryParam("code")
 		user := c.Get("user")
 		if user == nil {
 			return c.Redirect(http.StatusOK, "Sign in")
@@ -40,10 +38,19 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 			return c.String(http.StatusInternalServerError, "Working on this error")
 		}
 		c.Set("user_id", user_id)
+		return next(c)
+	}
+}
+
+func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		fmt.Println("hohoho")
+		code := c.QueryParam("code")
 		var loc_id string
 		var round_num int
+		user_id := c.Get("user_id").(uuid.UUID)
 		query := `select loc_id, round_num from locations natural join access_codes natural join location_users natural join user where code=$1 and user_id=$2`
-		err = app.DB.Pool.QueryRow(context.Background(), query, code, user_id).Scan(&loc_id, &round_num)
+		err := app.DB.Pool.QueryRow(context.Background(), query, code, user_id).Scan(&loc_id, &round_num)
 		if err != nil {
 			fmt.Println("hosdf", err)
 			return c.Redirect(http.StatusTemporaryRedirect, "/")

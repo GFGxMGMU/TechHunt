@@ -3,6 +3,7 @@ package main
 import (
 	"gfghunt/application"
 	DB "gfghunt/db"
+	"gfghunt/templates"
 	"net/http"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -16,27 +17,33 @@ func main() {
 	app := &application.Application{DB: DBPool}
 	// New echo server object
 	e := echo.New()
+	Renderer := &templates.Templates{}
+	Renderer.Init()
+	e.Renderer = Renderer
+
 	// Group for the actual hunt. Idhar bina login no entry!
 	r := e.Group("/hunt")
 
 	jwtConfig := app.ConfigJWT()
 	r.Use(app.JwtMiddleWare)
 	r.Use(echojwt.WithConfig(*jwtConfig))
+	r.Use(app.UserMiddleware)
 	// Locations: This is where the players will come when they scan the qr code
 	l := r.Group("/location")
-	e.Static("/", "./")
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
 	}))
 	l.Use(app.LocationMiddleware)
 	l.GET("", app.Questions)
+	r.GET("/dashboard", app.DashboardView)
+	e.GET("/", app.LoginView)
 	e.POST("/", app.Login)
 	r.GET("/yo", func(c echo.Context) error {
 		user := c.Get("user").(*jwt.Token)
 		claims := user.Claims.(*application.JwtCustomClaims)
 		return c.String(http.StatusOK, "meow, "+claims.TeamName)
 	})
-	e.GET("/leaderboard", app.LeaderBoard)
+	e.GET("/leaderboard", app.LeaderBoardView)
 	e.Logger.Fatal(e.Start("localhost:1323"))
 }

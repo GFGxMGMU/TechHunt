@@ -1,3 +1,4 @@
+{{define "base"}}
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
   <head>
@@ -7,11 +8,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.yellow.min.css"
     />
-    <title>Document</title>
+    <title></title>
   </head>
   <body>
-    <main class="container">
-      <nav>
+    <header>
+      <nav style="margin: 1rem auto; width: 90%">
         <ul>
           <h1>GFG Tech Hunt</h1>
         </ul>
@@ -20,13 +21,13 @@
           <li><a href="">Home</a></li>
         </ul>
       </nav>
-      <form method="post" action="/">
-        <label for="team">Team</label>
-        <input type="text" name="team" />
-        <label for="key">Key</label>
-        <input type="password" name="key" />
-        <button type="submit">Submit</button>
-      </form>
+    </header>
+    <main
+      class="container"
+      style="margin: auto; padding: 1rem; max-width: 800px"
+    >
+      {{template "body" .}}
     </main>
   </body>
 </html>
+{{end}}
