@@ -134,8 +134,11 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 	}
 	if correctCount == 5 {
 		// Advance the user to the next round
-		app.Advance(user_id, currentGame.RoundNum)
-		return c.Render(http.StatusOK, "messageGreen", "Right answer! The new hint is at your dashboard. You may proceed!")
+		err = app.Advance(user_id, currentGame.RoundNum)
+		if err != nil {
+			return c.Render(http.StatusOK, "message", err.Error())
+		}
+		return c.Render(http.StatusOK, "messageGreen", "Right answers! The new hint is at your dashboard. You may proceed!")
 	}
 	return c.Render(http.StatusOK, "message", "A few answers are wrong! Retry.")
 }
