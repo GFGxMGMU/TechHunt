@@ -20,6 +20,9 @@ type JSONError struct {
 
 type LeaderBoard struct {
 	LeaderBoard []*LeaderBoardEntry `json:"leaderboard"`
+	WinnerId    uuid.UUID
+	WinnerName  string
+	IsWinner    bool
 }
 type LeaderBoardEntry struct {
 	TeamName  string `json:"team_name"`
@@ -62,7 +65,7 @@ func (app *Application) Login(c echo.Context) error {
 
 func (app *Application) DashboardView(c echo.Context) error {
 	user_id := c.Get("user_id").(uuid.UUID)
-	query := `select round_num, team_name, hint from users natural join user_rounds natural join location_users natural join hints where user_id=$1`
+	query := `select round_num, team_name, hint from users natural join user_rounds natural join location_users natural join hints where user_id=$1 and submitted=false`
 	out := Dashboard{}
 	err := app.DB.Pool.QueryRow(context.Background(), query, user_id).Scan(&out.RoundNum, &out.TeamName, &out.Hint)
 	if err != nil {
@@ -87,10 +90,7 @@ func (app *Application) Questions(c echo.Context) error {
 }
 
 func (app *Application) LeaderBoardView(c echo.Context) error {
-	rows, err := app.DB.Pool.Query(context.Background(), "select team_name, round_num, entered_at from user_rounds ur natural join users y order by round_num desc, entered_at asc")
-	if err != nil {
-		c.Render(http.StatusOK, "message", err.Error())
-	}
+	rows, err := app.DB.Pool.Query(context.Background(), "select team_name, round_num, entered_at from user_rounds ur natural join users y where ur.submitted=false order by round_num desc, entered_at asc")
 	currentLeaderBoard := LeaderBoard{LeaderBoard: make([]*LeaderBoardEntry, 0)}
 	for {
 		if !rows.Next() {
@@ -101,6 +101,13 @@ func (app *Application) LeaderBoardView(c echo.Context) error {
 		rows.Scan(&currentLeaderBoardEntry.TeamName, &currentLeaderBoardEntry.RoundNum, &enteredAt)
 		currentLeaderBoardEntry.EnteredAt = enteredAt.Format(time.RFC822)
 		currentLeaderBoard.LeaderBoard = append(currentLeaderBoard.LeaderBoard, &currentLeaderBoardEntry)
+	}
+	if err != nil {
+		c.Render(http.StatusOK, "message", err.Error())
+	}
+	err = app.DB.Pool.QueryRow(context.Background(), "select user_id, team_name from winner natural join users").Scan(&currentLeaderBoard.WinnerId, &currentLeaderBoard.WinnerName)
+	if err == nil {
+		currentLeaderBoard.IsWinner = true
 	}
 	return c.Render(http.StatusOK, "leaderboard", currentLeaderBoard.LeaderBoard)
 
