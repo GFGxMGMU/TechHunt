@@ -109,7 +109,7 @@ func (app *Application) LeaderBoardView(c echo.Context) error {
 	if err == nil {
 		currentLeaderBoard.IsWinner = true
 	}
-	return c.Render(http.StatusOK, "leaderboard", currentLeaderBoard.LeaderBoard)
+	return c.Render(http.StatusOK, "leaderboard", currentLeaderBoard)
 
 }
 
