@@ -36,6 +36,7 @@ func main() {
 	}))
 	l.Use(app.LocationMiddleware)
 	l.GET("", app.Questions)
+	l.POST("", app.QuestionAnswers)
 	r.GET("/dashboard", app.DashboardView)
 	e.GET("/", app.LoginView)
 	e.POST("/", app.Login)

@@ -2,6 +2,7 @@ package game
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	DB "gfghunt/db"
 	"time"
@@ -10,18 +11,21 @@ import (
 )
 
 type Game struct {
-	Questions []*Question `json:"questions"`
-	EndTime   time.Time   `json:"endtime"`
-	Submitted bool        `json:"submitted"`
+	LocationId int         `json:"-"`
+	Questions  []*Question `json:"questions"`
+	EndTime    time.Time   `json:"endtime"`
+	Submitted  bool        `json:"submitted"`
+	RoundNum   int         `json:"round_num"`
 }
 
 type Question struct {
-	Question string  `json:"question"`
-	Option1  *Option `json:"option1"`
-	Option2  *Option `json:"option2"`
-	Option3  *Option `json:"option3"`
-	Option4  *Option `json:"option4"`
-	Correct  *Option `json:"-"`
+	Question   string    `json:"question"`
+	QuestionId uuid.UUID `json:"que_id"`
+	Option1    *Option   `json:"option1"`
+	Option2    *Option   `json:"option2"`
+	Option3    *Option   `json:"option3"`
+	Option4    *Option   `json:"option4"`
+	Correct    int       `json:"-"`
 }
 type Option struct {
 	Option string `json:"option"`
@@ -30,20 +34,30 @@ type Option struct {
 var onGoingGames map[uuid.UUID]*Game = make(map[uuid.UUID]*Game)
 
 func Play(db *DB.DB, loc_id int, user_id uuid.UUID) (*Game, error) {
-	current_Game, ok := onGoingGames[user_id]
-	if !ok || current_Game.Submitted || current_Game.EndTime.Before(time.Now()) {
-		current_Game, err := NewGame(db, loc_id)
+	currentGame, ok := onGoingGames[user_id]
+	if !ok || currentGame.Submitted || currentGame.EndTime.Before(time.Now()) {
+		currentGame, err := NewGame(db, loc_id)
 		if err != nil {
 			return nil, err
 		}
-		onGoingGames[user_id] = current_Game
-		return current_Game, nil
+		onGoingGames[user_id] = currentGame
+		return currentGame, nil
 	}
-	return current_Game, nil
+	return currentGame, nil
 
 }
+func Reset(user_id uuid.UUID) {
+	delete(onGoingGames, user_id)
+}
+func GetGame(user_id uuid.UUID) (*Game, error) {
+	currentGame, ok := onGoingGames[user_id]
+	if !ok {
+		return nil, errors.New("game not found")
+	}
+	return currentGame, nil
+}
 func NewGame(db *DB.DB, loc_id int) (*Game, error) {
-	query := `select question, option1, option2, option3, option4, correct from questions where loc_id=$1 order by gen_random_uuid() limit 5`
+	query := `select que_id, question, option1, option2, option3, option4, correct from questions where loc_id=$1 order by gen_random_uuid() limit 5`
 	rows, err := db.Pool.Query(context.Background(), query, loc_id)
 	if err != nil {
 		fmt.Println(err)
@@ -59,20 +73,12 @@ func NewGame(db *DB.DB, loc_id int) (*Game, error) {
 		option2 := new(Option)
 		option3 := new(Option)
 		option4 := new(Option)
-		var correct int
 		question := Question{Option1: option1, Option2: option2, Option3: option3, Option4: option4}
-		rows.Scan(&question.Question, &option1.Option, &option2.Option, &option3.Option, &option4.Option, &correct)
-		switch correct {
-		case 1:
-			question.Correct = option1
-		case 2:
-			question.Correct = option2
-		case 3:
-			question.Correct = option3
-		case 4:
-			question.Correct = option4
+		rows.Scan(&question.QuestionId, &question.Question, &option1.Option, &option2.Option, &option3.Option, &option4.Option, &question.Correct)
+		if 4 < question.Correct || question.Correct < 1 {
+			return nil, errors.New("invalid range of correct answer")
 		}
 		questions = append(questions, &question)
 	}
-	return &Game{Questions: questions, EndTime: time.Now().Add(5 * time.Second)}, nil
+	return &Game{LocationId: loc_id, Questions: questions, EndTime: time.Now().Add(5 * time.Second), Submitted: false}, nil
 }

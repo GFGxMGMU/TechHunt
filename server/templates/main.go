@@ -19,6 +19,7 @@ func (templates *Templates) Init() {
 	templates.Templates["message"] = template.Must(template.ParseFiles("view/base.html", "view/message.html"))
 	templates.Templates["dashboard"] = template.Must(template.ParseFiles("view/base.html", "view/dashboard.html"))
 	templates.Templates["leaderboard"] = template.Must(template.ParseFiles("view/base.html", "view/leaderboard.html"))
+	templates.Templates["questions"] = template.Must(template.ParseFiles("view/base.html", "view/questions.html"))
 }
 
 func (templates *Templates) Render(w io.Writer, name string, data interface{}, c echo.Context) error {

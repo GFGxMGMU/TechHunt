@@ -81,15 +81,15 @@ func (app *Application) Questions(c echo.Context) error {
 	user_id := c.Get("user_id").(uuid.UUID)
 	game, err := game.Play(app.DB, loc_id, user_id)
 	if err != nil {
-		return c.JSON(http.StatusOK, struct{ Name string }{Name: "jhol bhidu"})
+		return c.Render(http.StatusInternalServerError, "message", err.Error())
 	}
-	return c.JSON(http.StatusOK, game)
+	return c.Render(http.StatusOK, "questions", game)
 }
 
 func (app *Application) LeaderBoardView(c echo.Context) error {
 	rows, err := app.DB.Pool.Query(context.Background(), "select team_name, round_num, entered_at from user_rounds ur natural join users y order by round_num desc, entered_at asc")
 	if err != nil {
-		c.String(http.StatusOK, "Jhol bhidu")
+		c.Render(http.StatusOK, "message", err.Error())
 	}
 	currentLeaderBoard := LeaderBoard{LeaderBoard: make([]*LeaderBoardEntry, 0)}
 	for {
@@ -106,6 +106,33 @@ func (app *Application) LeaderBoardView(c echo.Context) error {
 
 }
 
-// func (app *Application) QuestionAnswers(c echo.Context) error {
-
-// }
+func (app *Application) QuestionAnswers(c echo.Context) error {
+	user_id := c.Get("user_id").(uuid.UUID)
+	currentGame, err := game.GetGame(user_id)
+	if err != nil {
+		return c.Render(http.StatusNotFound, "message", "Game not found. Try scanning the QR code again.")
+	}
+	correctCount := 0
+	if currentGame.Submitted {
+		return c.Render(http.StatusUnauthorized, "message", "This instance of the quiz already submitted")
+	}
+	currentGame.Submitted = true
+	for _, question := range currentGame.Questions {
+		correct := question.Correct
+		correctOption := fmt.Sprintf("option%d", correct)
+		que_id := question.QuestionId
+		answer := c.FormValue(que_id.String())
+		if answer == "" {
+			return c.Render(http.StatusNotAcceptable, "message", "There was an error submitting. You probably ran out of time")
+		}
+		if answer == correctOption {
+			correctCount++
+		}
+	}
+	if correctCount == 5 {
+		// Advance the user to the next round
+		// app.Advance(user_id)
+		return c.Render(http.StatusOK, "messageGreen", "Right answer! The new hint is at your dashboard. You may proceed!")
+	}
+	return c.Render(http.StatusOK, "message", "A few answers are wrong!")
+}
