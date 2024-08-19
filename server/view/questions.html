@@ -1,0 +1,16 @@
+{{define "body"}}
+<form method="post" action="/hunt/questions">
+    {{range .Questions}}
+        <h2>{{.Question}}</h2> 
+        <input type="radio" name={{.QuestionId}} value="option1"><label>{{.Option1.Option}}</label>
+        <br>
+        <input type="radio" name={{.QuestionId}} value="option2"><label>{{.Option2.Option}}</label>
+        <br>
+        <input type="radio" name={{.QuestionId}} value="option3"><label>{{.Option3.Option}}</label>
+        <br>
+        <input type="radio" name={{.QuestionId}} value="option4"><label>{{.Option4.Option}}</label>
+        <hr>
+    {{end}} 
+    <button type="submit">Submit</button>
+    </form>
+{{end}}
