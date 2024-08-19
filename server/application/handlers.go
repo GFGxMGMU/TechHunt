@@ -83,6 +83,8 @@ func (app *Application) Questions(c echo.Context) error {
 	loc_id, _ := strconv.Atoi(loc)
 	user_id := c.Get("user_id").(uuid.UUID)
 	game, err := game.Play(app.DB, loc_id, user_id)
+	accessCode := c.QueryParam("code")
+	game.AccessCode = accessCode
 	if err != nil {
 		return c.Render(http.StatusInternalServerError, "message", err.Error())
 	}
@@ -141,7 +143,7 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 	}
 	if correctCount == 5 {
 		// Advance the user to the next round
-		err = app.Advance(user_id, currentGame.RoundNum)
+		err = app.Advance(user_id, currentGame.RoundNum, currentGame.LocationId)
 		if err != nil {
 			return c.Render(http.StatusOK, "message", err.Error())
 		}

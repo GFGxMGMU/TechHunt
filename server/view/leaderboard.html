@@ -1,5 +1,5 @@
 {{define "body"}}
-{{if not .IsWinner}}
+{{if .IsWinner}}
   <img src="/assets/cup.svg" style="margin: 1rem auto; display: block;" />
   <article class="pico-background-green-200"> Congrats {{.WinnerName}} for being the winner of GFG Tech Hunt 2024!</article>
 {{end}}

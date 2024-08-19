@@ -16,6 +16,7 @@ type Game struct {
 	EndTime    time.Time   `json:"endtime"`
 	Submitted  bool        `json:"submitted"`
 	RoundNum   int         `json:"round_num"`
+	AccessCode string      `json:"access_code"`
 }
 
 type Question struct {
@@ -80,5 +81,11 @@ func NewGame(db *DB.DB, loc_id int) (*Game, error) {
 		}
 		questions = append(questions, &question)
 	}
-	return &Game{LocationId: loc_id, Questions: questions, EndTime: time.Now().Add(5 * time.Second), Submitted: false}, nil
+	var round_num int
+	err = db.Pool.QueryRow(context.Background(), "select round_num from locations where loc_id=$1", loc_id).Scan(&round_num)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	return &Game{LocationId: loc_id, RoundNum: round_num, Questions: questions, EndTime: time.Now().Add(5 * time.Minute), Submitted: false}, nil
 }
