@@ -116,6 +116,9 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 	if currentGame.Submitted {
 		return c.Render(http.StatusUnauthorized, "message", "This instance of the quiz already submitted")
 	}
+	if currentGame.EndTime.Before(time.Now()) {
+		return c.Render(http.StatusUnauthorized, "message", "Time out! Try again.")
+	}
 	currentGame.Submitted = true
 	for _, question := range currentGame.Questions {
 		correct := question.Correct
@@ -131,8 +134,8 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 	}
 	if correctCount == 5 {
 		// Advance the user to the next round
-		// app.Advance(user_id)
+		app.Advance(user_id, currentGame.RoundNum)
 		return c.Render(http.StatusOK, "messageGreen", "Right answer! The new hint is at your dashboard. You may proceed!")
 	}
-	return c.Render(http.StatusOK, "message", "A few answers are wrong!")
+	return c.Render(http.StatusOK, "message", "A few answers are wrong! Retry.")
 }
