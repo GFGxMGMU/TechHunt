@@ -2,6 +2,7 @@ package application
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"gfghunt/game"
 	"net/http"
@@ -13,6 +14,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type TooLateError struct {
+	Message string
+}
 type JSONError struct {
 	Error   string `json:"error"`
 	Message string `json:"message"`
@@ -43,6 +47,10 @@ type TemplateData struct {
 	IsLoggedIn bool
 	TeamName   string
 	Data       interface{}
+}
+
+func (e TooLateError) Error() string {
+	return e.Message
 }
 
 func BaseTemplateConfig(c echo.Context, data interface{}) *TemplateData {
@@ -228,6 +236,9 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 				Message:  "There was an error submitting. Try again :)",
 				LinkText: "Go back",
 				Link:     "javascript:history.back()",
+			}
+			if errors.As(err, &TooLateError{}) {
+				message.Message = err.Error()
 			}
 			return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
 		}

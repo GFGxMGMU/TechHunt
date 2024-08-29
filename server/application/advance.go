@@ -2,7 +2,6 @@ package application
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"time"
 
@@ -26,7 +25,7 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 	}
 	if round_num == 4 {
 		if previousAdvancers >= 1 {
-			return errors.New("you were late :(")
+			return TooLateError{"You were late :("}
 		} else {
 			_, err := tx.Exec(context.Background(), "insert into Winner(user_id) values($1)", user_id)
 			if err != nil {
@@ -35,7 +34,7 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 		}
 	} else {
 		if previousAdvancers >= 2 {
-			return errors.New("you were late :(")
+			return TooLateError{"You were late :("}
 		}
 	}
 
