@@ -13,6 +13,30 @@
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
     />
     <title></title>
+    <style>
+      :root {
+        --pico-background-color: rgba(0, 0, 0, 0.2);
+        --pico-color: rgb(150, 150, 150);
+      }
+      body {
+        background: rgba(0, 0, 0, 0.75) url("/assets/bg.jpg");
+        background-blend-mode: darken;
+        background-position: center;
+        background-attachment: fixed;
+        background-size: cover;
+        min-height: 100vh;
+      }
+      #leaderboard-table {
+        border-radius: 2rem;
+        overflow: hidden;
+        background-color: var(--pico-background-color);
+        backdrop-filter: blur(24px);
+        color: rgba(0, 0, 0);
+      }
+      #leaderboard-table * {
+        background-color: unset;
+      }
+    </style>
   </head>
   <body>
     <header>

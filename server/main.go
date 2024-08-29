@@ -17,6 +17,7 @@ func main() {
 	app := &application.Application{DB: DBPool}
 	// New echo server object
 	e := echo.New()
+	e.Static("/assets", "./assets")
 	Renderer := &templates.Templates{}
 	Renderer.Init()
 	e.Renderer = Renderer
@@ -38,8 +39,8 @@ func main() {
 	l.GET("", app.Questions)
 	l.POST("", app.QuestionAnswers)
 	r.GET("/dashboard", app.DashboardView)
-	e.GET("/", app.LoginView)
-	e.POST("/", app.Login)
+	e.GET("/login", app.LoginView)
+	e.POST("/login", app.Login)
 	r.GET("/yo", func(c echo.Context) error {
 		user := c.Get("user").(*jwt.Token)
 		claims := user.Claims.(*application.JwtCustomClaims)

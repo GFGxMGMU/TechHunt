@@ -16,7 +16,7 @@ func (app *Application) JwtMiddleWare(next echo.HandlerFunc) echo.HandlerFunc {
 		cookie, err := c.Cookie("JWT")
 		if err != nil {
 			fmt.Println("meow")
-			return c.Redirect(http.StatusTemporaryRedirect, "/")
+			return c.Render(http.StatusUnauthorized, "message", "You are not logged in.")
 		}
 		token := cookie.Value
 		c.Request().Header.Set("Authorization", "Bearer "+token)
