@@ -37,6 +37,7 @@ type LeaderBoardEntry struct {
 	RoundNum  int    `json:"round"`
 	EnteredAt string `json:"entered_at"`
 }
+
 type Dashboard struct {
 	TeamName string
 	RoundNum int
@@ -154,6 +155,7 @@ func (app *Application) Questions(c echo.Context) error {
 func (app *Application) LeaderBoardView(c echo.Context) error {
 	rows, err := app.DB.Pool.Query(context.Background(), "select team_name, round_num, entered_at from user_rounds ur natural join users y where ur.submitted=false order by round_num desc, entered_at asc")
 	currentLeaderBoard := LeaderBoard{LeaderBoard: make([]*LeaderBoardEntry, 0)}
+	timezone, err := time.LoadLocation("Asia/Kolkata")
 	for {
 		if !rows.Next() {
 			break
@@ -161,7 +163,7 @@ func (app *Application) LeaderBoardView(c echo.Context) error {
 		currentLeaderBoardEntry := LeaderBoardEntry{}
 		var enteredAt time.Time
 		rows.Scan(&currentLeaderBoardEntry.TeamName, &currentLeaderBoardEntry.RoundNum, &enteredAt)
-		currentLeaderBoardEntry.EnteredAt = enteredAt.Format(time.RFC822)
+		currentLeaderBoardEntry.EnteredAt = enteredAt.In(timezone).Format(time.RFC822)
 		currentLeaderBoard.LeaderBoard = append(currentLeaderBoard.LeaderBoard, &currentLeaderBoardEntry)
 	}
 	if err != nil {

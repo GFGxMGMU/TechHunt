@@ -5,7 +5,7 @@ What the title sez
 - [X] Add bg
 - [X] Add global login config
 - [X] Add relevant templating to nav
-- [ ] Change leaderboard timezone to IST 
+- [X] Change leaderboard timezone to IST 
 - [ ] Add progress bar for ques
 - [X] Add GFG logo
 - [ ] Shut down all endpoints after winner is declared
