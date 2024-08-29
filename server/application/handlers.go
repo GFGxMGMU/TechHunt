@@ -54,7 +54,17 @@ func BaseTemplateConfig(c echo.Context, data interface{}) *TemplateData {
 }
 
 func (app *Application) LoginView(c echo.Context) error {
-	return c.Render(http.StatusOK, "login", nil)
+
+	logged_in := c.Get("logged_in").(bool)
+	if logged_in {
+		message := Message{
+			Message:  "You are already logged in. Just logout if you wanna use different credentials",
+			LinkText: "Meanwhile, enjoy the leaderboard",
+			Link:     "/",
+		}
+		return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
+	}
+	return c.Render(http.StatusOK, "login", BaseTemplateConfig(c, nil))
 }
 func (app *Application) Login(c echo.Context) error {
 	team := c.FormValue("team")
@@ -124,7 +134,11 @@ func (app *Application) Questions(c echo.Context) error {
 	game.AccessCode = accessCode
 	if err != nil {
 		fmt.Println("Error while processing user questions", "loc", loc, "round_num", round_num, "user_id", user_id, err.Error())
-		return c.Render(http.StatusInternalServerError, "message", Message{Message: "Error getting questions", LinkText: "Go to the login page", Link: "/login"})
+		message := Message{Message: "Error getting questions",
+			LinkText: "Go to the login page",
+			Link:     "/login",
+		}
+		return c.Render(http.StatusInternalServerError, "message", BaseTemplateConfig(c, message))
 	}
 	return c.Render(http.StatusOK, "questions", BaseTemplateConfig(c, game))
 }
@@ -174,16 +188,16 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 	if currentGame.Submitted {
 		message := Message{
 			Message:  "This instance of the quiz already submitted",
-			Link:     "Go back",
-			LinkText: "javascript:history.back()",
+			LinkText: "Go back",
+			Link:     "javascript:history.back()",
 		}
 		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
 	}
 	if currentGame.EndTime.Before(time.Now()) {
 		message := Message{
 			Message:  "Time out! Please try again :)",
-			Link:     "Go back",
-			LinkText: "javascript:history.back()",
+			LinkText: "Go back",
+			Link:     "javascript:history.back()",
 		}
 		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
 	}
@@ -196,8 +210,8 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 		if answer == "" {
 			message := Message{
 				Message:  "There was an error submitting. You probably ran out of time",
-				Link:     "Go back",
-				LinkText: "javascript:history.back()",
+				LinkText: "Go back",
+				Link:     "javascript:history.back()",
 			}
 			return c.Render(http.StatusNotAcceptable, "message", BaseTemplateConfig(c, message))
 		}
@@ -212,8 +226,8 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 			fmt.Println(err.Error(), user_id)
 			message := Message{
 				Message:  "There was an error submitting. Try again :)",
-				Link:     "Go back",
-				LinkText: "javascript:history.back()",
+				LinkText: "Go back",
+				Link:     "javascript:history.back()",
 			}
 			return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
 		}
@@ -226,8 +240,8 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 	}
 	message := Message{
 		Message:  `A few answers are wrong! Retry, or as Swami Vivekananda said, "Arise, awake, and stop not till the goal is reached!"`,
-		Link:     "Go back",
-		LinkText: "javascript:history.back()",
+		LinkText: "Go back",
+		Link:     "javascript:history.back()",
 	}
-	return c.Render(http.StatusOK, "message", message)
+	return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
 }

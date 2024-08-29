@@ -5,42 +5,22 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	_ "github.com/labstack/echo-jwt/v4"
 	"github.com/labstack/echo/v4"
 )
 
-func (app *Application) JwtMiddleWare(next echo.HandlerFunc) echo.HandlerFunc {
+func (app *Application) HuntMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		cookie, err := c.Cookie("JWT")
-		if err != nil {
-			fmt.Println("meow")
-			return c.Render(http.StatusUnauthorized, "message", "You are not logged in.")
+		logged_in := c.Get("logged_in").(bool)
+		if !logged_in {
+			message := Message{
+				Message:  "Please login if you want to play!",
+				LinkText: "Go to the login page",
+				Link:     "/login",
+			}
+			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
 		}
-		token := cookie.Value
-		c.Request().Header.Set("Authorization", "Bearer "+token)
-		return next(c)
-	}
-}
-
-func (app *Application) UserMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		user := c.Get("user")
-		if user == nil {
-			c.Set("logged_in", false)
-			return next(c)
-		}
-		userToken := user.(*jwt.Token)
-		claims := userToken.Claims.(*JwtCustomClaims)
-		user_id, err := uuid.Parse((claims.TeamId))
-		if err != nil {
-			fmt.Println(err)
-			return c.String(http.StatusInternalServerError, "Working on this error")
-		}
-		c.Set("logged_in", true)
-		c.Set("user_id", user_id)
-		c.Set("user_name", claims.TeamName)
 		return next(c)
 	}
 }
@@ -56,7 +36,12 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 		err := app.DB.Pool.QueryRow(context.Background(), query, code, user_id).Scan(&loc_id, &round_num)
 		if err != nil {
 			fmt.Println("hosdf", err)
-			return c.Redirect(http.StatusTemporaryRedirect, "/")
+			message := Message{
+				Message:  "Location forbidden. You don't have access to this location, at least at this stage.",
+				LinkText: "Go to the dashboard",
+				Link:     "/hunt/dashboard",
+			}
+			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
 		}
 		fmt.Println(loc_id)
 		c.Set("location", loc_id)

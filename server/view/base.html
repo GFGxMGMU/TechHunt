@@ -16,6 +16,7 @@
     <style>
       :root {
         --pico-background-color: rgba(0, 0, 0, 0.2);
+        --pico-card-background-color: rgba(0, 0, 0, 0.2);
         --pico-color: rgb(150, 150, 150);
       }
       body {
@@ -30,7 +31,6 @@
         border-radius: 2rem;
         overflow: hidden;
         background-color: var(--pico-background-color);
-        backdrop-filter: blur(24px);
         color: rgba(0, 0, 0);
       }
       #leaderboard-table * {
@@ -38,6 +38,9 @@
       }
       #leaderboard-table thead {
         color: rgb(255, 255, 255);
+      }
+      #leaderboard-table, article {
+        backdrop-filter: blur(24px);
       }
     </style>
   </head>
@@ -48,7 +51,12 @@
           <h1>GFG Tech Hunt</h1>
         </ul>
         <ul>
-          <li><a href="/">Home</a></li>
+          <li><a href="/">Leaderboard</a></li>
+          {{if .IsLoggedIn}}
+          <li><a href="/hunt/dashboard">Dashboard</a></li>
+          {{else}}
+          <li><a href="/login">Login</a></li>
+          {{end}}
         </ul>
       </nav>
     </header>

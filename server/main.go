@@ -26,9 +26,10 @@ func main() {
 	r := e.Group("/hunt")
 
 	jwtConfig := app.ConfigJWT()
-	e.Use(app.JwtMiddleWare)
-	r.Use(echojwt.WithConfig(*jwtConfig))
-	r.Use(app.UserMiddleware)
+	// JWT Middleware.
+	// Extracts info like user_id, user_name and login state
+	e.Use(echojwt.WithConfig(*jwtConfig))
+	r.Use(app.HuntMiddleware)
 	// Locations: This is where the players will come when they scan the qr code
 	l := r.Group("/location")
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
