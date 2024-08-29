@@ -26,7 +26,7 @@ func main() {
 	r := e.Group("/hunt")
 
 	jwtConfig := app.ConfigJWT()
-	r.Use(app.JwtMiddleWare)
+	e.Use(app.JwtMiddleWare)
 	r.Use(echojwt.WithConfig(*jwtConfig))
 	r.Use(app.UserMiddleware)
 	// Locations: This is where the players will come when they scan the qr code
@@ -46,7 +46,7 @@ func main() {
 		claims := user.Claims.(*application.JwtCustomClaims)
 		return c.String(http.StatusOK, "meow, "+claims.TeamName)
 	})
-	e.GET("/leaderboard", app.LeaderBoardView)
+	e.GET("/", app.LeaderBoardView)
 	e.Static("/assets", "assets")
 	e.Logger.Fatal(e.Start("localhost:1323"))
 }

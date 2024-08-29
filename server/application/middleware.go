@@ -28,7 +28,8 @@ func (app *Application) UserMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		user := c.Get("user")
 		if user == nil {
-			return c.Redirect(http.StatusOK, "Sign in")
+			c.Set("logged_in", false)
+			return next(c)
 		}
 		userToken := user.(*jwt.Token)
 		claims := userToken.Claims.(*JwtCustomClaims)
@@ -37,7 +38,9 @@ func (app *Application) UserMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 			fmt.Println(err)
 			return c.String(http.StatusInternalServerError, "Working on this error")
 		}
+		c.Set("logged_in", true)
 		c.Set("user_id", user_id)
+		c.Set("user_name", claims.TeamName)
 		return next(c)
 	}
 }

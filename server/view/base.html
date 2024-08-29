@@ -36,6 +36,9 @@
       #leaderboard-table * {
         background-color: unset;
       }
+      #leaderboard-table thead {
+        color: rgb(255, 255, 255);
+      }
     </style>
   </head>
   <body>
@@ -45,7 +48,6 @@
           <h1>GFG Tech Hunt</h1>
         </ul>
         <ul>
-          <li><a href="/leaderboard">Leaderboard</a></li>
           <li><a href="/">Home</a></li>
         </ul>
       </nav>
@@ -54,7 +56,7 @@
       class="container"
       style="margin: auto; padding: 1rem; max-width: 800px"
     >
-      {{template "body" .}}
+      {{template "body" .Data}}
     </main>
   </body>
 </html>

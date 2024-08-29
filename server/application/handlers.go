@@ -39,6 +39,20 @@ type Dashboard struct {
 	Hint     string
 }
 
+type TemplateData struct {
+	IsLoggedIn bool
+	TeamName   string
+	Data       interface{}
+}
+
+func BaseTemplateConfig(c echo.Context, data interface{}) *TemplateData {
+	return &TemplateData{
+		IsLoggedIn: c.Get("logged_in").(bool),
+		TeamName:   c.Get("user_name").(string),
+		Data:       &data,
+	}
+}
+
 func (app *Application) LoginView(c echo.Context) error {
 	return c.Render(http.StatusOK, "login", nil)
 }
@@ -48,14 +62,24 @@ func (app *Application) Login(c echo.Context) error {
 	var team_id uuid.UUID
 	err := app.DB.Pool.QueryRow(context.Background(), "SELECT user_id FROM USERS where team_name=$1 and key=$2", team, key).Scan(&team_id)
 	if err != nil {
-		return c.Render(http.StatusUnauthorized, "message", Message{Message: "Wrong Credentials", LinkText: "Go to the login page", Link: "/login"})
+		message := &Message{
+			Message:  "Wrong Credentials",
+			LinkText: "Go to the login page",
+			Link:     "/login",
+		}
+		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
 	}
 	expiry := time.Now().Add(time.Hour * 100 * 24)
 	claims := &JwtCustomClaims{team, team_id.String(), jwt.RegisteredClaims{ExpiresAt: jwt.NewNumericDate(expiry)}}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	t, err := token.SignedString([]byte("meow"))
 	if err != nil {
-		return c.Render(http.StatusInternalServerError, "message", "There was an error signing you in")
+		message := &Message{
+			Message:  "Couldn't sign you in. Contact the team.",
+			LinkText: "Go to the login page",
+			Link:     "/login",
+		}
+		return c.Render(http.StatusInternalServerError, "message", BaseTemplateConfig(c, message))
 	}
 	cookie := new(http.Cookie)
 	cookie.Name = "JWT"
@@ -63,7 +87,12 @@ func (app *Application) Login(c echo.Context) error {
 	cookie.Expires = expiry
 	cookie.HttpOnly = true
 	c.SetCookie(cookie)
-	return c.Render(http.StatusOK, "message", Message{Message: "Logged in successfully.", LinkText: "Go to the dashboard", Link: "/hunt/dashboard"})
+	message := Message{
+		Message:  "Logged in successfully.",
+		LinkText: "Go to the dashboard",
+		Link:     "/hunt/dashboard",
+	}
+	return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
 
 }
 
@@ -74,10 +103,14 @@ func (app *Application) DashboardView(c echo.Context) error {
 	err := app.DB.Pool.QueryRow(context.Background(), query, user_id).Scan(&out.RoundNum, &out.TeamName, &out.Hint)
 	if err != nil {
 		fmt.Println(err)
-		return c.Render(http.StatusOK, "message", Message{Message: "There was a problem viewing the dashboard. Try calling Kunal.", LinkText: "Go to the login page", Link: "/login"})
+		message := Message{
+			Message:  "There was a problem viewing the dashboard. Try calling Kunal.",
+			LinkText: "Go to the login page",
+			Link:     "/login",
+		}
+		return c.Render(http.StatusInternalServerError, "message", BaseTemplateConfig(c, message))
 	}
-	fmt.Println(out)
-	return c.Render(http.StatusOK, "dashboard", out)
+	return c.Render(http.StatusOK, "dashboard", BaseTemplateConfig(c, out))
 }
 
 func (app *Application) Questions(c echo.Context) error {
@@ -93,7 +126,7 @@ func (app *Application) Questions(c echo.Context) error {
 		fmt.Println("Error while processing user questions", "loc", loc, "round_num", round_num, "user_id", user_id, err.Error())
 		return c.Render(http.StatusInternalServerError, "message", Message{Message: "Error getting questions", LinkText: "Go to the login page", Link: "/login"})
 	}
-	return c.Render(http.StatusOK, "questions", game)
+	return c.Render(http.StatusOK, "questions", BaseTemplateConfig(c, game))
 }
 
 func (app *Application) LeaderBoardView(c echo.Context) error {
@@ -110,13 +143,19 @@ func (app *Application) LeaderBoardView(c echo.Context) error {
 		currentLeaderBoard.LeaderBoard = append(currentLeaderBoard.LeaderBoard, &currentLeaderBoardEntry)
 	}
 	if err != nil {
-		c.Render(http.StatusOK, "message", err.Error())
+		message := Message{
+			Message:  "Problem viewing the leaderboard",
+			LinkText: "Retry",
+			Link:     "/",
+		}
+		fmt.Println(err.Error())
+		c.Render(http.StatusInternalServerError, "message", BaseTemplateConfig(c, message))
 	}
 	err = app.DB.Pool.QueryRow(context.Background(), "select user_id, team_name from winner natural join users").Scan(&currentLeaderBoard.WinnerId, &currentLeaderBoard.WinnerName)
 	if err == nil {
 		currentLeaderBoard.IsWinner = true
 	}
-	return c.Render(http.StatusOK, "leaderboard", currentLeaderBoard)
+	return c.Render(http.StatusOK, "leaderboard", BaseTemplateConfig(c, currentLeaderBoard))
 
 }
 
@@ -124,14 +163,29 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 	user_id := c.Get("user_id").(uuid.UUID)
 	currentGame, err := game.GetGame(user_id)
 	if err != nil {
-		return c.Render(http.StatusNotFound, "message", "Game not found. Try scanning the QR code again.")
+		message := Message{
+			Message:  "Game not found. Try scanning the QR code again.",
+			LinkText: "Go to the dashboard",
+			Link:     "/hunt/dashboard",
+		}
+		return c.Render(http.StatusNotFound, "message", BaseTemplateConfig(c, message))
 	}
 	correctCount := 0
 	if currentGame.Submitted {
-		return c.Render(http.StatusUnauthorized, "message", "This instance of the quiz already submitted")
+		message := Message{
+			Message:  "This instance of the quiz already submitted",
+			Link:     "Go back",
+			LinkText: "javascript:history.back()",
+		}
+		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
 	}
 	if currentGame.EndTime.Before(time.Now()) {
-		return c.Render(http.StatusUnauthorized, "message", "Time out! Try again.")
+		message := Message{
+			Message:  "Time out! Please try again :)",
+			Link:     "Go back",
+			LinkText: "javascript:history.back()",
+		}
+		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
 	}
 	currentGame.Submitted = true
 	for _, question := range currentGame.Questions {
@@ -140,7 +194,12 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 		que_id := question.QuestionId
 		answer := c.FormValue(que_id.String())
 		if answer == "" {
-			return c.Render(http.StatusNotAcceptable, "message", "There was an error submitting. You probably ran out of time")
+			message := Message{
+				Message:  "There was an error submitting. You probably ran out of time",
+				Link:     "Go back",
+				LinkText: "javascript:history.back()",
+			}
+			return c.Render(http.StatusNotAcceptable, "message", BaseTemplateConfig(c, message))
 		}
 		if answer == correctOption {
 			correctCount++
@@ -150,9 +209,25 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 		// Advance the user to the next round
 		err = app.Advance(user_id, currentGame.RoundNum, currentGame.LocationId)
 		if err != nil {
-			return c.Render(http.StatusOK, "message", err.Error())
+			fmt.Println(err.Error(), user_id)
+			message := Message{
+				Message:  "There was an error submitting. Try again :)",
+				Link:     "Go back",
+				LinkText: "javascript:history.back()",
+			}
+			return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
 		}
-		return c.Render(http.StatusOK, "messageGreen", "Right answers! The new hint is at your dashboard. You may proceed!")
+		message := Message{
+			Message:  "Right answers! The new hint is at your dashboard. You may proceed!",
+			Link:     "Go to the dashboard for the next hint!",
+			LinkText: "/hunt/dashboard",
+		}
+		return c.Render(http.StatusOK, "messageGreen", BaseTemplateConfig(c, message))
 	}
-	return c.Render(http.StatusOK, "message", "A few answers are wrong! Retry.")
+	message := Message{
+		Message:  `A few answers are wrong! Retry, or as Swami Vivekananda said, "Arise, awake, and stop not till the goal is reached!"`,
+		Link:     "Go back",
+		LinkText: "javascript:history.back()",
+	}
+	return c.Render(http.StatusOK, "message", message)
 }

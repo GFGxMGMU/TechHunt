@@ -2,7 +2,6 @@ package templates
 
 import (
 	"errors"
-	"fmt"
 	"html/template"
 	"io"
 
@@ -29,6 +28,5 @@ func (templates *Templates) Render(w io.Writer, name string, data interface{}, c
 		err := errors.New("Template " + name + " not found")
 		return err
 	}
-	fmt.Println("Meow")
 	return currentTemplate.ExecuteTemplate(w, "base", data)
 }
