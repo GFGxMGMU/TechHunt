@@ -26,17 +26,6 @@ type Message struct {
 	LinkText string
 	Link     string
 }
-type LeaderBoard struct {
-	LeaderBoard []*LeaderBoardEntry `json:"leaderboard"`
-	WinnerId    uuid.UUID
-	WinnerName  string
-	IsWinner    bool
-}
-type LeaderBoardEntry struct {
-	TeamName  string `json:"team_name"`
-	RoundNum  int    `json:"round"`
-	EnteredAt string `json:"entered_at"`
-}
 
 type Dashboard struct {
 	TeamName string
@@ -153,33 +142,17 @@ func (app *Application) Questions(c echo.Context) error {
 }
 
 func (app *Application) LeaderBoardView(c echo.Context) error {
-	rows, err := app.DB.Pool.Query(context.Background(), "select team_name, round_num, entered_at from user_rounds ur natural join users y where ur.submitted=false order by round_num desc, entered_at asc")
-	currentLeaderBoard := LeaderBoard{LeaderBoard: make([]*LeaderBoardEntry, 0)}
-	timezone, err := time.LoadLocation("Asia/Kolkata")
-	for {
-		if !rows.Next() {
-			break
-		}
-		currentLeaderBoardEntry := LeaderBoardEntry{}
-		var enteredAt time.Time
-		rows.Scan(&currentLeaderBoardEntry.TeamName, &currentLeaderBoardEntry.RoundNum, &enteredAt)
-		currentLeaderBoardEntry.EnteredAt = enteredAt.In(timezone).Format(time.RFC822)
-		currentLeaderBoard.LeaderBoard = append(currentLeaderBoard.LeaderBoard, &currentLeaderBoardEntry)
-	}
-	if err != nil {
+	currentLeaderBoard := app.getCurrentLeaderBoard()
+	if currentLeaderBoard.err != nil {
 		message := Message{
 			Message:  "Problem viewing the leaderboard",
 			LinkText: "Retry",
 			Link:     "/",
 		}
-		fmt.Println(err.Error())
 		c.Render(http.StatusInternalServerError, "message", BaseTemplateConfig(c, message))
+
 	}
-	err = app.DB.Pool.QueryRow(context.Background(), "select user_id, team_name from winner natural join users").Scan(&currentLeaderBoard.WinnerId, &currentLeaderBoard.WinnerName)
-	if err == nil {
-		currentLeaderBoard.IsWinner = true
-	}
-	return c.Render(http.StatusOK, "leaderboard", BaseTemplateConfig(c, currentLeaderBoard))
+	return c.Render(http.StatusOK, "leaderboard", BaseTemplateConfig(c, *currentLeaderBoard))
 
 }
 

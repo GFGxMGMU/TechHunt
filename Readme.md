@@ -8,4 +8,7 @@ What the title sez
 - [X] Change leaderboard timezone to IST 
 - [ ] Add progress bar for ques
 - [X] Add GFG logo
+- [ ] Replace leaderboard endpoint's DB feature with leaderboard pinging
+  - [ ] Add winner pinging too.
 - [ ] Shut down all endpoints after winner is declared
+- [ ] Add logout button

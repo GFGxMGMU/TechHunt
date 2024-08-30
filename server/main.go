@@ -15,6 +15,7 @@ import (
 func main() {
 	DBPool := DB.InitDB()
 	app := &application.Application{DB: DBPool}
+	go app.Init()
 	// New echo server object
 	e := echo.New()
 	e.Static("/assets", "./assets")
