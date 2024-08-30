@@ -50,6 +50,7 @@ func main() {
 		return c.String(http.StatusOK, "meow, "+claims.TeamName)
 	})
 	e.GET("/", app.LeaderBoardView)
+	e.GET("/logout", app.LogoutHandler)
 	e.Static("/assets", "assets")
 	e.Logger.Fatal(e.Start("localhost:1323"))
 }

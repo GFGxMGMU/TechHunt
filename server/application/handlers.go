@@ -231,3 +231,23 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 	}
 	return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
 }
+
+func (app *Application) LogoutHandler(c echo.Context) error {
+	cookie, err := c.Cookie("JWT")
+	if err != nil {
+		message := Message{
+			Message:  "Logged you out!",
+			LinkText: "Login",
+			Link:     "/login",
+		}
+		return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
+	}
+	cookie.Expires = time.Unix(0, 0)
+	c.SetCookie(cookie)
+	message := Message{
+		Message:  "Logged you out!",
+		LinkText: "Login",
+		Link:     "/login",
+	}
+	return c.Render(http.StatusOK, "messageGreen", BaseTemplateConfig(c, message))
+}
