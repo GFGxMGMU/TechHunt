@@ -49,3 +49,18 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 		return next(c)
 	}
 }
+
+func (app *Application) WinnerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		currentLeaderBoard := app.getCurrentLeaderBoard()
+		if currentLeaderBoard.IsWinner {
+			message := Message{
+				Message:  fmt.Sprintf("Unfortunately, the hunt is over. Congratulations to %v for winning GFG Tech Hunt 2024!", currentLeaderBoard.WinnerName),
+				LinkText: "Leaderboard",
+				Link:     "/",
+			}
+			return c.Render(http.StatusForbidden, "messageGreen", BaseTemplateConfig(c, message))
+		}
+		return next(c)
+	}
+}

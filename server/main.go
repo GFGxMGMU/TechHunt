@@ -31,6 +31,7 @@ func main() {
 	// Extracts info like user_id, user_name and login state
 	e.Use(echojwt.WithConfig(*jwtConfig))
 	r.Use(app.HuntMiddleware)
+	r.Use(app.WinnerMiddleware)
 	// Locations: This is where the players will come when they scan the qr code
 	l := r.Group("/location")
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{

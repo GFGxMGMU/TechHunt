@@ -84,8 +84,8 @@ func (app *Application) LeaderBoardAndWinner() error {
 		return err
 	}
 	err = app.DB.Pool.QueryRow(context.Background(), "select user_id, team_name from winner natural join users").Scan(&currentLeaderBoard.WinnerId, &currentLeaderBoard.WinnerName)
-	currentLeaderBoard.IsWinner = true
 	if err == nil {
+		currentLeaderBoard.IsWinner = true
 		globalState.LeaderBoard.err = nil
 	}
 	fmt.Println(currentLeaderBoard.LeaderBoard)
