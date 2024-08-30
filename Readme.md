@@ -10,5 +10,5 @@ What the title sez
 - [X] Add GFG logo
 - [X] Replace leaderboard endpoint's DB feature with leaderboard pinging
   - [X] Add winner pinging too.
-- [ ] Shut down all endpoints after winner is declared
-- [ ] Add logout button
+- [X] Shut down all endpoints after winner is declared
+- [X] Add logout button
