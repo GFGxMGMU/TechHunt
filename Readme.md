@@ -12,3 +12,4 @@ What the title sez
   - [X] Add winner pinging too.
 - [X] Shut down all endpoints after winner is declared
 - [X] Add logout button
+- [X] Add markdown support for questions (JS, might be flaky)
