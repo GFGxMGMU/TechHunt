@@ -58,8 +58,14 @@ func GetGame(user_id uuid.UUID) (*Game, error) {
 	return currentGame, nil
 }
 func NewGame(db *DB.DB, loc_id int) (*Game, error) {
-	query := `select que_id, question, option1, option2, option3, option4, correct from questions where loc_id=$1 order by gen_random_uuid() limit 5`
-	rows, err := db.Pool.Query(context.Background(), query, loc_id)
+	var round_num int
+	err := db.Pool.QueryRow(context.Background(), "select round_num from locations where loc_id=$1", loc_id).Scan(&round_num)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	query := `select que_id, question, option1, option2, option3, option4, correct from questions where round_num=$1 order by gen_random_uuid() limit 5`
+	rows, err := db.Pool.Query(context.Background(), query, round_num)
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
@@ -80,12 +86,6 @@ func NewGame(db *DB.DB, loc_id int) (*Game, error) {
 			return nil, errors.New("invalid range of correct answer")
 		}
 		questions = append(questions, &question)
-	}
-	var round_num int
-	err = db.Pool.QueryRow(context.Background(), "select round_num from locations where loc_id=$1", loc_id).Scan(&round_num)
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
 	}
 	return &Game{LocationId: loc_id, RoundNum: round_num, Questions: questions, EndTime: time.Now().Add(5 * time.Minute), Submitted: false}, nil
 }

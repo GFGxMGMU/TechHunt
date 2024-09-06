@@ -172,7 +172,7 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 		message := Message{
 			Message:  "This instance of the quiz already submitted",
 			LinkText: "Go back",
-			Link:     "javascript:history.back()",
+			Link:     fmt.Sprintf("/hunt/location?code=%v", currentGame.AccessCode),
 		}
 		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
 	}
@@ -180,7 +180,7 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 		message := Message{
 			Message:  "Time out! Please try again :)",
 			LinkText: "Go back",
-			Link:     "javascript:history.back()",
+			Link:     fmt.Sprintf("/hunt/location?code=%v", currentGame.AccessCode),
 		}
 		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
 	}
@@ -194,7 +194,7 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 			message := Message{
 				Message:  "There was an error submitting. You probably ran out of time",
 				LinkText: "Go back",
-				Link:     "javascript:history.back()",
+				Link:     fmt.Sprintf("/hunt/location?code=%v", currentGame.AccessCode),
 			}
 			return c.Render(http.StatusNotAcceptable, "message", BaseTemplateConfig(c, message))
 		}
@@ -210,7 +210,7 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 			message := Message{
 				Message:  "There was an error submitting. Try again :)",
 				LinkText: "Go back",
-				Link:     "javascript:history.back()",
+				Link:     fmt.Sprintf("/hunt/location?code=%v", currentGame.AccessCode),
 			}
 			if errors.As(err, &TooLateError{}) {
 				message.Message = err.Error()
@@ -219,15 +219,15 @@ func (app *Application) QuestionAnswers(c echo.Context) error {
 		}
 		message := Message{
 			Message:  "Right answers! The new hint is at your dashboard. You may proceed!",
-			Link:     "Go to the dashboard for the next hint!",
-			LinkText: "/hunt/dashboard",
+			LinkText: "Go to the dashboard for the next hint!",
+			Link:     "/hunt/dashboard",
 		}
 		return c.Render(http.StatusOK, "messageGreen", BaseTemplateConfig(c, message))
 	}
 	message := Message{
 		Message:  `A few answers are wrong! Retry, or as Swami Vivekananda said, "Arise, awake, and stop not till the goal is reached!"`,
 		LinkText: "Go back",
-		Link:     "javascript:history.back()",
+		Link:     fmt.Sprintf("/hunt/location?code=%v", currentGame.AccessCode),
 	}
 	return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
 }
