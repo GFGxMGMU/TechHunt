@@ -46,7 +46,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.access_codes (
-    code text NOT NULL,
+    code text DEFAULT public.generate_random_string(24) NOT NULL,
     loc_id integer
 );
 
@@ -126,7 +126,7 @@ CREATE TABLE public.questions (
     option3 text,
     option4 text,
     correct integer,
-    loc_id integer,
+    round_num integer,
     CONSTRAINT questions_correct_check CHECK (((correct >= 1) AND (correct <= 4)))
 );
 
@@ -138,7 +138,8 @@ ALTER TABLE public.questions OWNER TO postgres;
 --
 
 CREATE TABLE public.rounds (
-    round_num integer DEFAULT 1 NOT NULL
+    round_num integer DEFAULT 1 NOT NULL,
+    duration integer
 );
 
 
@@ -187,21 +188,29 @@ ALTER TABLE public.winner OWNER TO postgres;
 --
 
 COPY public.access_codes (code, loc_id) FROM stdin;
-alerg4fu8kb1fvfekh9c5cja	1
-qqklomyq76y6w1ik55am1sb7	2
-7prgfczgompb18a4loc7exro	3
-hcqzpqq1dgms1o7mcfgk7sy6	4
-3rs4gs7skdknaimw58gc0v2r	5
-raft4r83gpepn21ct9yo1zpk	6
-dxsvfa8sttpwmbf62mghdikj	7
-0lpwbf71g9w4oolaslq0o2cs	8
-8y7hqwzup7qz8zcfk6efwq68	9
-24mqjj8jf7x0tn5oqivv6vlb	10
-mgfumc4ts2hr1jo6xlo4jzbh	11
-puxmkjq4ad8b4su9if6qbq5h	12
-5u0zoy6nrvdwukg6bt3ezcc0	13
-z9busnx0dna0nxn87ywe9u6k	14
-5474tr37w7r283cx5oz4x5s1	15
+599xyfiysivcm06craym6ytw	1
+go40xkfjpfh20615nvro9jrn	2
+umgo8r98cf42yn2t3304c05m	3
+1zrbo2mlfbozbkk94d3ufm22	4
+u0ycnwopl1swhxu7wu9k0a3u	5
+2xx5lr26tlrg1u6p3nyijqs5	6
+bey6bzd8xeat4enxqbm60l0z	7
+ycwk1o9vn58urwh97mib8hzv	8
+2sbrdbd0wz8z2hdxsex8huk4	10
+4rx2kt5cgmvtt64ucr8yu0w4	11
+p3q16q5ycz7ch5zqtkuhggql	12
+qvt7w32et1qfo3qpj9lr38f2	13
+zheiv93ib33rwnz4v3z5awgg	14
+mgafnsz4vcghm1phi4lcrkdq	15
+7qk3q2rv05ez38spvp7h62oh	16
+jlm3tpf2m3e41z02vz6ai5qf	17
+00jqza0uxn9nr9qf29siu86o	18
+tygv88quysg6ebstqbbuepow	19
+wyq0bf2kr5ha339wh95b9gb2	20
+g5dk5shjv5nxtyeuxut43w02	21
+2z9maqc9yy89s7eqzud0mwzq	22
+txyjcp6a8vo0d9s7q5tabjs2	23
+m450ze6i8aue083hny7dw5gs	9
 \.
 
 
@@ -210,21 +219,29 @@ z9busnx0dna0nxn87ywe9u6k	14
 --
 
 COPY public.hints (loc_id, hint) FROM stdin;
-1	Look near the old oak tree.
-2	Check under the stone bench.
-3	The key is hidden in the blue vase.
-4	Search by the riverside.
-5	The clue is in the red mailbox.
-6	Look behind the waterfall.
-7	Check the highest bookshelf.
-8	The treasure is buried near the big rock.
-9	Look under the third step.
-10	The clue is hidden in the attic.
-11	Check the hollow tree trunk.
-12	Look near the fountain.
-13	Search behind the old painting.
-14	The key is under the floorboard.
-15	Look near the broken statue.
+1	I believe in you!👍
+2	I believe in you!👍
+3	I believe in you!👍
+4	I believe in you!👍
+5	I believe in you!👍
+6	I believe in you!👍
+7	I believe in you!👍
+8	I believe in you!👍
+10	I believe in you!👍
+11	I believe in you!👍
+12	I believe in you!👍
+13	I believe in you!👍
+14	I believe in you!👍
+15	I believe in you!👍
+16	I believe in you!👍
+17	I believe in you!👍
+18	I believe in you!👍
+19	I believe in you!👍
+20	I believe in you!👍
+21	I believe in you!👍
+22	I believe in you!👍
+23	I believe in you!👍
+9	I believe in you!👍
 \.
 
 
@@ -233,21 +250,6 @@ COPY public.hints (loc_id, hint) FROM stdin;
 --
 
 COPY public.location_count (loc_id, passed_count) FROM stdin;
-1	0
-2	0
-3	0
-4	0
-5	0
-6	0
-7	0
-8	0
-9	0
-10	0
-11	0
-12	0
-13	0
-14	0
-15	0
 \.
 
 
@@ -257,19 +259,27 @@ COPY public.location_count (loc_id, passed_count) FROM stdin;
 
 COPY public.location_next (loc_now, loc_next) FROM stdin;
 1	9
-2	9
-3	10
-4	10
-5	11
-6	11
-7	12
-8	12
-9	13
-10	13
-11	14
-12	14
-13	15
-14	15
+2	10
+3	11
+4	12
+5	13
+6	14
+7	15
+8	16
+9	17
+10	17
+11	18
+12	18
+13	19
+14	19
+15	20
+16	20
+17	21
+18	21
+19	22
+20	22
+21	23
+22	23
 \.
 
 
@@ -278,38 +288,38 @@ COPY public.location_next (loc_now, loc_next) FROM stdin;
 --
 
 COPY public.location_users (user_id, loc_id) FROM stdin;
-3fcf0fa5-ea9c-4b9d-8d99-55175637b573	1
+08c64cf9-a684-42c4-9452-5d895e90957c	1
 0c040bf3-613b-453e-8395-d4e22cd37dd0	1
-9439b071-cd92-4a85-b492-a7eaad8d48cd	1
-c8403bd6-ebbb-41f7-b232-1542fdc50bfd	1
-132f91ff-e426-4ef8-a18a-a88fb2ed0472	2
-b0fc951e-cecf-4f8b-a971-a3041560cc2c	2
+132f91ff-e426-4ef8-a18a-a88fb2ed0472	1
+15c050ca-4244-4318-b262-989b9fd6c591	1
+27979cb0-1b73-4e65-9523-231e38c185a0	2
+3fcf0fa5-ea9c-4b9d-8d99-55175637b573	2
 43c2c4ba-38ef-4060-bde3-dfc8bed814d1	2
-a76084e2-6c59-40bd-ac66-781740b11ee4	2
-90e3c6f3-43bc-4464-9ef4-fe87257de68d	3
-15c050ca-4244-4318-b262-989b9fd6c591	3
-4635beff-63ef-4370-83d1-4cc98c43c58d	3
-cbfdf7a9-a076-4f7d-a94a-8e2e5964e6d5	3
-27979cb0-1b73-4e65-9523-231e38c185a0	4
-8d732863-fc7a-43e9-8102-adb90c3e0800	4
-eadf82d8-61d1-4767-890f-4e76b33ae342	4
-b27eb79a-97c4-4103-a399-66d528e63e62	4
-949a382f-0bac-4cf9-9a0f-aeb33ea37328	5
+4635beff-63ef-4370-83d1-4cc98c43c58d	2
+4fe16b5e-86ad-4e22-846b-c1217900e20a	3
+50ddf17a-490e-425c-b406-99456392e9e1	3
+59c130d1-f386-463e-ae7f-4e36771d3b51	3
+5f1adcaf-9836-48e9-b003-54981b1112cc	3
+616e0893-388c-473f-b5cc-df803242e6fb	4
+7d000ba8-ce5d-4441-aadd-bbe99d94b7b9	4
+7e01c64c-ddbf-4aa9-98fa-38223bc37ead	4
+8348c298-0ea7-4a4a-8b43-aa3d7da3de2d	4
 839b756c-143e-4c60-8232-794a6a8d57aa	5
-c4f2365f-1323-4c2f-8b3b-840f1f07f1dd	5
-5f1adcaf-9836-48e9-b003-54981b1112cc	5
-7d000ba8-ce5d-4441-aadd-bbe99d94b7b9	6
-50ddf17a-490e-425c-b406-99456392e9e1	6
-87ff6a06-1d0b-4006-9c22-a5808014c7ac	6
-616e0893-388c-473f-b5cc-df803242e6fb	6
-7e01c64c-ddbf-4aa9-98fa-38223bc37ead	7
-59c130d1-f386-463e-ae7f-4e36771d3b51	7
-8348c298-0ea7-4a4a-8b43-aa3d7da3de2d	7
-4fe16b5e-86ad-4e22-846b-c1217900e20a	7
-08c64cf9-a684-42c4-9452-5d895e90957c	8
+87ff6a06-1d0b-4006-9c22-a5808014c7ac	5
+8d732863-fc7a-43e9-8102-adb90c3e0800	5
+90e3c6f3-43bc-4464-9ef4-fe87257de68d	5
+9439b071-cd92-4a85-b492-a7eaad8d48cd	6
+949a382f-0bac-4cf9-9a0f-aeb33ea37328	6
+a76084e2-6c59-40bd-ac66-781740b11ee4	6
+b0fc951e-cecf-4f8b-a971-a3041560cc2c	6
+b27eb79a-97c4-4103-a399-66d528e63e62	7
+c4f2365f-1323-4c2f-8b3b-840f1f07f1dd	7
+c8403bd6-ebbb-41f7-b232-1542fdc50bfd	7
+cbfdf7a9-a076-4f7d-a94a-8e2e5964e6d5	7
 e4ebb98c-c0a1-4923-9ba2-f9aba4ca6b98	8
-f7baaa5a-50c8-4b71-aacd-2259243470cb	8
+eadf82d8-61d1-4767-890f-4e76b33ae342	8
 f37b5add-b32b-4c0f-8311-2bfa58f744a3	8
+f7baaa5a-50c8-4b71-aacd-2259243470cb	8
 \.
 
 
@@ -318,21 +328,29 @@ f37b5add-b32b-4c0f-8311-2bfa58f744a3	8
 --
 
 COPY public.locations (loc_name, round_num, loc_id) FROM stdin;
-location 1	1	1
-location 2	1	2
-location 3	1	3
-location 4	1	4
-location 5	1	5
-location 6	1	6
-location 7	1	7
-location 8	1	8
-location 9	2	9
-location 10	2	10
-location 11	2	11
-location 12	2	12
-location 13	3	13
-location 14	3	14
-location 15	4	15
+Gandhi Statue	1	1
+Green Train	1	2
+Textile Showroom	1	3
+Bullock Cart	1	4
+Shell Fountain	1	5
+Ajanta Caves	1	6
+Old Tree	1	7
+Automobile Workshop	1	8
+Ajanta Caves	2	10
+Gandhi Statue	2	11
+Old Tree	2	12
+Automobile Workshop	2	13
+Green Train	2	14
+Bullock Cart	2	15
+Shell Fountain	2	16
+Carving Statue	3	17
+BJP Statue	3	18
+Buddha Statue	3	19
+Football Statue	3	20
+Car Fountain	4	21
+Chhota Canteen	4	22
+JNEC Parking	5	23
+Textile Showroom	2	9
 \.
 
 
@@ -340,111 +358,102 @@ location 15	4	15
 -- Data for Name: questions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.questions (que_id, question, option1, option2, option3, option4, correct, loc_id) FROM stdin;
-06ebf8f4-818e-4b91-bc2f-5372a2b93bcc	What is the time complexity of binary search?	O(1)	O(log n)	O(n)	O(n log n)	2	1
-aa21fe44-d0c3-45cb-a97c-bae6c4422411	What does CPU stand for?	Central Processing Unit	Computer Personal Unit	Central Programming Unit	Central Processing Unit	1	2
-2a324515-f587-4321-a774-5df5599e10eb	Which data structure uses LIFO order?	Queue	Stack	Array	Linked List	2	3
-e11b34c4-cffb-4361-af82-8d0201cc29f1	In which language is the Python interpreter written?	C	C++	Java	Python	1	4
-bc70c5eb-82c5-4bee-8350-602fed40574c	What is the primary purpose of an operating system?	Manage hardware	Run applications	Provide security	All of the above	4	5
-94e95106-d38c-40e9-8c66-9becbad17757	What does the acronym HTTP stand for?	HyperText Transfer Protocol	HyperText Transmission Protocol	HyperText Transport Protocol	HyperText Transfer Program	1	6
-a3233b72-9646-4411-945c-5431397b01e0	Which algorithm is used for sorting?	Binary Search	Bubble Sort	Dijkstra's Algorithm	Kruskal's Algorithm	2	7
-ee427194-d0d5-46e0-b50f-7bcc9bb90be9	What is the full form of RAM?	Read Access Memory	Random Access Memory	Read After Memory	Random Access Module	2	8
-b73ab983-9509-498c-8bc9-3f8ea85fb5b0	Which of the following is a non-volatile memory?	RAM	Cache	Register	Flash Memory	4	9
-87e026fe-89fd-4408-9ee5-3da9a47e28e6	In which layer of the OSI model does the IP protocol operate?	Application Layer	Transport Layer	Network Layer	Data Link Layer	3	10
-6d48f9a2-84d2-4fdc-8af5-2201896e7e1d	What is the primary function of a compiler?	Execute code	Translate code	Debug code	Store code	2	11
-d65e2a04-f403-4b81-8e4b-4ade81492d18	Which of these is an example of an operating system?	Python	Java	Windows	SQL	3	12
-f323da77-b78d-4b3e-8a2a-14ac775b9125	What does SQL stand for?	Structured Query Language	Structured Question Language	Simple Query Language	Standard Query Language	1	13
-c4f1d431-1a6a-442a-9e66-4936053a8b15	What is the use of a hash function?	Encrypt data	Generate unique keys	Sort data	Store data	2	14
-42216940-4b67-411d-842c-5026a21a555d	Which type of database is MongoDB?	Relational Database	Document Database	Graph Database	Object Database	2	15
-2ff19a08-f1b0-4d19-9c4f-be69be5e06d0	What does DNS stand for?	Domain Name System	Domain Name Service	Direct Name System	Dynamic Name Service	1	1
-0ddb61fd-7be4-4950-ada1-6e709a0abd00	Which programming language is known for its use in web development?	C++	Python	JavaScript	Fortran	3	2
-9f0112b6-a1a0-46d5-aa23-89475f170387	What does GUI stand for?	General User Interface	Graphical User Interface	Graph User Interface	General User Interaction	2	3
-081dcf67-5234-446d-a7ae-140e86057aab	What is the purpose of an API?	Design web pages	Connect software components	Store data	Perform computations	2	4
-a50cc978-250c-43ee-8055-b3c35f0274b6	Which of these is a dynamic programming technique?	Quick Sort	Knapsack Problem	Binary Search	Merge Sort	2	5
-566f14ef-da8d-4472-8fac-7d3dc173d0fd	In which programming paradigm is Python primarily used?	Procedural	Functional	Object-Oriented	Logical	3	6
-16150bff-1686-437f-9140-b1138831ee8e	What is an exception in programming?	An error message	A debugging tool	A runtime error	A code optimization	3	7
-62e2d48c-b33d-4d29-8e72-f5a90d740293	Which of these is a high-level programming language?	Assembly	C	Java	Machine Language	3	8
-8c43a879-c1a7-41a7-b2ab-791d4094cfb6	What does MVC stand for in software architecture?	Model-View-Controller	Module-View-Controller	Model-View-Configuration	Model-Variable-Controller	1	9
-b023c9c1-3c1c-4aac-9b72-e0ff2a51c7b3	Which protocol is used for secure data transmission over the internet?	HTTP	FTP	HTTPS	SMTP	3	10
-6a2730a3-c834-4124-a3f9-fa997a78d164	What is the purpose of a database index?	Speed up queries	Store data	Encrypt data	Backup data	1	11
-27284f87-d52d-47a6-9021-4badbf00b3be	What is the main difference between TCP and UDP?	Reliability	Speed	Port Number	Encryption	1	12
-c63053f2-1d13-416e-83f4-a66f414251c0	What does the acronym SQL stand for?	Structured Query Language	Structured Question Language	Simple Query Language	Standard Query Language	1	13
-9f36a7bd-e362-4e16-95df-44a4be21c436	Which of these is a version control system?	Git	Docker	Kubernetes	Jenkins	1	14
-7f28c2c1-72c7-46f9-beb5-d6382f1fedf8	What is the purpose of normalization in databases?	Reduce redundancy	Encrypt data	Backup data	Index data	1	15
-5f90ddb0-e1aa-44ea-a34c-7e6a8ce5cc1d	What is a deadlock in database systems?	Data corruption	Process blocking	Memory leak	Network failure	2	1
-9075324b-d921-427c-a183-03b09e0782e6	What does the acronym REST stand for?	Representational State Transfer	Resource State Transfer	Remote State Transfer	Read-Write State Transfer	1	2
-cbc71765-a22d-4a45-adca-b29d523b4e9d	Which of the following is an example of a NoSQL database?	MySQL	PostgreSQL	Oracle	Cassandra	4	3
-f779bea4-3fa3-44bb-a193-ed78eb604eb9	In computing, what does RAID stand for?	Redundant Array of Independent Disks	Rapid Array of Independent Disks	Redundant Array of Internet Disks	Rapid Array of Internet Disks	1	4
-56ebb581-11d6-4674-ab84-20c8c58922bd	Which data structure is used to implement a priority queue?	Stack	Queue	Heap	Array	3	5
-37e8ca8f-c5fa-4cc3-9412-386dae97e85a	What is the primary use of a semaphore in operating systems?	Synchronize processes	Manage memory	Handle interrupts	Execute threads	1	6
-c2ac710e-8005-48d7-9fa7-168f4c4fdae7	Which algorithm is used for finding the shortest path in a graph?	Dijkstra's Algorithm	Bubble Sort	Merge Sort	Quick Sort	1	7
-4f2865e6-24c3-48fc-9324-0470832f7fbe	What does the term "polymorphism" refer to in object-oriented programming?	Multiple forms of a method	Multiple classes	Multiple inheritance	Multiple objects	1	8
-99494676-0b9f-46df-86dd-0cc0b0a633ba	What is the purpose of a stack in programming?	Temporary storage	Persistent storage	Permanent storage	Cache	1	9
-ba55d5fa-06a8-414a-910e-d1f3ec281263	What is the full form of FTP?	File Transfer Protocol	File Transmission Protocol	File Transport Protocol	Fast Transfer Protocol	1	10
-a5b26d66-a33f-4d0d-8c3f-1365c42551d2	Which of the following is an example of an interpreted language?	C	C++	Java	Python	4	11
-a764fe21-003f-4c6b-b57b-bc70bf90ae4d	What is the purpose of a constructor in object-oriented programming?	Initialize objects	Destroy objects	Copy objects	Test objects	1	12
-3114c539-65b0-459b-866b-db0e1a9afb13	Which type of graph traversal uses a queue?	Depth-First Search	Breadth-First Search	Dijkstra's Algorithm	A* Search	2	13
-55d2de61-fd52-488d-890c-286ec2c6d56c	What is the primary function of a router?	Connect networks	Store ata	Translate code	Execute programs	1	14
-a599daa4-a1f7-4bbd-9dd4-5f5933f65876	Which data structure is used to implement a linked list?	Array	Stack	Queue	Nodes	4	15
-731c9ad7-c783-463c-b69c-0a97c51f2009	What does the acronym XML stand for?	Extensible Markup Language	Extra Markup Language	Extended Markup Language	Executable Markup Language	1	1
-516817b6-5306-4461-959a-8533b2f3c7a8	In programming, what is an iterator?	An object that performs operations	A method to iterate over collections	A data structure for storing elements	A function for sorting	2	2
-048ec821-5641-48a6-80b0-e8c14715c1c7	Which of these is not a programming language?	HTML	Java	C#	Ruby	1	3
-62b5b6fb-a290-42be-93ec-7f7ba9b7c27a	What is the primary purpose of encryption?	Secure data	Backup data	Store data	Process data	1	4
-cd846c1e-086d-42cc-b7c6-2d85ad149d4e	Which algorithm is used to find the minimum spanning tree of a graph?	Kruskal's Algorithm	Dijkstra's Algorithm	Bellman-Ford Algorithm	Floyd-Warshall Algorithm	1	5
-0e9b53aa-8e2b-4aa9-8157-89c4ce3cea82	What does the acronym API stand for?	Application Programming Interface	Application Program Interface	Advanced Programming Interface	Automated Program Interface	1	6
-5448f701-2074-4ad7-a624-74e0ee126acf	Which of these is an example of a stack operation?	Dequeue	Push	Pop	Enqueue	3	7
-682c8ce1-bc01-4ed5-951b-0ec3af0f878b	In which type of database is data stored in tables?	Document Database	Relational Database	Graph Database	Key-Value Database	2	8
-6ac377d6-97c8-4cdf-8a03-676798166853	What is the primary advantage of using virtual memory?	Increase speed	Increase storage capacity	Increase data security	Increase reliability	2	9
-e75eea79-65a9-4be3-ab1e-1be769630423	Which of these is a commonly used version control system?	Jenkins	Git	Docker	Kubernetes	2	10
-f51ef45b-20c9-4f96-ae4e-e81036e30dfb	What is the purpose of a linker in programming?	Combine object files	Compile source code	Debug code	Execute code	1	11
-d4415ca3-40b7-4e73-8998-37e6c10d75a1	Which programming paradigm uses functions as first-class citizens?	Object-Oriented	Functional	Procedural	Logical	2	12
-706e9600-7d21-4593-afe9-58d9818eecc4	What is the time complexity of a bubble sort?	O(n)	O(n log n)	O(n^2)	O(log n)	3	1
-8a54f8bd-fd9f-4322-8d3c-c137515e36ff	Which of these is not a valid C++ access specifier?	public	protected	private	restricted	4	2
-6ebeb851-60a3-4b5f-8ace-37bebba67c34	In which data structure are elements added or removed from one end only?	Queue	Stack	Array	Linked List	2	3
-716d3577-70e1-4cba-a34b-a90bb0fe8e5d	Which sorting algorithm is based on the divide and conquer technique?	Quick Sort	Merge Sort	Bubble Sort	Insertion Sort	1	4
-80d9ea86-7093-4f94-9eab-0e2405f59df8	What is the purpose of the 'void' keyword in Java?	Specify no return value	Define a class	Create a method	Declare a variable	1	5
-0598e430-2214-4899-adea-6a8366dad842	Which of these is not a feature of object-oriented programming?	Inheritance	Encapsulation	Polymorphism	Iteration	4	6
-5f9fe215-d133-4d93-b173-caf53061c059	What is the purpose of a database index?	Speed up query processing	Ensure data integrity	Store data securely	Back up data	1	7
-7a004893-a174-4052-b71c-5e663f492795	Which language is known for its use in data science and machine learning?	Ruby	Java	Python	PHP	3	8
-3b5543f4-4c7a-4bae-a1a1-557229600929	What is the purpose of the 'final' keyword in Java?	Prevent method overriding	Declare variables	Define constants	Control flow	1	9
-ebfcc3f3-0145-4384-8212-1a53471e9ddc	Which data structure uses a "first-in, first-out" approach?	Stack	Queue	Array	Tree	2	10
-cf4710cd-8942-40c0-ac32-4972faf8f0d0	What does API stand for in web development?	Application Programming Interface	Application Programming Internet	Advanced Programming Interface	Automated Programming Interface	1	11
-851afbfa-38e6-4042-85a1-d63d36e96735	Which algorithm is used for encrypting data?	RSA	Bubble Sort	Dijkstra's Algorithm	Quick Sort	1	12
-dc6c5d57-b0e4-4f32-a860-3cc2ff48d812	What is a primary key in a database?	A unique identifier for each record	A field that can be null	A data type for strings	A way to index data	1	13
-a7e5cfbe-f81f-44c0-9071-fcb9e618b3f4	Which programming language is known for its use in system programming?	Python	C	Java	JavaScript	2	14
-0ae7b549-b9dc-4c06-8058-e55982e05f51	What does the 'static' keyword indicate in C++?	A method or variable with class scope	A method or variable with instance scope	A class that cannot be instantiated	A constant value	1	15
-147b3b4f-4c9f-4ed1-ac10-9e549549d21a	Which of these is a method for optimizing database performance?	Normalization	Denormalization	Indexing	All of the above	4	1
-7696aa59-747d-4c3a-94fb-c61dc937958d	What is the purpose of the 'abstract' keyword in Java?	Define a class that cannot be instantiated	Create a constant variable	Initialize a variable	Handle exceptions	1	2
-25f470c1-a35e-4119-8231-16266f32ab8a	Which data structure is used to implement recursion?	Queue	Stack	Array	Linked List	2	3
-5bd5a676-a871-406e-bf41-ef9f1ebdfdd9	What is a class in object-oriented programming?	A blueprint for creating objects	A data structure for storing values	A method for handling exceptions	A function for processing data	1	4
-957a95a6-19e5-4f8a-a837-36eee96b528d	What does the acronym URL stand for?	Uniform Resource Locator	Universal Resource Locator	Uniform Resource Link	Universal Resource Link	1	5
-3274fad2-0a1b-4746-8a04-78c7470fa542	Which of these is not a feature of SQL?	Querying	Data Manipulation	Data Definition	Data Encryption	4	6
-55a403db-8d62-4e3e-a7fd-56a5b846b43d	What is a join operation in SQL?	Combining rows from two or more tables	Creating indexes	Encrypting data	Deleting records	1	7
-dc2dc1da-a9a7-4614-8992-757580344956	Which algorithm is commonly used for searching in a sorted array?	Binary Search	Linear Search	Hashing	Bubble Sort	1	8
-27279273-a34d-48b0-becb-20020cf56ed1	What does the acronym DNS stand for in networking?	Domain Name System	Dynamic Name Service	Data Network Service	Domain Network Service	1	9
-22e8a901-3a5d-48c6-b1a8-3c43517ff3e5	Which of these is a feature of functional programming?	Immutable data	Object-oriented design	Procedural steps	Event-driven design	1	10
-287d7c7b-2f97-4ec7-b349-6afa03e32089	What is a semaphore in operating systems?	A signaling mechanism for process synchronization	A type of network protocol	A data storage method	An encryption algorithm	1	11
-daba16f2-81d7-41d7-ab84-9d09a7deeec8	Which type of memory is volatile?	RAM	ROM	Flash Memory	Hard Disk	1	12
-dda85c76-6bbe-4161-9eeb-7a3855c45a2e	What does the acronym JVM stand for?	Java Virtual Machine	Java Version Machine	Java Verified Machine	Java Variable Machine	1	13
-7151b013-123a-460b-bb78-0018cdfcdb9e	What is a deadlock in computing?	A situation where two or more processes are unable to proceed	An error in network communication	A method of data encryption	A type of software bug	1	14
-71c7e8fd-b19c-48aa-9613-c7a9269fd4c7	Which protocol is used to send emails?	SMTP	HTTP	FTP	DNS	1	15
-a41566ec-a778-4a78-9373-68b0b078480f	What does the acronym GUI stand for?	Graphical User Interface	General User Interface	Graphic User Interface	General User Interaction	1	1
-4358c197-14a2-4831-bf51-8527b0ccc70c	Which of these is a sorting algorithm?	Heap Sort	Binary Search	Breadth-First Search	Depth-First Search	1	2
-db7abea1-540b-4ed3-b9ef-654f6ff60edc	What is a pointer in C++?	A variable that stores memory addresses	A type of data structure	A method for handling errors	A keyword for defining constants	1	3
-c994d2a7-16b0-4c43-b000-df5ebe5176ff	Which data structure is best suited for implementing a LIFO stack?	Array	Queue	Linked List	Heap	3	4
-d2b66194-952f-4d60-b2cc-4fb500f8f6b7	What is the main purpose of a destructor in C++?	Release resources	Initialize objects	Allocate memory	Handle exceptions	1	5
-758615cf-5245-4100-a5aa-46f827ab7de0	What is the purpose of the 'yield' keyword in Python?	Return a generator object	Define a constant	Create a new thread	Handle exceptions	1	6
-41daa847-f381-4938-ae74-e72ca345a259	Which of these is not a common SQL database?	MongoDB	PostgreSQL	MySQL	Oracle	1	7
-10fe28e5-b6c0-4563-889d-6aefa12394e3	What is the primary advantage of using a virtual machine?	Isolation of applications	Increased storage capacity	Faster computation	Direct hardware access	1	8
-56e9295b-727c-4e5d-a948-44cc85e075e0	Which sorting algorithm has the best average-case time complexity?	Merge Sort	Bubble Sort	Quick Sort	Insertion Sort	1	9
-7c11a983-d52b-4d80-9d0f-a057147a838a	What is the purpose of a thread in programming?	Execute tasks concurrently	Store data	Handle user input	Manage memory	1	10
-d4fac51e-c6aa-4246-8ba5-ecf5bae9fe35	Which protocol is used to retrieve web pages?	HTTP	FTP	SMTP	POP3	1	11
-76e08ced-f30c-498b-9e51-ee9177f190f7	What does the acronym HTML stand for?	HyperText Markup Language	HyperText Management Language	HyperText Markup Library	HyperText Media Language	1	12
-2130d614-f54e-452d-8a24-ae62a1982c98	Which data structure allows efficient insertion and deletion at both ends?	Queue	Stack	Deque	Linked List	3	13
-81ff390e-3e8d-460c-b491-d941fcb267d4	What is a hash table?	A data structure that uses a hash function for indexing	A method for sorting data	A type of search algorithm	A technique for encrypting data	1	14
-c5fc8eb5-1678-4d9e-97b6-d5a74c7163ae	What is the purpose of garbage collection in Java?	Automatic memory management	Data encryption	Error handling	Database indexing	1	15
-b1995486-1c9a-4a47-b76b-407fdd2959d8	Which of these is a feature of SQL databases?	ACID compliance	Object-oriented design	Event-driven programming	Concurrency control	1	1
-f20d1539-a3f4-4b1d-bc2b-d14ee1afa106	What does the acronym REST stand for?	Representational State Transfer	Resource State Transfer	Remote State Transfer	Read-Write State Transfer	1	2
+COPY public.questions (que_id, question, option1, option2, option3, option4, correct, round_num) FROM stdin;
+4785bdbf-82e0-4782-b23d-1270c8fce3d9	Which of the following is NOT a type of computer memory?	RAM	ROM	CPU	Cache	3	2
+90207c34-fb28-4d8f-8794-46b21d0ba2d6	Given the decimal number 15, how can we represent this number in binary form?	1111	1100	1010	1001	1	2
+b247b838-dd99-45bb-b1d4-b58c4ed2c8f9	1) git add 2) git commit 3) git _______?	pull	push	pullout	clone	2	2
+c5697e86-f3a8-4aea-8dd4-c0d50baf5411	Which of the following is NOT a high-level programming language?	Python	Assembly	Java	C++	2	2
+238ac9aa-f3d9-44dd-8118-18c03ec068f8	How do you delete everything in a directory in Linux?	rm -rf ./	rm -d ./	rm --all	rm --all ./	1	2
+51ced271-6903-4bdc-8dfb-a8664097c790	What is the process of converting plaintext into ciphertext called?	Decryption	Encryption	Hashing	Encoding	2	2
+4e98564b-cf78-4b81-89fe-138a112926bc	Which technology is used for wireless communication over *very* short distances?	Bluetooth	Wifi	Cellular	Satellite	1	2
+321d5922-d4ed-489a-a296-c5f50a5a73c1	What will be the output of the following Python code: `print(15 // 4)`	3	3.75	4	3.5	1	2
+a137c2b6-3e1e-4ae8-9a49-2ee174bbbfa7	Which of these is not a searching algorithm?	DFS	A-Star	Dijkstra	Kadane's Algorithm	4	2
+dde328b1-4fee-4efa-9055-834e58063327	What is the core component of an Artificial Neural Network?	Synapse	Dendrite	Axon	Neuron	4	2
+d6e87e7e-dd51-4f09-bfab-6d8a4c128821	Which data structure is best suited for implementing a priority queue?	Array	Linked List	Stack	Heap	4	2
+d012bc06-f1d8-47c3-814f-71b7468bad3f	What is the purpose of a hash function in a hash table?	To sort the data	To map keys to indices	To encrypt the data	To compress the data	2	2
+63535c7e-f745-4a00-ba7b-092845d03faf	In a binary search tree, which traversal method produces a sorted output?	Inorder	Preorder	Postorder	Any one of the above	1	2
+b996cc5c-4d3f-417d-ae68-1869bfb4dbd1	Which of these is a cloud computing service model?	Infrastructure as a Service (IaaS)	Platform as a Service (PaaS)	Software as a Service (SaaS)	All of the above	4	2
+07432f4e-7de1-4e1b-872d-4fef8ee9d55e	Which of the following is a divide-and-conquer algorithm?	Bubble Sort	Selection Sort	Merge Sort	Insertion Sort	3	2
+e4c1adef-bc5c-40c3-9a48-44bd7c08b05c	What does the following list comprehension in Python yield: `[i for i in range(10)]`	[-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]	[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]	3	2
+76cd0b5e-303d-4eac-90e4-890a85fd1ffc	Which of the following is not a feature of Object-Oriented Programming (OOP)?	Encapsulation	Inheritance	Polymorphism	Recursion	4	2
+82039367-b163-4d3a-b1ba-a27ff8c50ac9	In SQL, which of the following commands is used to remove a table from a database?	DELETE	DROP	REMOVE	ERASE	2	2
+6dfc6267-574d-48f7-ba37-c9071a05209d	The minimum number of stacks needed to implement a queue is	3	1	2	4	3	2
+322d3805-5d2f-4ae4-a7fe-94e4df1cc543	In the context of version control, what does "Git" primarily manage?	Database transactions	File versions	Networking protocols	Web sessions	2	2
+8e71b6b0-fa94-486a-9ccf-eff9d8419d0a	What language did WhatsApp use in their launching phase to scale to millions of users with a small team of engineers?	C++	Python	Java	Elixir	4	1
+a2a32975-fc32-4e37-afe3-446fd0bc348d	What is the output of this list comprehension?\\n`[char for char in "Python" if char.isupper()]`	["P", "y", "t", "h", "o", "n"]	["P", "y", "t", "h"]	["P", "n"]	["P"]	4	1
+1c1a1b0c-9016-4384-90be-7bf5b308d2b7	Which of the following is a key characteristic of a relational database?	 Hierarchical data structure	Data is organized in tables (relations)	Network data model	 Data is stored as objects	2	1
+96cf63f9-6579-46b8-8375-32deff0b18d9	Which of the following statements is true about Java?	Java supports multiple inheritance using classes.	Java uses pointers for memory management.	Java is platform-independent due to the JVM.	Java allows operator overloading.	3	1
+f194e877-0d7d-475b-bf25-68271e58cb87	In Java, which of the following is used to handle exceptions?	if-else	switch-case	try-catch	do while loop	3	1
+770ff296-d343-4082-af43-376387005cac	Which of the following is an advantage of a linked list over an array?	Random access of elements	Fixed size	Better cache locality	Dynamic size	4	1
+12007949-01bb-402d-8015-05e0570308db	What is the purpose of exception handling in programming?	To predefine input values for functions.	To optimize code performance.	To log function calls and results.	To manage and respond to runtime errors.	4	1
+dfe07b28-8a6a-4f3e-8f5c-25ff4bc78c4a	 In Python, which of the following is not a valid data type?	List	Tuple	LinkedList	Integer	3	1
+335de183-50d1-41fe-b211-8ef0d2c3cb4f	VST stands for:	Virtualisation Software Technology	Visual SaaS Template	Virtual Studio Technology	Vacant Swapping Technique	3	1
+604b27ff-f84a-4eec-a24b-c7f983d4fa49	 What is a "data structure" in programming?	A collection of functions for data transformation.	Organizing and storing data for efficient access and modification.	An algorithm for processing data.	Syntax for declaring variables and constants.	2	1
+7b901b07-6373-4ac4-a6df-8d828fd8ed5e	Which of the following is a valid declaration of a pointer in C?	int ptr;	int *ptr;	int &ptr;	pointer int ptr;	2	1
+c1dbfd62-af56-4c73-a3e0-b6351675e376	In Java, which method is used to start a thread?	run()	start()	init()	execute()	2	1
+03886b1f-4aa5-411d-a8aa-376affbe70e6	How is best-case time complexity represented?	Ω(1) (constant time)	Θ(n) (linear time)	O(n) (linear time)	Ω(n2) (quadratic time)	1	1
+fd12010f-ece8-4dfb-98ac-5c6a6deef6b1	What is "recursion" in programming?	Optimizing function execution through loops.	Predefining input values for functions.	A function calling itself to solve smaller sub-problems.	Repeated execution of code until a condition is met.	3	1
+28953493-0649-441b-bc8f-3da52497fa00	What does ACID stand for in the context of databases?	Atomicity, Consistency, Isolation, Durability	 Atomicity, Concurrency, Integrity, Durability	Aggregation, Consistency, Isolation, Durability	Abstraction, Consistency, Isolation, Data	1	1
+27405548-8779-4290-9f28-07cf6aa6f4bd	How do you execute a python file?	`run <filename>.py` in the terminal.	`execute <filename>.py` in the shell.	`python <filename>.py` in the command line.	`python3 run <filename>.py` in the console.	3	1
+a1358d41-5158-4c90-b313-f695485fde50	What is the time complexity of binary search in a sorted array?	O(n)	O(log n)	O(n log n)	O(n²)	2	1
+1de37fdb-39bf-4d8b-a47e-eba0da9ba510	What does BFS stand for?	Binary-First Search	Breadth-First Search	Binary-Finding System	Breadth-Finding Strategy	2	1
+73f6e243-ea53-4623-97bd-d6bfead56e5e	What does SQL stand for?	Standard Query Language	System Query Language	Structured Query Language	System Query Language	3	1
+ec382593-335a-44df-bac9-c086b40a31e9	In a relational database, which constraint ensures that a column cannot have NULL values?	FOREIGN KEY	UNIQUE	NOT NULL	PRIMARY KEY	3	1
+e5ffaa08-2b3a-47a1-adcf-597a4c8297b5	How many pointers at max are necessarily changed for the insertion in a linked list?	1	3	0	2	4	3
+53d2625c-d0a5-4ffe-a847-db8c5881162e	The type of pointer used to point to the address of the next element in a linked list?	Pointer to Char	Pointer to Int	Pointer to Node	Pointer to String	3	3
+615fbf55-3215-4b25-92f4-65a00ea75bbf	Which of the following is not the application of stack?	Data Transfer between two asynchronous process	Compiler Syntax Analyzer	Tracking of local variables at run time	A parentheses balancing program	1	3
+bed824d3-5cac-41b8-8fec-871246ccb88a	What is the value of the postfix expression 8 11 7 4 + – *?	0	-33	33	-9	1	3
+88c75752-5669-4ba0-a8ca-87634849c423	What is the purpose of the SQL query shown in the snippet?\\n`SELECT * FROM employees WHERE department = 'Sales';`	Insert new employee records	Update existing employee records	Retrieve employee records from the 'Sales' department	Delete employee records from the 'Sales' department	3	3
+490e9cfd-a20c-4a40-9f70-135520f322fb	What is a null pointer reference? (Hint: CrowdStrike suffered a lot because of this)	Pointer to a memory address that has been deallocated	A default variable called "null" to initialise a constructor in C++.	A pointer that has been declared but not initialised	A pointer that could be used to reference more than one locations at the same time.	1	3
+8ba8f9ad-26a2-4bc4-9798-7240a22d03ee	Which of these is a postfix expression?	a+c-d	ab+ cd- *	ab(cd+)- *	*ab-+cde	2	3
+292e38e0-c08c-4ab1-84d2-00559cc103ac	Which of These is **NOT** an AWS service?	S3	ABS	RDS	EC2	2	3
+dc9fca25-beb9-41c8-b768-bba9930b98a2	Which of These is **NOT** a Page Replacement Algorithm	FIFO	LRU	LIFO	Optimal Page Replacement	3	3
+7cb71511-6a3c-42de-b0a0-06041d70508c	Which of the following is a non-preemptive scheduling algorithm?	Round Robin	Shortest Job First (SJF)	Priority Scheduling	First-Come, First-Served (FCFS)	4	3
+576e2948-289c-4d3d-a3d5-a3115761f859	What is the output of the following Java code?\\n`public class Main{\\n     public static void main(String []args){\\n        int x = 10;\\n        int y = 5;\\n        int z = (x > y) ? x : y;\\n        System.out.println(z);\\n     }\\n}`	10	5	15	syntax error	1	3
+1cb3baf2-9c4f-4f37-8c36-a283174c4dac	Which of the following algorithms is used for finding the shortest path in a graph?	Depth-First Search (DFS)	Breadth-First Search (BFS)	Dijkstra’s Algorithm	Floyd-Warshall Algorithm	3	3
+5fa183ab-a146-4646-8776-74e9b15be188	Which of the following sorting algorithms is not stable?	Merge Sort	Bubble Sort	Quick Sort	Insertion Sort	3	3
+36ced374-6bc6-4c59-81b5-2b07516968bc	Which SQL keyword is used to remove duplicate records in a query result?	UNIQUE	DELETE	SELECT	DISTINCT	4	3
+0312cc42-57d0-45ef-b41e-cad2879937dd	Which of the following algorithms is NOT used for encryption?	AES	RSA	SHA-256	Blowfish	3	3
+2b562b3f-dcca-4e41-8fdb-c977eab006e5	What is the worst-case time complexity of quicksort?	O(n)	O(log n)	O(n log n)	O(n²)	4	3
+af6c8369-aced-4ba2-9824-02e525ace3ef	What is Bob doing here in the 8th episode of the 2nd season of Stranger Things ![](https://martin-m.org/images/Stranger-Things-S1E8-Code-Closeup.png)	Developing a web application for storing passwords	Running away from Demogorgons and brute-forcing a 3-digit password	Running away from Demogorgons and brute-forcing a 4-digit password	Training a model for classifying Demogorgons	3	3
+8e060be9-ea93-4c2e-8a8b-168842ccea02	In object-oriented programming, what is the concept of polymorphism?	Polymorphism is the process by which a class (the child or subclass) acquires attributes and behaviors from another class (the parent or superclass), allowing for code reuse and the creation of hierarchical relationships between classes.	Polymorphism is the process by which a single class can inherit properties and behaviors from multiple parent classes, combining the functionality of all the parent classes into one.	Polymorphism is the technique of encapsulating data and methods within a class to protect the internal state of the object and prevent unauthorized access from outside code.	Polymorphism describes the ability of a function to change its behavior based on the number and type of parameters passed to it, enabling flexible function definitions.	4	3
+cb3bff1f-8068-490b-8070-283a4a0a3d0f	What does the term "latency" refer to in networking?	The amount of data that can be transferred in a given time	The time taken for a data packet to travel from source to destination	The number of errors per unit of time	The frequency of data collisions	2	3
+0d5afedd-9adb-4978-914c-464fec1f3437	Which of the following algorithms is typically used in the TCP protocol to prevent network congestion?	RSA	Dijkstra's Algorithm	Sliding Window Protocol	Slow Start	4	3
+29e77f92-646a-47a8-8b2c-89b4dd75855b	What is the output of the following C++ code?\\n`#include <iostream>\\nusing namespace std;\\n\\nint main() {\\n    int a = 10;\\n    int b = a++ + ++a;\\n    cout << b;\\n    return 0;\\n}`	21	20	22	19	3	4
+61ebb2d2-34b2-4c4e-8a67-6e03a731c388	You are tasked with optimizing the performance of a web application. Which technique involves storing frequently accessed data in a store, reducing the need to fetch it from the original source and potentially improving response times?	Load Balancing	Compression	Minification	Caching	4	4
+e66608f2-78f6-4204-9ff9-61e5da9e1312	In operating systems, what is the name of the memory management technique that divides memory into fixed-size blocks called pages?	Segmentation	Swapping	Paging	Thrashing	3	4
+4deceacd-b960-4f3c-808b-d07c1bee53e2	Consider a scenario where you need to design a fault-tolerant system that can continue operating even if some of its components fail. Which architectural pattern involves replicating critical components and distributing them across multiple nodes to ensure high availability and resilience?	Microservices Architecture	Monolithic Architecture	Distributed Architecture	Layered Architecture	3	4
+3fd84d8a-1871-48aa-9b11-b7ac705440ec	Which of the following is a type of cyber attack that involves tricking users into revealing sensitive information?	Malware	Ransomware	Phishing	Denial of Service (DoS)	3	4
+cd23d171-6f27-44cd-a629-c87e879a5aca	What is the output of the following Python code snippet?\\n`x = [1, 2, 3, 4]\\ny = x.copy()\\ny.append(5)\\nprint(x, y)\\n`	`[1, 2, 3, 4] [1, 2, 3, 4, 5]`: The `copy()` method creates a shallow copy, so modifying `y` does not affect `x`	`[1, 2, 3, 4] [1, 2, 3, 4]`: Both lists are references to the same object, so changes to`y` are reflected in `x`.	`[1, 2, 3, 4, 5] [1, 2, 3, 4, 5]`: Both `x` and `y` are updated simultaneously because `copy()` is not used.	Error: The `copy()` method is not valid for lists.	1	4
+426e6f91-dbf0-4ff3-93d7-4805805931d1	Which of these is **NOT** a method to exit the Vim text editor?	:q!	ZZ	ZQ	:w	4	4
+aefadeec-8cda-4fa5-ac2e-4dba676847f1	What is the purpose of load balancing in system design?	To encrypt data	To compress data for faster transmission	To cache frequently accessed data	To distribute traffic across multiple servers	4	4
+2b7a101e-08e2-4e81-9b61-5bfda02dac49	What programming concept is demonstrated in the provided code snippet?\\n`def calculate_factorial(n):\\n    if n == 0:\\n        return 1\\n    else:\\n        return n * calculate_factorial(n - 1)`	Iterative	 Recursion	Polymorphism	Encapsulation	2	4
+ef51414e-f367-42ff-bd98-389590541edd	Which of these HTTP methods should not be used while sending a request body?	PUT	GET	POST	PATCH	2	4
+6786c66d-cdd0-495a-8726-c5d4ae2dc432	Which of these is not a defining feature of Redis?	Multithreading	In-memory caching	Pub/sub	Support for linear data structures	1	4
+899281b6-bc5d-4bbc-af85-a6501cf5e8ad	What is the output of the following code snippet: \\n`int x = 5; \\nint y = x++ + ++x; \\nstd::cout << y;` ? 	10	12	11	13	2	4
+03439243-c410-46f8-84b1-d1d53d0c5c9b	What would be the optimal time complexity for generating Fibonacci series?	O(logn)	O(n)	O(2^n)	O(n^2)	1	4
+40278bf6-d1fd-4e65-bf9a-21344bcd8ce4	Which of the following HTTP status codes indicates that the request was successful and the server returned the requested data?	200	301	404	500	1	4
+af384321-e5bb-4e82-b3b2-2b941842a63c	What will be the output of the following C++ code?\\n`#include <iostream>\\nusing namespace std;\\n\\nint main() {\\n    int a = 5, b = 10, c = 15;\\n    int x = (a > b) ? (b > c) ? b : c : (a > c) ? a : c;\\n    cout << x;\\n    return 0;\\n}`	5	10	15	Compilation error	3	4
+0c3634d1-8f0d-45ea-bc44-1f5770a3e386	What programming concept is demonstrated in the following Python code snippet?\\n`class Animal:\\n    def make_sound(self):\\n        print("Animal sound")\\n\\nclass Mammal(Animal):\\n    def has_fur(self):\\n        print("Has fur")\\n\\nclass Dog(Mammal):\\n    def bark(self):\\n        print("Woof!")`\\n	Multilevel Inheritance	Multiple Inheritance	Hierarchical Inheritance	Single Inheritance	1	4
+a2537fee-8cb4-445f-b4a9-7dc770809eea	In a relational database, what is the purpose of a primary key?	A primary key is used to define the data type of a table and ensure that each record in the table is stored in sequential order based on the primary key values.	A primary key uniquely identifies each record in a table, ensuring that no two rows have the same primary key value, and it cannot contain NULL values.	A primary key is a special key that is used to group records together in a table, often used for sorting and filtering data efficiently.	A primary key is an optional field in a table that can be used to create a relationship between two or more tables in the database.	2	4
+2e3beb28-dce6-4749-9513-ea1273783bce	What is a candidate key in relational databases?	It is any group of keys that can be a candidate for uniquely identifying the tuple	It has information about candidates in a table	It is the minimal group of keys that can be a candidate for uniquely identifying the tuple	It is all the attributes in the table barring the primary key	3	4
+dc519872-bc05-4f74-9f64-5ca3538eedaf	Which of the following protocols is used for secure communication over an untrusted network like the Internet?	HTTP	FTP	SSH	Telnet	3	4
+b477cdcd-6e2b-49b9-b1f8-1982fcfd3550	In Python, what will be the output of the following code snippet?\\n`def func(x, y=[]):\\n    y.append(x)\\n    return y\\n\\nprint(func(1))\\nprint(func(2))`	[1] [2]	[1] [1, 2]	[1, 2] [1, 2]	[1, 2] [2]	2	4
+f76c9678-2584-4522-bb74-e02d5d0a9834	Given the numbers [999, 1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020], find the maximum number of times you will have to remove sets of 3 numbers such that their greatest common divisor is 1 until there are no such sets remaining.	3	4	5	6	3	5
+3e97e968-6f00-4299-8984-549b242dc12c	Which caching strategy involves storing the most recently used items in the cache?	FIFO (First-In, First-Out)	LFU (Least Frequently Used)	Random Replacement	LRU (Least Recently Used)	4	5
+fa36e902-f9a2-40ae-94a0-3b5488f5a585	Which of the following is NOT a layer in the TCP/IP model?	Application layer	Transport layer	Presentation layer	Network layer	3	5
+dd4f6c1f-fe29-4da4-9b87-146717fbfde4	What is the primary benefit of using a message queue in system design?	To ensure data consistency	To improve database performance	To decouple components and enable asynchronous communication	To enable real-time communication	3	5
+7c8e4c66-0355-4c17-8ded-78342d3381f7	Which of the following is NOT a common architectural pattern used in system design?	Microservices	Monolithic	Layered	Waterfall	4	5
+f6af085a-640e-45dc-b6d2-57f7a636490f	A Caesar Cipher is an encryption technique that was famously used by, you guessed it right, Julius Caesar! In this technique, you shift the input characters 3 places forward. "A" becomes "D" ("A"->"B"->"C"->"D"), "G" becomes "J" ("G"->"H"->"I"->"J") and "Z" becomes "C" ("Z"->"A"->"B"->"C") due to rotation. Thus, "TECH" would become "WHFK KXQW". Find the Caesar Cipher for the GFG motto. Make sure only Julius Caesar can decode the glorious motto of GFG!	OHDEQ, SUDFGLFH, NQG HKFRO	OHDUQ, SUDFWLFH, DQG HAFHO	YRNEA, CENPGVPR, NAQ RKPRY	YHNUA, SEDPWVFR, DAG RAPHY	2	5
+a6429608-acbe-461b-8a16-22ba35075c3d	Which of the following memory consistency models allows for out-of-order execution but ensures that all processes agree on the order of writes?	Sequential consistency	Causal consistency	Eventual consistency	Linearizability	1	5
+a1785e47-c61a-4a61-b71a-90c0bf424eca	The five items: A, B, C, D, and E are pushed in a stack, one after other starting from A. The stack is popped four items and each element is inserted in a queue. The two elements are dequeue from the queue and pushed back on the stack. Now one item is popped from the stack. The popped item is	B	C	A	D	4	5
+f9e186a5-2e57-456d-b45c-9190ecc8fc97	On a chess board with only one pawn, in how many ways can the hypothetical pawn that can move to all the three squares in front of it and also two squares forward at a time go from E2 to E7?	51	82	101	142	2	5
+e3f8d5c2-fa2a-42b2-a1a0-04ea9e83da6c	Which company is widely recognized as a pioneer in the large-scale adoption and popularization of microservices architecture, and in what year did they begin this transition?	Amazon, 2006	eBay, 2011	Netflix, 2009	Google, 2008	3	5
+3ba593d5-3ade-4c84-916e-66edb51b0063	Given two numbers `L` and `R`, your friend Chhakuli wants the maximum amount of numbers in ascending order she can fit into the given range (L and R inclusive) such that each number is bigger than the previous one and the difference of any two numbers is also greater than the difference of the previous two numbers. In short, the numbers keep on increasing and so does the difference between them, For example, the correct answer for `L=1` and `R=5` would be 3 (one of the set could be the numbers {1, 2, 5}). Chhakuli gives you `L=124` and `R=291`.	34	23	17	28	3	5
+80c28598-3f95-4cb6-ac79-bf198f33a72e	We all love Ganeshotsav! Gotya is organising a *limbu-chamcha* competitions. It so happened that Gotya got a generous funding from the CSE department of JNEC and thus was able to award a prize money of 5K to anyone who finished the race, irrespective of their finishing place. Bad move! Gotya got more registrations than the number of hair strands on his head. Gotya was really smart though. He devised a 2D race where he could accomodate many more players.\\n\\nIn Gotya's race, there is a 6X6 grid with sides A, B, C and D, in anticlockwise order. 6 contestants start from the side A and 6 from the side B (from behind the squares, not on them yet). The ones who start at A must reach C to complete the race and the ones who start at B, should reach D. Gotya records their speeds (in squares per second; if the speed is 2, then the contestant moves 2 squares every second and reaches the finish line after 4 seconds; if the speed is 1, 7 seconds are required to reach the finish line) and they are in anticlockwise order: {2, 1, 2, 3, 1, 2} for contestants at A and {1, 1, 3, 2, 2, 1} for B. If two contestants each from A and B are at the same square at the same time, they collide and are **immediately** out of the race. Note: collisions only occur if two contestants are at the same square at unit time and **not in any other case**. Find the number of contestants who make it to the end. Here's a diagram to make it easy for you to understand:	5	6	7	8	2	5
+ab3a6762-c6fd-4c05-b861-462d6ff54385	Black Widow and Hawkeye are on Vormir to get the Soul Stone. All of us know what happens next. This isn't that version of reality. Here, Dr Strange (in all his wisdom of infinity and probability) warns them that one of them is going to die. But, it can be prevented. They just have to play a little game on Vormir. If the ground 300 metres below is hit with a stone at a velocity `v` at the time of contact, it bounces the stone back up at a velocity `0.7v`. The stone can then bounce up any number of times on the ground, its velocity upon every subsequent bounce becoming 70% of its previous velocity. The stone will stop bouncing if the speed with which it hits the ground is less than 20 m/s. If the duo are able to make the stone bounce 7 times (the stone hitting the ground but not bouncing back up doesn't count) the normal stone will turn into the Soul Stone! They can even celebrate on the planet for some time with the local delicacy of Vormkarpale!\\nBut,  but,  but,  but,  butttttt, if they fail, both of them die!! So tread carefully.\\nYou have to determine the minimum velocity with which they have to throw the stone to get the Soul Stone back and heave a sigh of relief. Assume the gravity on Vormir is 5m/s<sup>2</sup> and there is negligible atmosphere	205m/s	101m/s	161m/s	229m/s	3	5
+7d21f426-1a5f-48b6-9e59-c8869b66a007	Who is the GOAT?	Not Ayush	Maybe Ayush	Definitely Ayush	Bakri	4	5
+eac491ef-b0ab-4556-b121-6e931ffb818d	Select A	A	B	C	D	1	5
 \.
 
 
@@ -452,11 +461,12 @@ f20d1539-a3f4-4b1d-bc2b-d14ee1afa106	What does the acronym REST stand for?	Repre
 -- Data for Name: rounds; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.rounds (round_num) FROM stdin;
-1
-2
-3
-4
+COPY public.rounds (round_num, duration) FROM stdin;
+1	5
+2	5
+3	5
+4	5
+5	10
 \.
 
 
@@ -465,38 +475,38 @@ COPY public.rounds (round_num) FROM stdin;
 --
 
 COPY public.user_rounds (user_id, round_num, entered_at, submitted) FROM stdin;
-3fcf0fa5-ea9c-4b9d-8d99-55175637b573	1	2024-08-15 14:05:40.558324	f
-0c040bf3-613b-453e-8395-d4e22cd37dd0	1	2024-08-15 14:05:40.558324	f
-9439b071-cd92-4a85-b492-a7eaad8d48cd	1	2024-08-15 14:05:40.558324	f
-c8403bd6-ebbb-41f7-b232-1542fdc50bfd	1	2024-08-15 14:05:40.558324	f
-132f91ff-e426-4ef8-a18a-a88fb2ed0472	1	2024-08-15 14:05:40.558324	f
-b0fc951e-cecf-4f8b-a971-a3041560cc2c	1	2024-08-15 14:05:40.558324	f
-43c2c4ba-38ef-4060-bde3-dfc8bed814d1	1	2024-08-15 14:05:40.558324	f
-a76084e2-6c59-40bd-ac66-781740b11ee4	1	2024-08-15 14:05:40.558324	f
-90e3c6f3-43bc-4464-9ef4-fe87257de68d	1	2024-08-15 14:05:40.558324	f
-15c050ca-4244-4318-b262-989b9fd6c591	1	2024-08-15 14:05:40.558324	f
-4635beff-63ef-4370-83d1-4cc98c43c58d	1	2024-08-15 14:05:40.558324	f
-cbfdf7a9-a076-4f7d-a94a-8e2e5964e6d5	1	2024-08-15 14:05:40.558324	f
-27979cb0-1b73-4e65-9523-231e38c185a0	1	2024-08-15 14:05:40.558324	f
-8d732863-fc7a-43e9-8102-adb90c3e0800	1	2024-08-15 14:05:40.558324	f
-eadf82d8-61d1-4767-890f-4e76b33ae342	1	2024-08-15 14:05:40.558324	f
-b27eb79a-97c4-4103-a399-66d528e63e62	1	2024-08-15 14:05:40.558324	f
-949a382f-0bac-4cf9-9a0f-aeb33ea37328	1	2024-08-15 14:05:40.558324	f
-839b756c-143e-4c60-8232-794a6a8d57aa	1	2024-08-15 14:05:40.558324	f
-c4f2365f-1323-4c2f-8b3b-840f1f07f1dd	1	2024-08-15 14:05:40.558324	f
-5f1adcaf-9836-48e9-b003-54981b1112cc	1	2024-08-15 14:05:40.558324	f
-7d000ba8-ce5d-4441-aadd-bbe99d94b7b9	1	2024-08-15 14:05:40.558324	f
-50ddf17a-490e-425c-b406-99456392e9e1	1	2024-08-15 14:05:40.558324	f
-87ff6a06-1d0b-4006-9c22-a5808014c7ac	1	2024-08-15 14:05:40.558324	f
-616e0893-388c-473f-b5cc-df803242e6fb	1	2024-08-15 14:05:40.558324	f
-7e01c64c-ddbf-4aa9-98fa-38223bc37ead	1	2024-08-15 14:05:40.558324	f
-59c130d1-f386-463e-ae7f-4e36771d3b51	1	2024-08-15 14:05:40.558324	f
-8348c298-0ea7-4a4a-8b43-aa3d7da3de2d	1	2024-08-15 14:05:40.558324	f
-4fe16b5e-86ad-4e22-846b-c1217900e20a	1	2024-08-15 14:05:40.558324	f
-08c64cf9-a684-42c4-9452-5d895e90957c	1	2024-08-15 14:05:40.558324	f
-e4ebb98c-c0a1-4923-9ba2-f9aba4ca6b98	1	2024-08-15 14:05:40.558324	f
-f7baaa5a-50c8-4b71-aacd-2259243470cb	1	2024-08-15 14:05:40.558324	f
-f37b5add-b32b-4c0f-8311-2bfa58f744a3	1	2024-08-15 14:05:40.558324	f
+3fcf0fa5-ea9c-4b9d-8d99-55175637b573	1	2024-09-07 01:11:57.532217	f
+0c040bf3-613b-453e-8395-d4e22cd37dd0	1	2024-09-07 01:11:57.532217	f
+9439b071-cd92-4a85-b492-a7eaad8d48cd	1	2024-09-07 01:11:57.532217	f
+c8403bd6-ebbb-41f7-b232-1542fdc50bfd	1	2024-09-07 01:11:57.532217	f
+132f91ff-e426-4ef8-a18a-a88fb2ed0472	1	2024-09-07 01:11:57.532217	f
+b0fc951e-cecf-4f8b-a971-a3041560cc2c	1	2024-09-07 01:11:57.532217	f
+43c2c4ba-38ef-4060-bde3-dfc8bed814d1	1	2024-09-07 01:11:57.532217	f
+a76084e2-6c59-40bd-ac66-781740b11ee4	1	2024-09-07 01:11:57.532217	f
+90e3c6f3-43bc-4464-9ef4-fe87257de68d	1	2024-09-07 01:11:57.532217	f
+15c050ca-4244-4318-b262-989b9fd6c591	1	2024-09-07 01:11:57.532217	f
+4635beff-63ef-4370-83d1-4cc98c43c58d	1	2024-09-07 01:11:57.532217	f
+cbfdf7a9-a076-4f7d-a94a-8e2e5964e6d5	1	2024-09-07 01:11:57.532217	f
+27979cb0-1b73-4e65-9523-231e38c185a0	1	2024-09-07 01:11:57.532217	f
+8d732863-fc7a-43e9-8102-adb90c3e0800	1	2024-09-07 01:11:57.532217	f
+eadf82d8-61d1-4767-890f-4e76b33ae342	1	2024-09-07 01:11:57.532217	f
+b27eb79a-97c4-4103-a399-66d528e63e62	1	2024-09-07 01:11:57.532217	f
+949a382f-0bac-4cf9-9a0f-aeb33ea37328	1	2024-09-07 01:11:57.532217	f
+839b756c-143e-4c60-8232-794a6a8d57aa	1	2024-09-07 01:11:57.532217	f
+c4f2365f-1323-4c2f-8b3b-840f1f07f1dd	1	2024-09-07 01:11:57.532217	f
+5f1adcaf-9836-48e9-b003-54981b1112cc	1	2024-09-07 01:11:57.532217	f
+7d000ba8-ce5d-4441-aadd-bbe99d94b7b9	1	2024-09-07 01:11:57.532217	f
+50ddf17a-490e-425c-b406-99456392e9e1	1	2024-09-07 01:11:57.532217	f
+87ff6a06-1d0b-4006-9c22-a5808014c7ac	1	2024-09-07 01:11:57.532217	f
+616e0893-388c-473f-b5cc-df803242e6fb	1	2024-09-07 01:11:57.532217	f
+7e01c64c-ddbf-4aa9-98fa-38223bc37ead	1	2024-09-07 01:11:57.532217	f
+59c130d1-f386-463e-ae7f-4e36771d3b51	1	2024-09-07 01:11:57.532217	f
+8348c298-0ea7-4a4a-8b43-aa3d7da3de2d	1	2024-09-07 01:11:57.532217	f
+4fe16b5e-86ad-4e22-846b-c1217900e20a	1	2024-09-07 01:11:57.532217	f
+08c64cf9-a684-42c4-9452-5d895e90957c	1	2024-09-07 01:11:57.532217	f
+e4ebb98c-c0a1-4923-9ba2-f9aba4ca6b98	1	2024-09-07 01:11:57.532217	f
+f7baaa5a-50c8-4b71-aacd-2259243470cb	1	2024-09-07 01:11:57.532217	f
+f37b5add-b32b-4c0f-8311-2bfa58f744a3	1	2024-09-07 01:11:57.532217	f
 \.
 
 
@@ -651,14 +661,6 @@ ALTER TABLE ONLY public.location_count
 
 
 --
--- Name: questions loc_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.questions
-    ADD CONSTRAINT loc_id_fk FOREIGN KEY (loc_id) REFERENCES public.locations(loc_id);
-
-
---
 -- Name: location_users loc_id_pk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -688,6 +690,14 @@ ALTER TABLE ONLY public.location_next
 
 ALTER TABLE ONLY public.location_next
     ADD CONSTRAINT location_next_loc_now_fkey FOREIGN KEY (loc_now) REFERENCES public.locations(loc_id);
+
+
+--
+-- Name: questions r_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.questions
+    ADD CONSTRAINT r_fk FOREIGN KEY (round_num) REFERENCES public.rounds(round_num);
 
 
 --
