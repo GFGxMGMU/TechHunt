@@ -1,5 +1,9 @@
 {{define "body"}}
-<form method="post" action="/hunt/location?code={{.AccessCode}}" x-data="markdown">
+<form
+  method="post"
+  action="/hunt/location?code={{.AccessCode}}"
+  x-data="markdown"
+>
   {{range .Questions}}
   <h2>{{.QuestionMD}}</h2>
   <input
@@ -7,28 +11,32 @@
     name="{{.QuestionId}}"
     value="option1"
     checked="false"
-  /><label>{{.Option1.Option}}</label>
+    id="{{.QuestionId}}1"
+  /><label for="{{.QuestionId}}1">{{.Option1.Option}}</label>
   <br />
   <input
     type="radio"
     name="{{.QuestionId}}"
     value="option2"
     checked="false"
-  /><label>{{.Option2.Option}}</label>
+    id="{{.QuestionId}}2"
+  /><label for="{{.QuestionId}}2">{{.Option2.Option}}</label>
   <br />
   <input
     type="radio"
     name="{{.QuestionId}}"
     value="option3"
     checked="false"
-  /><label>{{.Option3.Option}}</label>
+    id="{{.QuestionId}}3"
+  /><label for="{{.QuestionId}}3">{{.Option3.Option}}</label>
   <br />
   <input
     type="radio"
     name="{{.QuestionId}}"
     value="option4"
     checked="false"
-  /><label>{{.Option4.Option}}</label>
+    id="{{.QuestionId}}4"
+  /><label id="{{.QuestionId}}4">{{.Option4.Option}}</label>
 
   <hr />
   {{end}}
