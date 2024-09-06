@@ -1,13 +1,16 @@
 package game
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
 	DB "gfghunt/db"
+	"html/template"
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/yuin/goldmark"
 )
 
 type Game struct {
@@ -30,6 +33,14 @@ type Question struct {
 }
 type Option struct {
 	Option string `json:"option"`
+}
+
+func (que *Question) QuestionMD() interface{} {
+	var outbuf bytes.Buffer
+	if err := goldmark.Convert([]byte(que.Question), &outbuf); err != nil {
+		return que.Question
+	}
+	return template.HTML(outbuf.String())
 }
 
 var onGoingGames map[uuid.UUID]*Game = make(map[uuid.UUID]*Game)

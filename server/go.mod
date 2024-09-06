@@ -8,6 +8,7 @@ require (
 	github.com/jackc/pgx/v5 v5.6.0
 	github.com/labstack/echo-jwt/v4 v4.2.0
 	github.com/labstack/echo/v4 v4.12.0
+	github.com/yuin/goldmark v1.7.4
 )
 
 require (

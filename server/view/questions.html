@@ -1,8 +1,7 @@
 {{define "body"}}
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <form method="post" action="/hunt/location?code={{.AccessCode}}" x-data="markdown">
   {{range .Questions}}
-  <h2 x-data="{text:md(`{{.Question}}`)}" x-html="text"></h2>
+  <h2>{{.QuestionMD}}</h2>
   <input
     type="radio"
     name="{{.QuestionId}}"
@@ -35,14 +34,4 @@
   {{end}}
   <button type="submit">Submit</button>
 </form>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script>
-  document.addEventListener("alpine:init", () => {
-    Alpine.data("markdown", () => ({
-      md(data) {
-        return marked.parse(data);
-      },
-    }));
-  });
-</script>
 {{end}}
