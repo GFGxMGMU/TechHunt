@@ -23,7 +23,7 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 		fmt.Println(err)
 		return err
 	}
-	if round_num == 4 {
+	if round_num == 5 {
 		if previousAdvancers >= 1 {
 			return TooLateError{Message: "You were late :("}
 		} else {
@@ -50,7 +50,7 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 		fmt.Println(err)
 		return err
 	}
-	if round_num < 4 {
+	if round_num < 5 {
 		_, err = tx.Exec(context.Background(), "insert into user_rounds (user_id, round_num, entered_at) values($1, $2, $3)", user_id, round_num+1, time.Now())
 		if err != nil {
 			fmt.Println("chaar")
