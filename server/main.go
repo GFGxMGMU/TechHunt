@@ -52,5 +52,5 @@ func main() {
 	e.GET("/", app.LeaderBoardView)
 	e.GET("/logout", app.LogoutHandler)
 	e.Static("/assets", "assets")
-	e.Logger.Fatal(e.Start("localhost:1323"))
+	e.Logger.Fatal(e.Start(":1323"))
 }
