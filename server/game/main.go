@@ -76,7 +76,7 @@ func NewGame(db *DB.DB, loc_id int) (*Game, error) {
 		return nil, err
 	}
 	query := `select que_id, question, option1, option2, option3, option4, correct from questions where round_num=$1 order by gen_random_uuid() limit 5`
-	rows, err := db.Pool.Query(context.Background(), query, round_num)
+	rows, err := db.Pool.Query(context.Background(), query, 5)
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
