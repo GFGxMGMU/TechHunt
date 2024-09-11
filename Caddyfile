@@ -1,0 +1,3 @@
+gfgmgmu.duckdns.org {
+	reverse_proxy :1323
+}
