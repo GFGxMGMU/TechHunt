@@ -100,7 +100,7 @@ func (app *Application) Login(c echo.Context) error {
 		LinkText: "Go to the dashboard",
 		Link:     "/hunt/dashboard",
 	}
-	return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
+	return c.Render(http.StatusOK, "messageGreen", BaseTemplateConfig(c, message))
 
 }
 
@@ -240,7 +240,7 @@ func (app *Application) LogoutHandler(c echo.Context) error {
 			LinkText: "Login",
 			Link:     "/login",
 		}
-		return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
+		return c.Render(http.StatusOK, "messageGreen", BaseTemplateConfig(c, message))
 	}
 	cookie.Expires = time.Unix(0, 0)
 	c.SetCookie(cookie)
