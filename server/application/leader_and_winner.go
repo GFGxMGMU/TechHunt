@@ -40,7 +40,6 @@ LeaderBoardChecker:
 	for {
 		select {
 		case <-ticker.C:
-			fmt.Println("yo here!")
 			app.LeaderBoardAndWinner()
 			if globalState.LeaderBoard.IsWinner {
 				ticker.Stop()

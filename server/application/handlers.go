@@ -121,7 +121,7 @@ func (app *Application) DashboardView(c echo.Context) error {
 	if out.RoundNum == 0 {
 		if !app.Start {
 			message := Message{
-				Message:  "Game not eshtarted yet. Wait for the admin to eshtart. Keep refreshin Keep refreshing. Best of luck.",
+				Message:  "Game not eshtarted yet. Wait for the admin to eshtart. Keep refreshing. Best of luck.",
 				LinkText: "Go to the dashboard",
 				Link:     "/hunt/dashboard",
 			}
