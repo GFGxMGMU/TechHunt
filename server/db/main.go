@@ -13,7 +13,7 @@ type DB struct {
 }
 
 func InitDB() *DB {
-	dbpool, err := pgxpool.New(context.Background(), "postgres://postgres:postpostgresgres@localhost:5432/gfghunt_nakli")
+	dbpool, err := pgxpool.New(context.Background(), "postgres://postgres:gfg_ke_bande@localhost:5432/gfghunt_nakli")
 	if err != nil {
 		fmt.Println("Something's wrong with the db")
 		os.Exit(1)
