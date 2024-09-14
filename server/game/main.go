@@ -70,10 +70,14 @@ func GetGame(user_id uuid.UUID) (*Game, error) {
 }
 func NewGame(db *DB.DB, loc_id int) (*Game, error) {
 	var round_num int
-	err := db.Pool.QueryRow(context.Background(), "select round_num from locations where loc_id=$1", loc_id).Scan(&round_num)
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
+	if loc_id == -1 {
+		round_num = 0
+	} else {
+		err := db.Pool.QueryRow(context.Background(), "select round_num from locations where loc_id=$1", loc_id).Scan(&round_num)
+		if err != nil {
+			fmt.Println(err)
+			return nil, err
+		}
 	}
 	query := `select que_id, question, option1, option2, option3, option4, correct from questions where round_num=$1 order by gen_random_uuid() limit 5`
 	rows, err := db.Pool.Query(context.Background(), query, round_num)

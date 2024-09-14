@@ -29,7 +29,7 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 	return func(c echo.Context) error {
 		fmt.Println("hohoho")
 		code := c.QueryParam("code")
-		var loc_id string
+		var loc_id int
 		var round_num int
 		user_id := c.Get("user_id").(uuid.UUID)
 		query := `select loc_id, round_num from locations natural join access_codes natural join location_users natural join user where code=$1 and user_id=$2`
@@ -42,6 +42,9 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 				Link:     "/hunt/dashboard",
 			}
 			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
+		}
+		if round_num == 4 {
+			app.Advance(user_id, round_num, loc_id)
 		}
 		fmt.Println(loc_id)
 		c.Set("location", loc_id)

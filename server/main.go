@@ -1,10 +1,15 @@
 package main
 
 import (
+	"bufio"
+	"fmt"
 	"gfghunt/application"
 	DB "gfghunt/db"
 	"gfghunt/templates"
 	"net/http"
+	"os"
+	"strings"
+	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 	echojwt "github.com/labstack/echo-jwt/v4"
@@ -14,8 +19,22 @@ import (
 
 func main() {
 	DBPool := DB.InitDB()
-	app := &application.Application{DB: DBPool}
+	app := &application.Application{DB: DBPool, Start: false}
 	go app.Init()
+	go func() {
+		reader := bufio.NewReader(os.Stdin)
+		for {
+			fmt.Println("Enter ESHTART to eshtart", app)
+			start, _ := reader.ReadString('\n')
+			if strings.TrimSpace(start) == "ESHTART" {
+				app.Start = true
+				app.StartTime = time.Now().Add(10 * time.Second)
+				fmt.Println("Eshtarted!", app)
+				break
+			}
+
+		}
+	}()
 	// New echo server object
 	e := echo.New()
 	e.Static("/assets", "./assets")
@@ -41,6 +60,7 @@ func main() {
 	l.Use(app.LocationMiddleware)
 	l.GET("", app.Questions)
 	l.POST("", app.QuestionAnswers)
+	r.POST("/begin", app.Begin)
 	r.GET("/dashboard", app.DashboardView)
 	e.GET("/login", app.LoginView)
 	e.POST("/login", app.Login)

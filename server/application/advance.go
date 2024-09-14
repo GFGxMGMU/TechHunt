@@ -17,13 +17,15 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 	}
 	defer tx.Rollback(context.Background())
 	var previousAdvancers int
-	err = tx.QueryRow(context.Background(), "select passed_count from location_count where loc_id=$1", loc_id).Scan(&previousAdvancers)
-	if err != nil {
-		fmt.Println("ek")
-		fmt.Println(err)
-		return err
+	if round_num != 0 {
+		err = tx.QueryRow(context.Background(), "select passed_count from location_count where loc_id=$1", loc_id).Scan(&previousAdvancers)
+		if err != nil {
+			fmt.Println("ek")
+			fmt.Println(err)
+			return err
+		}
 	}
-	if round_num == 5 {
+	if round_num == 4 {
 		if previousAdvancers >= 1 {
 			return TooLateError{Message: "You were late :("}
 		} else {
@@ -32,17 +34,19 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 				return err
 			}
 		}
-	} else if round_num > 1 {
+	} else if round_num > 0 {
 		if previousAdvancers >= 2 {
 			return TooLateError{"You were late :("}
 		}
 	}
 
-	_, err = tx.Exec(context.Background(), "update location_count set passed_count=passed_count+1 where loc_id=$1", loc_id)
-	if err != nil {
-		fmt.Println("don")
-		fmt.Println(err)
-		return err
+	if round_num != 0 {
+		_, err = tx.Exec(context.Background(), "update location_count set passed_count=passed_count+1 where loc_id=$1", loc_id)
+		if err != nil {
+			fmt.Println("don")
+			fmt.Println(err)
+			return err
+		}
 	}
 	_, err = tx.Exec(context.Background(), "update user_rounds set submitted=true where round_num=$1 and user_id=$2", round_num, user_id)
 	if err != nil {
@@ -57,11 +61,13 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 			fmt.Println(err)
 			return err
 		}
-		_, err = tx.Exec(context.Background(), "update location_users set loc_id = ln.loc_next from location_next ln where user_id=$1 and location_users.loc_id=ln.loc_now", user_id)
-		if err != nil {
-			fmt.Println("paach")
-			fmt.Println(err)
-			return err
+		if round_num != 0 {
+			_, err = tx.Exec(context.Background(), "update location_users set loc_id = ln.loc_next from location_next ln where user_id=$1 and location_users.loc_id=ln.loc_now", user_id)
+			if err != nil {
+				fmt.Println("paach")
+				fmt.Println(err)
+				return err
+			}
 		}
 	}
 	err = tx.Commit(context.Background())

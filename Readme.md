@@ -13,3 +13,5 @@ What the title sez
 - [X] Shut down all endpoints after winner is declared
 - [X] Add logout button
 - [X] Add markdown support for questions (JS, might be flaky)
+- [ ] Add admin input to start game
+- [ ] Swap questions with hints

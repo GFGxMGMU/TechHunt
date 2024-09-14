@@ -118,10 +118,39 @@ func (app *Application) DashboardView(c echo.Context) error {
 		}
 		return c.Render(http.StatusInternalServerError, "message", BaseTemplateConfig(c, message))
 	}
+	if out.RoundNum == 0 {
+		if !app.Start {
+			message := Message{
+				Message:  "Game not eshtarted yet. Wait for the admin to eshtart. Keep refreshin Keep refreshing. Best of luck.",
+				LinkText: "Go to the dashboard",
+				Link:     "/hunt/dashboard",
+			}
+			return c.Render(http.StatusNotFound, "message", BaseTemplateConfig(c, message))
+		}
+		if time.Now().Before(app.StartTime) {
+			message := Message{
+				Message:  fmt.Sprintf("Game starting in %v seconds. Refresh then", int(time.Until(app.StartTime).Seconds())),
+				LinkText: "Go to the dashboard",
+				Link:     "/hunt/dashboard",
+			}
+			return c.Render(http.StatusNotFound, "message", BaseTemplateConfig(c, message))
+		}
+		game, err := game.Play(app.DB, -1, user_id)
+
+		if err != nil {
+			message := Message{Message: "Error getting questions",
+				LinkText: "Go to the login page",
+				Link:     "/login",
+			}
+			return c.Render(http.StatusInternalServerError, "message", BaseTemplateConfig(c, message))
+		}
+		return c.Render(http.StatusOK, "questions0", BaseTemplateConfig(c, game))
+	}
 	return c.Render(http.StatusOK, "dashboard", BaseTemplateConfig(c, out))
 }
 
 func (app *Application) Questions(c echo.Context) error {
+	fmt.Println(app.Start)
 	loc := c.Get("location").(string)
 	round_num := c.Get("round_num").(int)
 	fmt.Println(round_num)
@@ -156,6 +185,95 @@ func (app *Application) LeaderBoardView(c echo.Context) error {
 
 }
 
+// Danger ahead
+// ----------------------------------------------------------------------------------------------------------
+
+func (app *Application) Begin(c echo.Context) error {
+	user_id := c.Get("user_id").(uuid.UUID)
+	currentGame, err := game.GetGame(user_id)
+	if err != nil {
+		message := Message{
+			Message:  "Game not found. Try scanning the QR code again.",
+			LinkText: "Go to the dashboard",
+			Link:     "/hunt/dashboard",
+		}
+		return c.Render(http.StatusNotFound, "message", BaseTemplateConfig(c, message))
+	}
+	correctCount := 0
+	if currentGame.RoundNum != 0 {
+		message := Message{
+			Message:  "No cheating!",
+			LinkText: "Go back",
+			Link:     "/hunt/dashboard",
+		}
+		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
+	}
+	if currentGame.Submitted {
+		message := Message{
+			Message:  "This instance of the quiz already submitted",
+			LinkText: "Go back",
+			Link:     "/hunt/dashboard",
+		}
+		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
+	}
+	if currentGame.EndTime.Before(time.Now()) {
+		message := Message{
+			Message:  "Time out! Please try again :)",
+			LinkText: "Go back",
+			Link:     "/hunt/dashboard",
+		}
+		return c.Render(http.StatusUnauthorized, "message", BaseTemplateConfig(c, message))
+	}
+	currentGame.Submitted = true
+	for _, question := range currentGame.Questions {
+		correct := question.Correct
+		correctOption := fmt.Sprintf("option%d", correct)
+		que_id := question.QuestionId
+		answer := c.FormValue(que_id.String())
+		if answer == "" {
+			message := Message{
+				Message:  "There was an error submitting. You probably ran out of time",
+				LinkText: "Go back",
+				Link:     "/hunt/dashboard",
+			}
+			return c.Render(http.StatusNotAcceptable, "message", BaseTemplateConfig(c, message))
+		}
+		if answer == correctOption {
+			correctCount++
+		}
+	}
+	if correctCount == 5 {
+		// Advance the user to the next round
+		err = app.Advance(user_id, currentGame.RoundNum, currentGame.LocationId)
+		if err != nil {
+			fmt.Println(err.Error(), user_id)
+			message := Message{
+				Message:  "There was an error submitting. Try again :)",
+				LinkText: "Go back",
+				Link:     "/hunt/dashboard",
+			}
+			if errors.As(err, &TooLateError{}) {
+				message.Message = err.Error()
+			}
+			return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
+		}
+		message := Message{
+			Message:  "Right answers! The new hint is at your dashboard. You may proceed!",
+			LinkText: "Go to the dashboard for the next hint!",
+			Link:     "/hunt/dashboard",
+		}
+		return c.Render(http.StatusOK, "messageGreen", BaseTemplateConfig(c, message))
+	}
+	message := Message{
+		Message:  `A few answers are wrong! Retry, or as Swami Vivekananda said, "Arise, awake, and stop not till the goal is reached!"`,
+		LinkText: "Go back",
+		Link:     "/hunt/dashboard",
+	}
+	return c.Render(http.StatusOK, "message", BaseTemplateConfig(c, message))
+}
+
+// ----------------------------------------------------------------------------------------------------------
+// Danger over
 func (app *Application) QuestionAnswers(c echo.Context) error {
 	user_id := c.Get("user_id").(uuid.UUID)
 	currentGame, err := game.GetGame(user_id)
