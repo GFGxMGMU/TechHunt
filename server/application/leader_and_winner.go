@@ -67,6 +67,7 @@ func (app *Application) LeaderBoardAndWinner() error {
 		return err
 	}
 	currentLeaderBoard := &globalState.LeaderBoard
+	timezone, err := time.LoadLocation("Asia/Kolkata")
 	for {
 		if !rows.Next() {
 			break
@@ -74,8 +75,13 @@ func (app *Application) LeaderBoardAndWinner() error {
 		currentLeaderBoardEntry := LeaderBoardEntry{}
 		var enteredAt time.Time
 		rows.Scan(&currentLeaderBoardEntry.TeamName, &currentLeaderBoardEntry.RoundNum, &enteredAt)
-		currentLeaderBoardEntry.EnteredAt = enteredAt.Format(time.RFC822)
+		currentLeaderBoardEntry.EnteredAt = enteredAt.In(timezone).Format(time.RFC822)
 		currentLeaderBoard.LeaderBoard = append(currentLeaderBoard.LeaderBoard, &currentLeaderBoardEntry)
+	}
+	if err != nil {
+		fmt.Println("Leaderboard not leaderboarding", err.Error())
+		globalState.LeaderBoard.err = err
+		return err
 	}
 	err = app.DB.Pool.QueryRow(context.Background(), "select user_id, team_name from winner natural join users").Scan(&currentLeaderBoard.WinnerId, &currentLeaderBoard.WinnerName)
 	if err == nil {
