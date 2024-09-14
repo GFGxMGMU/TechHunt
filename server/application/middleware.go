@@ -47,7 +47,7 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 			app.Advance(user_id, round_num, loc_id)
 		}
 		fmt.Println(loc_id)
-		c.Set("location", loc_id)
+		c.Set("location", fmt.Sprintf("%v", loc_id))
 		c.Set("round_num", round_num)
 		return next(c)
 	}
