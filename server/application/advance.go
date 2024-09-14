@@ -25,7 +25,7 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 			return err
 		}
 	}
-	if round_num == 4 {
+	if round_num == 5 {
 		if previousAdvancers >= 1 {
 			return TooLateError{Message: "You were late :("}
 		} else {
