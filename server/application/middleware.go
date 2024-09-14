@@ -43,7 +43,7 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 			}
 			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
 		}
-		if round_num == 4 {
+		if round_num == 5 {
 			app.Advance(user_id, round_num, loc_id)
 		}
 		fmt.Println(loc_id)
