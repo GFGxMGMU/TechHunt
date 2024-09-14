@@ -44,7 +44,7 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
 		}
 		query2 := `select round_num from user_rounds where user_id=$1 and submitted=false`
-		err = app.DB.Pool.QueryRow(context.Background(), query2, code, user_id).Scan(&round_num)
+		err = app.DB.Pool.QueryRow(context.Background(), query2, user_id).Scan(&round_num)
 		if err != nil {
 			fmt.Println("hosdf", err)
 			fmt.Println(round_num, user_id)
