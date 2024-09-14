@@ -47,14 +47,14 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 		err = app.DB.Pool.QueryRow(context.Background(), query2, code, user_id).Scan(&round_num)
 		if err != nil {
 			fmt.Println("hosdf", err)
+			fmt.Println(round_num, user_id)
 			message := Message{
-				Message:  "Location forbidden. You don't have access to this location, at least at this stage.",
+				Message:  "Meow.",
 				LinkText: "Go to the dashboard",
 				Link:     "/hunt/dashboard",
 			}
 			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
 		}
-		fmt.Println(round_num, user_id)
 		if round_num == 5 {
 			app.Advance(user_id, round_num, loc_id)
 		}
