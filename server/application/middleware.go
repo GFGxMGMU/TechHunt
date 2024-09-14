@@ -32,8 +32,8 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 		var loc_id int
 		var round_num int
 		user_id := c.Get("user_id").(uuid.UUID)
-		query1 := `select loc_id from locations natural join access_codes natural join location_users natural join user where code=$1 and user_id=$2`
-		err := app.DB.Pool.QueryRow(context.Background(), query1, code, user_id).Scan(&loc_id, &round_num)
+		query := `select loc_id, round_num from locations natural join access_codes natural join location_users natural join user where code=$1 and user_id=$2`
+		err := app.DB.Pool.QueryRow(context.Background(), query, code, user_id).Scan(&loc_id, &round_num)
 		if err != nil {
 			fmt.Println("hosdf", err)
 			message := Message{
@@ -43,19 +43,7 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 			}
 			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
 		}
-		query2 := `select round_num from user_rounds where user_id=$1 and submitted=false`
-		err = app.DB.Pool.QueryRow(context.Background(), query2, user_id).Scan(&round_num)
-		if err != nil {
-			fmt.Println("hosdf", err)
-			fmt.Println(round_num, user_id)
-			message := Message{
-				Message:  "Meow.",
-				LinkText: "Go to the dashboard",
-				Link:     "/hunt/dashboard",
-			}
-			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
-		}
-		if round_num == 5 {
+		if loc_id == 23 {
 			app.Advance(user_id, round_num, loc_id)
 		}
 		fmt.Println(loc_id)
