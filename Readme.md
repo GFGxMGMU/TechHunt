@@ -15,3 +15,10 @@ What the title sez
 - [X] Add admin input to start game
 - [X] Swap questions with hints
 - [X] Add countdown for ques
+- [ ] Untick options at the beginning
+- [ ] Questions can be copied directly, fix it
+- [ ] Round heading for each question
+- [ ] First location is accessible before the questions for the preliminary round are accessible
+- [ ] Show password
+- [ ] Trim leading spaces
+- [ ] Replace "you were late" with something better.
