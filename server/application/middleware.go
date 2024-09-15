@@ -45,6 +45,12 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 		}
 		if loc_id == 23 {
 			app.Advance(user_id, round_num, loc_id)
+			message := Message{
+				Message:  "You scanned the winning QR code, but are you the first one to do so? Go to the leaderboard to know.",
+				LinkText: "Go to the leaderboard",
+				Link:     "/",
+			}
+			return c.Render(http.StatusForbidden, "messageGreen", BaseTemplateConfig(c, message))
 		}
 		fmt.Println(loc_id)
 		c.Set("location", fmt.Sprintf("%v", loc_id))
