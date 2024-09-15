@@ -1,9 +1,17 @@
 {{define "body"}}
-<form
-  method="post"
-  action="/hunt/begin"
-  x-data="markdown"
->
+<form method="post" action="/hunt/begin">
+  <article
+    class="pico-background-green-200"
+    style="
+      text-align: center;
+      font-size: 2rem;
+      width: fit-content;
+      margin: auto;
+    "
+    id="countdown-outer"
+  >
+    <span id="countdown"></span>
+  </article>
   {{range .Questions}}
   <h2>{{.QuestionMD}}</h2>
   <input
@@ -42,4 +50,31 @@
   {{end}}
   <button type="submit"><strong>Submit</strong></button>
 </form>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var endTime = new Date("{{.EndTimeString}}").getTime();
+    const countdown = document.getElementById("countdown");
+    const countdownouter = document.getElementById("countdown-outer");
+
+    var x = setInterval(function () {
+      var now = new Date().getTime();
+      var distance = endTime - now;
+
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdown.innerHTML =
+        minutes.toString().padStart(2, "0") +
+        ":" +
+        seconds.toString().padStart(2, "0");
+      if (minutes == 0) {
+        countdownouter.classList.remove("pico-background-green-200");
+        countdownouter.classList.add("pico-background-red-400");
+      }
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "TIMEOUT!";
+      }
+    }, 100);
+  });
+</script>
 {{end}}

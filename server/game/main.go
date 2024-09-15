@@ -43,6 +43,10 @@ func (que *Question) QuestionMD() interface{} {
 	return template.HTML(outbuf.String())
 }
 
+func (game *Game) EndTimeString() string {
+	return game.EndTime.Format(time.RFC3339)
+}
+
 var onGoingGames map[uuid.UUID]*Game = make(map[uuid.UUID]*Game)
 
 func Play(db *DB.DB, loc_id int, user_id uuid.UUID) (*Game, error) {

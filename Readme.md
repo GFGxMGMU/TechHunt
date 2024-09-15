@@ -14,4 +14,4 @@ What the title sez
 - [X] Add markdown support for questions (JS, might be flaky)
 - [X] Add admin input to start game
 - [X] Swap questions with hints
-- [ ] Add progress bar for ques
+- [X] Add countdown for ques
