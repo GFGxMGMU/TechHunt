@@ -1,10 +1,30 @@
 {{define "body"}}
-    <form method="post" action="/login">
-        <h1>Login</h1>
-        <label for="team">Team</label>
-        <input type="text" name="team" required/>
-        <label for="key">Key</label>
-        <input type="password" name="key" required/>
-        <button type="submit">Submit</button>
-    </form>
+<form method="post" action="/login">
+  <h1>Login</h1>
+  <label for="team">Team</label>
+  <input type="text" name="team" required />
+  <label for="key">Key</label>
+  <input type="password" name="key" id="pass" required />
+  <input
+    type="checkbox"
+    id="togglepass"
+    name="togglepass"
+    onclick="showPass()"
+    checked="false"
+  />
+  <label for="togglepass" style="margin-bottom: 1rem;">Show Password</label>
+
+  <button type="submit">Submit</button>
+</form>
+<script>
+  document.getElementById("togglepass").checked = false;
+  const showPass = () => {
+    var x = document.getElementById("pass");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  };
+</script>
 {{end}}
