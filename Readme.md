@@ -17,7 +17,7 @@ What the title sez
 - [X] Add countdown for ques
 - [X] Untick options at the beginning
 - [ ] Reenter questions in DB
-- [ ] Questions can be copied directly, fix it
+- [X] Questions can be copied directly, fix it
 - [ ] Round heading for each question
 - [ ] First location is accessible before the questions for the preliminary round are accessible
 - [ ] Show password

@@ -70,7 +70,7 @@
       }
     </style>
   </head>
-  <body>
+  <body oncopy="return false" onpaste="return false" oncut="return false">
     <header>
       <nav style="margin: 1rem auto; width: 90%">
         <ul>
@@ -82,7 +82,9 @@
           <li><a href="/">Leaderboard</a></li>
           {{if .IsLoggedIn}}
           <li><a href="/hunt/dashboard">Dashboard</a></li>
-          <li><a href="/logout"><button id="logout">Logout</button></a></li>
+          <li>
+            <a href="/logout"><button id="logout">Logout</button></a>
+          </li>
           {{else}}
           <li><a href="/login">Login</a></li>
           {{end}}
