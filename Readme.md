@@ -20,6 +20,6 @@ What the title sez
 - [X] Questions can be copied directly, fix it
 - [X] Round heading for each question
 - [X] First location is accessible before the questions for the preliminary round are accessible
-- [ ] Show password
+- [X] Show password
 - [ ] Trim leading spaces
 - [ ] Replace "you were late" with something better.

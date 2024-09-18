@@ -7,6 +7,7 @@ import (
 	"gfghunt/game"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -67,6 +68,7 @@ func (app *Application) LoginView(c echo.Context) error {
 func (app *Application) Login(c echo.Context) error {
 	team := c.FormValue("team")
 	key := c.FormValue("key")
+	team = strings.TrimSpace(team)
 	var team_id uuid.UUID
 	err := app.DB.Pool.QueryRow(context.Background(), "SELECT user_id FROM USERS where team_name=$1 and key=$2", team, key).Scan(&team_id)
 	if err != nil {
