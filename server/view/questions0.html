@@ -45,7 +45,14 @@
     checked="false"
     id="{{.QuestionId}}4"
   /><label id="{{.QuestionId}}4">{{.Option4.Option}}</label>
-
+  <input
+    type="radio"
+    name="{{.QuestionId}}"
+    value="option100"
+    id="{{.QuestionId}}100"
+    checked="checked"
+    style="display: none; height: 0; width: 0;"
+  />
   <hr />
   {{end}}
   <button type="submit"><strong>Submit</strong></button>
