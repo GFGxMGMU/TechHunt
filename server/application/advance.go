@@ -8,6 +8,9 @@ import (
 	"github.com/google/uuid"
 )
 
+func (app *Application) TooLate(user_id uuid.UUID) {
+	app.DB.Pool.Exec(context.Background(), "insert into eliminated values($1)", user_id)
+}
 func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) error {
 	fmt.Println(round_num, loc_id)
 	tx, err := app.DB.Pool.Begin(context.Background())
@@ -27,7 +30,8 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 	}
 	if round_num == 5 {
 		if previousAdvancers >= 1 {
-			return TooLateError{Message: "You were late :("}
+			app.TooLate(user_id)
+			return TooLateError{Message: "You were late :( Sadly, you have been eliminated. It was nice having you here."}
 		} else {
 			_, err := tx.Exec(context.Background(), "insert into Winner(user_id) values($1)", user_id)
 			if err != nil {
@@ -36,7 +40,8 @@ func (app *Application) Advance(user_id uuid.UUID, round_num int, loc_id int) er
 		}
 	} else if round_num > 1 {
 		if previousAdvancers >= 2 {
-			return TooLateError{"You were late :("}
+			app.TooLate(user_id)
+			return TooLateError{"You were late :( Sadly, you have been eliminated. It was nice having you here."}
 		}
 	}
 

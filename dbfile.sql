@@ -54,6 +54,17 @@ CREATE TABLE public.access_codes (
 ALTER TABLE public.access_codes OWNER TO postgres;
 
 --
+-- Name: eliminated; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.eliminated (
+    user_id uuid
+);
+
+
+ALTER TABLE public.eliminated OWNER TO postgres;
+
+--
 -- Name: hints; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -211,6 +222,14 @@ g5dk5shjv5nxtyeuxut43w02	21
 2z9maqc9yy89s7eqzud0mwzq	22
 txyjcp6a8vo0d9s7q5tabjs2	23
 m450ze6i8aue083hny7dw5gs	9
+\.
+
+
+--
+-- Data for Name: eliminated; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.eliminated (user_id) FROM stdin;
 \.
 
 
@@ -666,6 +685,14 @@ CREATE INDEX users_id_idx ON public.users USING btree (user_id);
 --
 
 CREATE INDEX users_id_idx1 ON public.users USING btree (user_id);
+
+
+--
+-- Name: eliminated eliminated_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.eliminated
+    ADD CONSTRAINT eliminated_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id);
 
 
 --

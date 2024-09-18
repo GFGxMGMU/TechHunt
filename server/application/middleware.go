@@ -78,6 +78,7 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 		}
 		fmt.Println(loc_id)
 		c.Set("location", fmt.Sprintf("%v", loc_id))
+		fmt.Println("MEow")
 		c.Set("round_num", round_num)
 		return next(c)
 	}
@@ -93,6 +94,22 @@ func (app *Application) WinnerMiddleware(next echo.HandlerFunc) echo.HandlerFunc
 				Link:     "/",
 			}
 			return c.Render(http.StatusForbidden, "messageGreen", BaseTemplateConfig(c, message))
+		}
+		return next(c)
+	}
+}
+
+func (app *Application) EliminatedMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		user_id := c.Get("user_id").(uuid.UUID)
+		status, ok := globalState.Eliminated[user_id]
+		if status && ok {
+			message := Message{
+				Message:  "Unfortunately, You were eliminated! Thanks for playing 🤝",
+				LinkText: "Leaderboard",
+				Link:     "/",
+			}
+			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
 		}
 		return next(c)
 	}

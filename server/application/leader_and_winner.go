@@ -11,6 +11,7 @@ import (
 
 type GlobalState struct {
 	LeaderBoard LeaderBoard
+	Eliminated  map[uuid.UUID]bool
 	mu          sync.Mutex
 }
 
@@ -87,5 +88,28 @@ func (app *Application) LeaderBoardAndWinner() error {
 		currentLeaderBoard.IsWinner = true
 		globalState.LeaderBoard.err = nil
 	}
+
+	rows, err = app.DB.Pool.Query(context.Background(), "select user_id from eliminated;")
+	if err != nil {
+		fmt.Println("Eliminator not eliminatoring", err.Error())
+		globalState.LeaderBoard.err = err
+		return err
+	}
+	globalState.Eliminated = make(map[uuid.UUID]bool)
+	for {
+		if !rows.Next() {
+			break
+		}
+		var user_id uuid.UUID
+		err = rows.Scan(&user_id)
+
+		if err != nil {
+			fmt.Println("Eliminator not eliminatoring", err.Error())
+			globalState.LeaderBoard.err = err
+			return err
+		}
+		globalState.Eliminated[user_id] = true
+	}
+	fmt.Println(globalState.Eliminated)
 	return nil
 }

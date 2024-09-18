@@ -58,6 +58,7 @@ func main() {
 		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
 	}))
 	l.Use(app.LocationMiddleware)
+	r.Use(app.EliminatedMiddleware)
 	l.GET("", app.Questions)
 	l.POST("", app.QuestionAnswers)
 	r.POST("/begin", app.Begin)
