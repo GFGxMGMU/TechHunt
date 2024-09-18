@@ -43,6 +43,30 @@ func (app *Application) LocationMiddleware(next echo.HandlerFunc) echo.HandlerFu
 			}
 			return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
 		}
+		if round_num == 1 {
+			var round_num2 int
+			query := `select round_num from user_rounds where user_id=$1 and submitted=false`
+			err := app.DB.Pool.QueryRow(context.Background(), query, user_id).Scan(&round_num2)
+			if err != nil {
+				fmt.Println("hosdurf", err)
+				message := Message{
+					Message:  "There was a problem loading this page.",
+					LinkText: "Go to the dashboard",
+					Link:     "/hunt/dashboard",
+				}
+				return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
+			}
+			if round_num2 == 0 {
+
+				fmt.Println("dfgf", err)
+				message := Message{
+					Message:  "Location forbidden. You don't have access to this location, at least at this stage.",
+					LinkText: "Go to the dashboard",
+					Link:     "/hunt/dashboard",
+				}
+				return c.Render(http.StatusForbidden, "message", BaseTemplateConfig(c, message))
+			}
+		}
 		if loc_id == 23 {
 			app.Advance(user_id, round_num, loc_id)
 			message := Message{

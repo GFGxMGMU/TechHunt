@@ -19,7 +19,7 @@ What the title sez
 - [ ] Reenter questions in DB
 - [X] Questions can be copied directly, fix it
 - [X] Round heading for each question
-- [ ] First location is accessible before the questions for the preliminary round are accessible
+- [X] First location is accessible before the questions for the preliminary round are accessible
 - [ ] Show password
 - [ ] Trim leading spaces
 - [ ] Replace "you were late" with something better.
