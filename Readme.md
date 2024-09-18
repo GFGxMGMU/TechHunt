@@ -18,7 +18,7 @@ What the title sez
 - [X] Untick options at the beginning
 - [ ] Reenter questions in DB
 - [X] Questions can be copied directly, fix it
-- [ ] Round heading for each question
+- [X] Round heading for each question
 - [ ] First location is accessible before the questions for the preliminary round are accessible
 - [ ] Show password
 - [ ] Trim leading spaces

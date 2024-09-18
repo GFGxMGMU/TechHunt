@@ -1,5 +1,6 @@
 {{define "body"}}
 <form method="post" action="/hunt/begin">
+  <h1>Round: #{{.RoundNum}}</h1>
   <article
     class="pico-background-green-200"
     style="
@@ -51,7 +52,7 @@
     value="option100"
     id="{{.QuestionId}}100"
     checked="checked"
-    style="display: none; height: 0; width: 0;"
+    style="display: none; height: 0; width: 0"
   />
   <hr />
   {{end}}
