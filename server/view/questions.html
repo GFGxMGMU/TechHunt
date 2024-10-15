@@ -15,44 +15,52 @@
   </article>
   {{range .Questions}}
   <h2>{{.QuestionMD}}</h2>
-  <input
-    type="radio"
-    name="{{.QuestionId}}"
-    value="option1"
-    checked="false"
-    id="{{.QuestionId}}1"
-  /><label for="{{.QuestionId}}1">{{.Option1.Option}}</label>
+  <label for="{{.QuestionId}}1">
+    <input
+      type="radio"
+      name="{{.QuestionId}}"
+      value="option1"
+      checked="false"
+      id="{{.QuestionId}}1"
+    />{{.Option1.Option}}</label
+  >
   <br />
-  <input
-    type="radio"
-    name="{{.QuestionId}}"
-    value="option2"
-    checked="false"
-    id="{{.QuestionId}}2"
-  /><label for="{{.QuestionId}}2">{{.Option2.Option}}</label>
+  <label for="{{.QuestionId}}2">
+    <input
+      type="radio"
+      name="{{.QuestionId}}"
+      value="option2"
+      checked="false"
+      id="{{.QuestionId}}2"
+    />{{.Option2.Option}}</label
+  >
   <br />
-  <input
-    type="radio"
-    name="{{.QuestionId}}"
-    value="option3"
-    checked="false"
-    id="{{.QuestionId}}3"
-  /><label for="{{.QuestionId}}3">{{.Option3.Option}}</label>
+  <label for="{{.QuestionId}}3">
+    <input
+      type="radio"
+      name="{{.QuestionId}}"
+      value="option3"
+      checked="false"
+      id="{{.QuestionId}}3"
+    />{{.Option3.Option}}</label
+  >
   <br />
-  <input
-    type="radio"
-    name="{{.QuestionId}}"
-    value="option4"
-    checked="false"
-    id="{{.QuestionId}}4"
-  /><label id="{{.QuestionId}}4">{{.Option4.Option}}</label>
+  <label id="{{.QuestionId}}4">
+    <input
+      type="radio"
+      name="{{.QuestionId}}"
+      value="option4"
+      checked="false"
+      id="{{.QuestionId}}4"
+    />{{.Option4.Option}}</label
+  >
   <input
     type="radio"
     name="{{.QuestionId}}"
     value="option100"
     id="{{.QuestionId}}100"
     checked="checked"
-    style="display: none; height: 0; width: 0;"
+    style="display: none; height: 0; width: 0"
   />
   <hr />
   {{end}}
