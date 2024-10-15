@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.3
--- Dumped by pg_dump version 16.3
+-- Dumped from database version 16.4 (Ubuntu 16.4-0ubuntu0.24.04.2)
+-- Dumped by pg_dump version 16.4 (Ubuntu 16.4-0ubuntu0.24.04.2)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -238,29 +238,29 @@ COPY public.eliminated (user_id) FROM stdin;
 --
 
 COPY public.hints (loc_id, hint) FROM stdin;
-1	I believe in you!👍
-2	I believe in you!👍
-3	I believe in you!👍
-4	I believe in you!👍
-5	I believe in you!👍
-6	I believe in you!👍
-7	I believe in you!👍
-8	I believe in you!👍
-10	I believe in you!👍
-11	I believe in you!👍
-12	I believe in you!👍
-13	I believe in you!👍
-14	I believe in you!👍
-15	I believe in you!👍
-16	I believe in you!👍
-17	I believe in you!👍
-18	I believe in you!👍
-19	I believe in you!👍
-20	I believe in you!👍
-21	I believe in you!👍
-22	I believe in you!👍
-23	I believe in you!👍
-9	I believe in you!👍
+1	Rukhmini? Aryabhatta? What are those? Who needs seats? I am the sigma auditorium and signify what MGM actually means
+11	Rukhmini? Aryabhatta? What are those? Who needs seats? I am the sigma auditorium and signify what MGM actually means
+21	I got 12 wheels but i am not a truck , i am on top .....yeah am stuck, I need fuel but they give me water so tell me whats the matter?
+17	Rasta Jo jaaye manjil se aage...milte ho jaha TEEN RAASTE aake ..waha h koi Jo kar raha h HUSTLE....wahi...jiski speciality h MUSCLE...
+22	Choti choti bhuk ko mitao na, Bunk karne mere paas aao na, band ho gaya hun to kya, firr bhi hariyali dekhne mere yahi baith jao na
+19	"A serene figure, bathed in golden light,\nA symbol of peace, a guiding sight.\nWith a peaceful gaze and message of peace,\nH esaid, ""Be your own light!""\n"
+8	jinke makaan sheeshe ke hote hai, voh makaan ke andar gadi park karte hai
+13	jinke makaan sheeshe ke hote hai, voh makaan ke andar gadi park karte hai
+5	Ye shaqs nahi tha aam, yahi se aya tha college ka naam, jahan shankh hai bade, vahi ye khade
+16	Ye shaqs nahi tha aam, yahi se aya tha college ka naam, jahan shankh hai bade, vahi ye khade
+20	the game is 90 minutes long ,if u are still like staute the ball is gone, if u aim where i look u alreay won
+7	kadam ek dhatu ka jispe likha hai gyan , usi ke peeche milega paheli ka javab ye baat tu pehchaan
+12	kadam ek dhatu ka jispe likha hai gyan , usi ke peeche milega paheli ka javab ye baat tu pehchaan
+23	In a tower of seven, where heights ascend, Seek the place where your journey will end. Not near the base, just below the top, find your treasure in the box.
+18	 seek the place of business knowledge, where pyramids of learning unfold, kings of gaurd the hint, retrieve it from their hold
+3	Main gate se andar aate hi, kuch duur chalte hi, saadgi mey bhi hota hai fashion, dhundo is hint ka connection
+9	Main gate se andar aate hi, kuch duur chalte hi, saadgi mey bhi hota hai fashion, dhundo is hint ka connection
+6	An art carved out of a single stone, mini version at its best, depicts the heritage site of our city, near the fountain rest.
+10	An art carved out of a single stone, mini version at its best, depicts the heritage site of our city, near the fountain rest.
+2	"On tracks I rest, but I don’t roam,\nA symbol of travel, yet I’m at home.\nFind your clue where wheels stand still,\nA rail on campus, but not for the thrill."
+14	"On tracks I rest, but I don’t roam,\nA symbol of travel, yet I’m at home.\nFind your clue where wheels stand still,\nA rail on campus, but not for the thrill."
+15	I am a friend to the farmer, strong and true, With wooden bones and iron shoes. I carry the load, slow but sure, Through dusty paths, my journey is pure.
+4	I am a friend to the farmer, strong and true, With wooden bones and iron shoes. I carry the load, slow but sure, Through dusty paths, my journey is pure.
 \.
 
 
@@ -411,7 +411,6 @@ b5bb9a03-6a27-4d21-8891-7bfaf0e17e42	Which technology is used for wireless commu
 98c86946-4ea9-469e-9ff7-f7a2fa46065d	What will be the output of the following Python code: `print(15 // 4)`	3	3.75	4	3.5	1	1
 6ef39bd6-750f-4ed9-ad1b-d5b2205b3566	Which of these is not a searching algorithm?	DFS	A-Star	Dijkstra	Kadane's Algorithm	4	1
 9f7f46fa-2b71-47df-a9ee-c4c713d5bbf6	What is the core component of an Artificial Neural Network?	Synapse	Dendrite	Neuron	Axon	3	1
-6c922d85-d1a1-4495-9376-ec17f67e3e84	Which data structure is best suited for implementing a priority queue?	Array	Linked List	/	Heap	4	1
 3b7ca292-fbc2-4ddf-b80c-caec3934ce90	What is the purpose of a hash function in a hash table?	To sort the data	To map keys to indices	To encrypt the data	To compress the data	2	1
 7f597ca2-4425-4249-b7a7-2951c18b6b7c	In a binary search tree, which traversal method produces a sorted output?	Inorder	Preorder	Postorder	Any one of the above	1	1
 64ccbc20-cc3c-47f0-b5f1-4d5bbfbb5549	Which of these is a cloud computing service model?	Infrastructure as a Service (IaaS)	Platform as a Service (PaaS)	Software as a Service (SaaS)	All of the above	4	1
@@ -487,6 +486,7 @@ d58dfd2f-d406-4d99-88c1-d44a16698753	What is a candidate key in relational datab
 af527c8f-48d4-49fa-8d90-97fc9cc86ec0	A Caesar Cipher is an encryption technique that was famously used by, you guessed it right, Julius Caesar! In this technique, you shift the input characters 3 places forward. "A" becomes "D" ("A"->"B"->"C"->"D"), "G" becomes "J" ("G"->"H"->"I"->"J") and "Z" becomes "C" ("Z"->"A"->"B"->"C") due to rotation. Thus, "TECH HUNT" would become "WHFK KXQW". Find the Caesar Cipher for the GFG motto. Make sure only Julius Caesar can decode the glorious motto of GFG!	OHDEQ, SUDFGLFH, NQG HKFRO	OHDUQ, SUDFWLFH, DQG HAFHO	YRNEA, CENPGVPR, NAQ RKPRY	YHNUA, SEDPWVFR, DAG RAPHY	2	4
 8255b41d-28ab-4ae0-8896-7c8bd94ea66f	Given the numbers [999, 1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020], find the maximum number of times you will have to remove sets of any 3 numbers such that their greatest common divisor is 1 until there are no such sets remaining.	3	4	5	6	3	4
 b7efdfc7-7664-4d22-ba85-d66e0c0d8ad7	You are given a list of integers where every element appears twice except for one. You need to find that single element in the most efficient way. Which of the following algorithms would you choose?	Sort the array and compare adjacent elements.	Use a hash map to count the frequency of each element.	Use the XOR bitwise operation on all elements.	Iterate through the list comparing each element with every other element. give answer	3	4
+6c922d85-d1a1-4495-9376-ec17f67e3e84	Which data structure is best suited for implementing a priority queue?	Array	Linked List	Stack	Heap	4	1
 \.
 
 
@@ -549,38 +549,38 @@ f37b5add-b32b-4c0f-8311-2bfa58f744a3	0	2024-09-07 01:11:57.532217	f
 --
 
 COPY public.users (user_id, team_name, key) FROM stdin;
-3fcf0fa5-ea9c-4b9d-8d99-55175637b573	Naruto Uzumaki	fj3kd84hs92a
-0c040bf3-613b-453e-8395-d4e22cd37dd0	Sasuke Uchiha	m2jf7sl8a3dc
-9439b071-cd92-4a85-b492-a7eaad8d48cd	Goku	93nskf72ndlf
-c8403bd6-ebbb-41f7-b232-1542fdc50bfd	Vegeta	p9fn8k3sld2a
-132f91ff-e426-4ef8-a18a-a88fb2ed0472	Luffy	jf2lk8n30sd7
-b0fc951e-cecf-4f8b-a971-a3041560cc2c	Zoro	hs8kd9f2j4sm
-43c2c4ba-38ef-4060-bde3-dfc8bed814d1	Ichigo Kurosaki	v8k7djs3l9fn
-a76084e2-6c59-40bd-ac66-781740b11ee4	Rukia Kuchiki	7d8lsf2m90fk
-90e3c6f3-43bc-4464-9ef4-fe87257de68d	Edward Elric	js8f3k9mn7dl
-15c050ca-4244-4318-b262-989b9fd6c591	Alphonse Elric	4dkf8j2ms93a
-4635beff-63ef-4370-83d1-4cc98c43c58d	Light Yagami	v7dkl93js82a
-cbfdf7a9-a076-4f7d-a94a-8e2e5964e6d5	L Lawliet	9fj2ksm5l8a3
-27979cb0-1b73-4e65-9523-231e38c185a0	Eren Yeager	2kdj7s94lfm8
-8d732863-fc7a-43e9-8102-adb90c3e0800	Mikasa Ackerman	js9f2ld7n8k3
-eadf82d8-61d1-4767-890f-4e76b33ae342	Levi Ackerman	k8fn7js39adl
-b27eb79a-97c4-4103-a399-66d528e63e62	Natsu Dragneel	f2kd83s9lm7a
-949a382f-0bac-4cf9-9a0f-aeb33ea37328	Lucy Heartfilia	9dj3kf7s8m2a
-839b756c-143e-4c60-8232-794a6a8d57aa	Erza Scarlet	js7k29f8ldm4
-c4f2365f-1323-4c2f-8b3b-840f1f07f1dd	Gon Freecss	4djs8f3km92l
-5f1adcaf-9836-48e9-b003-54981b1112cc	Killua Zoldyck	k9fn7d8js6ma
-7d000ba8-ce5d-4441-aadd-bbe99d94b7b9	Saitama	m3k7djf9ls8a
-50ddf17a-490e-425c-b406-99456392e9e1	Genos	8j2kf7s9mdla
-87ff6a06-1d0b-4006-9c22-a5808014c7ac	Tanjiro Kamado	4dkf7j2s9mla
-616e0893-388c-473f-b5cc-df803242e6fb	Nezuko Kamado	9fj2kd8sm7l3
-7e01c64c-ddbf-4aa9-98fa-38223bc37ead	Deku	7dfk29sm83la
-59c130d1-f386-463e-ae7f-4e36771d3b51	Katsuki Bakugo	j9f2ks8mld7a
-8348c298-0ea7-4a4a-8b43-aa3d7da3de2d	All Might	4ksm8f2dj7la
-4fe16b5e-86ad-4e22-846b-c1217900e20a	Itachi Uchiha	f8k2jd7sm9la
-08c64cf9-a684-42c4-9452-5d895e90957c	Kakashi Hatake	js9f8k2m7lda
-e4ebb98c-c0a1-4923-9ba2-f9aba4ca6b98	Shoto Todoroki	f4kd7s8j9mla
-f7baaa5a-50c8-4b71-aacd-2259243470cb	Sakura Haruno	k9fj2d7slm8a
-f37b5add-b32b-4c0f-8311-2bfa58f744a3	Hinata Hyuga	8djs9f3k7mla
+90e3c6f3-43bc-4464-9ef4-fe87257de68d	Team#1	js8f3k9mn7dl
+a76084e2-6c59-40bd-ac66-781740b11ee4	Team#2	7d8lsf2m90fk
+f37b5add-b32b-4c0f-8311-2bfa58f744a3	Team#3	8djs9f3k7mla
+7e01c64c-ddbf-4aa9-98fa-38223bc37ead	Team#4	7dfk29sm83la
+50ddf17a-490e-425c-b406-99456392e9e1	Team#5	8j2kf7s9mdla
+4fe16b5e-86ad-4e22-846b-c1217900e20a	Team#6	f8k2jd7sm9la
+132f91ff-e426-4ef8-a18a-a88fb2ed0472	Team#7	jf2lk8n30sd7
+59c130d1-f386-463e-ae7f-4e36771d3b51	Team#8	j9f2ks8mld7a
+8348c298-0ea7-4a4a-8b43-aa3d7da3de2d	Team#9	4ksm8f2dj7la
+8d732863-fc7a-43e9-8102-adb90c3e0800	Team#11	js9f2ld7n8k3
+5f1adcaf-9836-48e9-b003-54981b1112cc	Team#12	k9fn7d8js6ma
+27979cb0-1b73-4e65-9523-231e38c185a0	Team#13	2kdj7s94lfm8
+839b756c-143e-4c60-8232-794a6a8d57aa	Team#14	js7k29f8ldm4
+9439b071-cd92-4a85-b492-a7eaad8d48cd	Team#15	93nskf72ndlf
+08c64cf9-a684-42c4-9452-5d895e90957c	Team#16	js9f8k2m7lda
+b0fc951e-cecf-4f8b-a971-a3041560cc2c	Team#17	hs8kd9f2j4sm
+b27eb79a-97c4-4103-a399-66d528e63e62	Team#18	f2kd83s9lm7a
+616e0893-388c-473f-b5cc-df803242e6fb	Team#19	9fj2kd8sm7l3
+15c050ca-4244-4318-b262-989b9fd6c591	Team#20	4dkf8j2ms93a
+c8403bd6-ebbb-41f7-b232-1542fdc50bfd	Team#21	p9fn8k3sld2a
+0c040bf3-613b-453e-8395-d4e22cd37dd0	Team#22	m2jf7sl8a3dc
+7d000ba8-ce5d-4441-aadd-bbe99d94b7b9	Team#23	m3k7djf9ls8a
+43c2c4ba-38ef-4060-bde3-dfc8bed814d1	Team#24	v8k7djs3l9fn
+87ff6a06-1d0b-4006-9c22-a5808014c7ac	Team#25	4dkf7j2s9mla
+3fcf0fa5-ea9c-4b9d-8d99-55175637b573	Team#26	fj3kd84hs92a
+e4ebb98c-c0a1-4923-9ba2-f9aba4ca6b98	Team#27	f4kd7s8j9mla
+4635beff-63ef-4370-83d1-4cc98c43c58d	Team#28	v7dkl93js82a
+cbfdf7a9-a076-4f7d-a94a-8e2e5964e6d5	Team#29	9fj2ksm5l8a3
+949a382f-0bac-4cf9-9a0f-aeb33ea37328	Team#30	9dj3kf7s8m2a
+c4f2365f-1323-4c2f-8b3b-840f1f07f1dd	Team#31	4djs8f3km92l
+eadf82d8-61d1-4767-890f-4e76b33ae342	Team#32	k8fn7js39adl
+f7baaa5a-50c8-4b71-aacd-2259243470cb	Team#10	k9fj2d7slm8a
 \.
 
 
