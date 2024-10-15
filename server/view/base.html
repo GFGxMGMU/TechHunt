@@ -14,11 +14,16 @@
     />
     <title></title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Silk&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?&family=Silk&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+      @font-face {
+        font-family: "Departure Mono";
+        src: url(/assets/DepartureMono-Regular.woff2);
+      }
       :root {
         --pico-background-color: rgba(0, 0, 0, 0.2);
         --pico-card-background-color: rgba(0, 0, 0, 0.2);
         --pico-color: rgb(150, 150, 150);
+        --pico-dropdown-color: white;
       }
       body {
         background: rgba(0, 0, 0, 0.75) url("/assets/bg.jpg");
@@ -58,8 +63,8 @@
       h2,
       h3,
       thead {
-        font-family: "Silkscreen", sans-serif;
-        font-weight: 700;
+        font-family: "Departure Mono", monospace;
+        font-weight: 800;
       }
       form code {
         border-radius: 1.5rem;
@@ -78,17 +83,22 @@
             <img id="logo" src="/assets/gfg-logo.png" height="1em" />TechHunt
           </h1>
         </ul>
-        <ul>
-          <li><a href="/">Leaderboard</a></li>
-          {{if .IsLoggedIn}}
-          <li><a href="/hunt/dashboard">Dashboard</a></li>
-          <li>
-            <a href="/logout"><button id="logout">Logout</button></a>
-          </li>
-          {{else}}
-          <li><a href="/login">Login</a></li>
-          {{end}}
-        </ul>
+        <details class="dropdown">
+          <summary>Dropdown Menu</summary>
+          <ul dir="ltr" style="color: black">
+            <li><a href="/">Leaderboard</a></li>
+            {{if .IsLoggedIn}}
+            <li><a href="/hunt/dashboard">Dashboard</a></li>
+            <li class="pico-background-red-400">
+              <a href="/logout">Logout></a>
+            </li>
+            {{else}}
+            <li class="pico-background-green-200">
+              <a href="/login" style="color: black">Login</a>
+            </li>
+            {{end}}
+          </ul>
+        </details>
       </nav>
     </header>
     <main
