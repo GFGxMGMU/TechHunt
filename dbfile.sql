@@ -238,29 +238,29 @@ COPY public.eliminated (user_id) FROM stdin;
 --
 
 COPY public.hints (loc_id, hint) FROM stdin;
-1	Rukhmini? Aryabhatta? What are those? Who needs seats? I am the sigma auditorium and signify what MGM actually means
-11	Rukhmini? Aryabhatta? What are those? Who needs seats? I am the sigma auditorium and signify what MGM actually means
-21	I got 12 wheels but i am not a truck , i am on top .....yeah am stuck, I need fuel but they give me water so tell me whats the matter?
-17	Rasta Jo jaaye manjil se aage...milte ho jaha TEEN RAASTE aake ..waha h koi Jo kar raha h HUSTLE....wahi...jiski speciality h MUSCLE...
-22	Choti choti bhuk ko mitao na, Bunk karne mere paas aao na, band ho gaya hun to kya, firr bhi hariyali dekhne mere yahi baith jao na
-19	"A serene figure, bathed in golden light,\nA symbol of peace, a guiding sight.\nWith a peaceful gaze and message of peace,\nH esaid, ""Be your own light!""\n"
-8	jinke makaan sheeshe ke hote hai, voh makaan ke andar gadi park karte hai
-13	jinke makaan sheeshe ke hote hai, voh makaan ke andar gadi park karte hai
-5	Ye shaqs nahi tha aam, yahi se aya tha college ka naam, jahan shankh hai bade, vahi ye khade
-16	Ye shaqs nahi tha aam, yahi se aya tha college ka naam, jahan shankh hai bade, vahi ye khade
-20	the game is 90 minutes long ,if u are still like staute the ball is gone, if u aim where i look u alreay won
-7	kadam ek dhatu ka jispe likha hai gyan , usi ke peeche milega paheli ka javab ye baat tu pehchaan
-12	kadam ek dhatu ka jispe likha hai gyan , usi ke peeche milega paheli ka javab ye baat tu pehchaan
-23	In a tower of seven, where heights ascend, Seek the place where your journey will end. Not near the base, just below the top, find your treasure in the box.
-18	 seek the place of business knowledge, where pyramids of learning unfold, kings of gaurd the hint, retrieve it from their hold
-3	Main gate se andar aate hi, kuch duur chalte hi, saadgi mey bhi hota hai fashion, dhundo is hint ka connection
-9	Main gate se andar aate hi, kuch duur chalte hi, saadgi mey bhi hota hai fashion, dhundo is hint ka connection
-6	An art carved out of a single stone, mini version at its best, depicts the heritage site of our city, near the fountain rest.
-10	An art carved out of a single stone, mini version at its best, depicts the heritage site of our city, near the fountain rest.
-2	"On tracks I rest, but I don’t roam,\nA symbol of travel, yet I’m at home.\nFind your clue where wheels stand still,\nA rail on campus, but not for the thrill."
-14	"On tracks I rest, but I don’t roam,\nA symbol of travel, yet I’m at home.\nFind your clue where wheels stand still,\nA rail on campus, but not for the thrill."
-15	I am a friend to the farmer, strong and true, With wooden bones and iron shoes. I carry the load, slow but sure, Through dusty paths, my journey is pure.
-4	I am a friend to the farmer, strong and true, With wooden bones and iron shoes. I carry the load, slow but sure, Through dusty paths, my journey is pure.
+6	An art carved out of a single stone. Miniature at its best, near the fountain I rest.
+10	An art carved out of a single stone. Miniature at its best, near the fountain I rest.
+2	Smoking is harmful, but i smoke to run. \nसफ़र with me is so fun.चल छैयां छैयां छैयां!\n\n
+14	Smoking is harmful, but i smoke to run. \nसफ़र with me is so fun.चल छैयां छैयां छैयां!\n\n
+4	lakdi ki kathi, lakdi ka chakka, chakka chalta khet me dhundo isko campus me.
+15	lakdi ki kathi, lakdi ka chakka, chakka chalta khet me dhundo isko campus me.
+1	On the grounds of campus, their presence is known, hint is between two of them, find on your own,\nWhere symbols of non violence and pride stand still, side by side,\nOne shows the way of ahimsa, the other marks a historic guide.
+11	On the grounds of campus, their presence is known, hint is between two of them, find on your own,\nWhere symbols of non violence and pride stand still, side by side,\nOne shows the way of ahimsa, the other marks a historic guide.
+21	I got 12 wheels, but I am not a truck. I am on top. Yeah, I am stuck! Let us see whether you can find me or not, best of luck!
+17	Rasta Jo jaaye manjil se aage, milte ho jaha TEEN RAASTE aake. Waha h koi jo kar raha h HUSTLE. Wahi, jiski speciality he MUSCLE!
+22	Bunk karne mere paas aao na. Band ho gaya hun to kya, phir bhi hariyali dekhne mere yaha baith jao na.
+19	A serene figure, bathed in golden light,\nA symbol of peace, a guiding sight.\nWith a peaceful gaze and message of peace,\nHe said, "Be your own light!"
+8	jinke makaan sheeshe ke hote hai, voh makaan ke andar gadi park karte hai.
+13	jinke makaan sheeshe ke hote hai, voh makaan ke andar gadi park karte hai.
+5	Ye shaqs nahi tha aam, yahi se aya tha college ka naam. Jahan shankh hai bade, vahi ye khade.
+16	Ye shaqs nahi tha aam, yahi se aya tha college ka naam. Jahan shankh hai bade, vahi ye khade.
+20	The game is 90 minutes long. If you are still like a statue the ball will be gone. If you aim where I look, you have already won!
+7	kadam ek dhatu ka jispe likha hai gyan, usi ke peeche milega paheli ka javab ye baat tu pehchaan.
+12	kadam ek dhatu ka jispe likha hai gyan, usi ke peeche milega paheli ka javab ye baat tu pehchaan.
+23	A block of seven, where heights ascend, seek the place where your journey will end. find your next clue where vehicles walk, Not near the base, but just below the top. Pillars in middle hold your hint,with your destiny in the print 
+18	Egypt se aya hu, Jamakar baitha hu thaat.\nRang hai safed, judwaa mere sath.\nMilunga wahi jaha bagicha mere pehle aur Siddharth mere baad
+3	Main gate se andar aate hi, kuch duur chalte hi, saadagi mey bhi hai fashion, dhundo iss hint ka connection
+9	Main gate se andar aate hi, kuch duur chalte hi, saadagi mey bhi hai fashion, dhundo iss hint ka connection
 \.
 
 
