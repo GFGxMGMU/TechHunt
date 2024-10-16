@@ -34,6 +34,6 @@ func (app *Application) ConfigJWT() *echojwt.Config {
 		NewClaimsFunc: func(c echo.Context) jwt.Claims {
 			return new(JwtCustomClaims)
 		},
-		SigningKey: []byte("meow"),
+		SigningKey: []byte("test1"),
 	}
 }

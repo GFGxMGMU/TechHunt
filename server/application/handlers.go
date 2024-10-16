@@ -82,7 +82,7 @@ func (app *Application) Login(c echo.Context) error {
 	expiry := time.Now().Add(time.Hour * 100 * 24)
 	claims := &JwtCustomClaims{team, team_id.String(), jwt.RegisteredClaims{ExpiresAt: jwt.NewNumericDate(expiry)}}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	t, err := token.SignedString([]byte("meow"))
+	t, err := token.SignedString([]byte("test1"))
 	if err != nil {
 		message := &Message{
 			Message:  "Couldn't sign you in. Contact the team.",
