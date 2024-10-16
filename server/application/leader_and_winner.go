@@ -60,7 +60,7 @@ func (app *Application) LeaderBoardAndWinner() error {
 	globalState.mu.Lock()
 	defer globalState.mu.Unlock()
 	globalState.LeaderBoard.LeaderBoard = make([]*LeaderBoardEntry, 0)
-	rows, err := app.DB.Pool.Query(context.Background(), "select team_name, round_num, entered_at from user_rounds ur natural join users y where ur.submitted=false order by round_num desc, entered_at asc")
+	rows, err := app.DB.Pool.Query(context.Background(), "select team_name, round_num, entered_at from user_rounds ur natural join users y where ur.submitted=false order by round_num desc, entered_at asc, team_name asc")
 	if err != nil {
 		fmt.Println("Leaderboard not leaderboarding", err.Error())
 		globalState.LeaderBoard.err = err
