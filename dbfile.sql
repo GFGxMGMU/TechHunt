@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.4 (Ubuntu 16.4-0ubuntu0.24.04.2)
--- Dumped by pg_dump version 16.4 (Ubuntu 16.4-0ubuntu0.24.04.2)
+-- Dumped from database version 16.3
+-- Dumped by pg_dump version 16.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -401,92 +401,94 @@ Textile Showroom	2	9
 --
 
 COPY public.questions (que_id, question, option1, option2, option3, option4, correct, round_num) FROM stdin;
-1f06c50b-6089-44f3-92b2-2105a71afe40	Which of the following is NOT a type of computer memory?	CPU	ROM	RAM	Cache	3	1
-f9a969cf-da06-49e8-9789-e339b6c988cb	Given the decimal number 15, how can we represent this number in binary form?	1111	1100	1010	1001	1	1
-5823fda6-6e39-4211-95b7-3fcb17d53b18	1) git add 2) git commit 3) git _______?	pull	push	pullout	clone	2	1
-254af5a0-2cd0-42dd-baa1-4948123277c2	Which of the following is NOT a high-level programming language?	Python	Assembly	Java	C++	2	1
-8972cd20-9a79-4e40-9cc1-68a54ec42f10	How do you delete everything in a directory in Linux?	rm -rf ./	rm -d ./	rm --all	rm --all ./	1	1
-f43be1f1-d85e-48f4-b20f-0f87e859d523	What is the process of converting plaintext into ciphertext called?	Decryption	Encryption	Hashing	Encoding	2	1
-b5bb9a03-6a27-4d21-8891-7bfaf0e17e42	Which technology is used for wireless communication over *very* short distances?	Bluetooth	Wifi	Cellular	Satellite	1	1
-98c86946-4ea9-469e-9ff7-f7a2fa46065d	What will be the output of the following Python code: `print(15 // 4)`	3	3.75	4	3.5	1	1
-6ef39bd6-750f-4ed9-ad1b-d5b2205b3566	Which of these is not a searching algorithm?	DFS	A-Star	Dijkstra	Kadane's Algorithm	4	1
-9f7f46fa-2b71-47df-a9ee-c4c713d5bbf6	What is the core component of an Artificial Neural Network?	Synapse	Dendrite	Neuron	Axon	3	1
-3b7ca292-fbc2-4ddf-b80c-caec3934ce90	What is the purpose of a hash function in a hash table?	To sort the data	To map keys to indices	To encrypt the data	To compress the data	2	1
-7f597ca2-4425-4249-b7a7-2951c18b6b7c	In a binary search tree, which traversal method produces a sorted output?	Inorder	Preorder	Postorder	Any one of the above	1	1
-64ccbc20-cc3c-47f0-b5f1-4d5bbfbb5549	Which of these is a cloud computing service model?	Infrastructure as a Service (IaaS)	Platform as a Service (PaaS)	Software as a Service (SaaS)	All of the above	4	1
-829e93af-9deb-4cba-8729-782509eca15b	Which of the following is a divide-and-conquer algorithm?	Bubble Sort	Selection Sort	Merge Sort	Insertion Sort	3	1
-6af31f35-39e9-4869-900a-f45193eea092	What does the following list comprehension in Python yield: `[i for i in range(10)]`	[-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]	[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]	3	1
-20e9bd03-f245-4245-ac0d-f2c25e9e28d0	Which of the following is not a feature of Object-Oriented Programming (OOP)?	Encapsulation	Inheritance	Polymorphism	Recursion	4	1
-11e6c85d-5f6d-4390-ae58-def31baf7abe	In SQL, which of the following commands is used to remove a table from a database?	DELETE	DROP	REMOVE	ERASE	2	1
-2e5e0cd1-766c-444c-b89f-b90ef1fd392d	The minimum number of stacks needed to implement a queue is	3	1	2	4	3	1
-ab836b8d-ed6f-4dbc-ace6-814c1572ae3a	In the context of version control, what does "Git" primarily manage?	Database transactions	File versions	Networking protocols	Web sessions	2	1
-68bc3298-3018-4c27-80db-e77a7fcb6015	What language did WhatsApp use in their launching phase to scale to millions of users with a small team of engineers?	Erlang	C++	Java	Python	1	0
-1720674b-0daa-4407-9bec-ee60b4f0ddad	What is the output of this list comprehension? `[char for char in "Python" if char.isupper()]`	["P", "y", "t", "h", "o", "n"], 	["P", "y", "t", "h"]	["P"]	["P", "n"]	3	0
-b105a16b-0c4f-48d9-ab32-5835bd1127b2	Which of the following is a key characteristic of a relational database?	 Hierarchical data structure	Data is organized in tables (relations)	Network data model	 Data is stored as objects	2	0
-9de2e6fe-361e-4ced-aa63-4e753ed339df	Which of the following statements is true about Java?	Java supports multiple inheritance using classes.	Java uses pointers for memory management.	Java is platform-independent due to the JVM.	Java allows operator overloading.	3	0
-587b5ae1-9ae1-4e4a-89ca-8b4d7fe0cd59	In Java, which of the following is used to handle exceptions?	if-else	switch-case	try-catch	do while loop	3	0
-a34f99e0-a20a-455c-8e22-36da392295c3	Which of the following is an advantage of a linked list over an array?	Random access of elements	Fixed size	Better cache locality	Dynamic size	4	0
-6df1aa51-9cfd-4d74-832a-aa7c972e2d17	What is the purpose of exception handling in programming?	To manage and respond to runtime errors.	To optimize code performance.	To log function calls and results.	To predefine input values for functions.	4	0
-2195d9c4-2a34-4050-a4c7-767738b5899a	 In Python, which of the following is not a valid data type?	List	Tuple	LinkedList	Integer	3	0
-553ab931-a8a6-4296-988e-bb70e6a27f4f	VST stands for:	Virtualisation Software Technology	Visual SaaS Template	Virtual Studio Technology	Vacant Swapping Technique	3	0
-23c8de49-3a25-43c0-b8c8-bc03a05099c2	 What is a "data structure" in programming?	A collection of functions for data transformation.	Organizing and storing data for efficient access and modification.	An algorithm for processing data.	Syntax for declaring variables and constants.	2	0
-42e05a96-8f9c-4fcd-8457-c4a464ac80af	Which of the following is a valid declaration of a pointer in C?	int ptr;	int *ptr;	int &ptr;	pointer int ptr;	2	0
-0d955716-b6d1-4e4e-b8c2-5be8cbcb0819	In Java, which method is used to start a thread?	run()	start()	init()	execute()	2	0
-0720ac64-d29c-4936-834e-61d3f32d9a49	Which of the following code has the fastest execution time?	O(nlog n)	O(n)	O(n!)	O(log n)	4	0
-66d9264a-a94f-4658-b228-bd36b4a33309	What is "recursion" in programming?	Optimizing function execution through loops.	Predefining input values for functions.	A function calling itself to solve smaller sub-problems.	Repeated execution of code until a condition is met.	3	0
-a015ba7e-73d4-4ba8-82cc-8b9d9db98137	What does ACID stand for in the context of databases?	Atomicity, Consistency, Isolation, Durability	 Atomicity, Concurrency, Integrity, Durability	Aggregation, Consistency, Isolation, Durability	Abstraction, Consistency, Isolation, Data	1	0
-9ed356b9-a3f1-4995-ae64-7f48a9e7ea30	How do you execute a python file?	`run <filename>.py` in the terminal.	`execute <filename>.py` in the shell.	`python <filename>.py` in the command line.	`python3 run <filename>.py` in the command line.	3	0
-9c0aef1d-683e-477f-9700-a6ddc0b9cef2	What is the time complexity of binary search in a sorted array?	O(n)	O(log n)	O(n log n)	O(n²)	2	0
-4995d4ae-0e9d-41ac-8c83-38a85fd548b8	What does BFS stand for?	Binary-First Search	Breadth-First Search	Binary-Finding System	Breadth-Finding Strategy	2	0
-edf4ecb8-6605-4e98-807e-705ce6e57981	What does SQL stand for?	Standard Query Language	System Query Language	Structured Query Language	System Query Language	3	0
-1f7b67cb-c707-4b7a-ae99-7b47a3ad94a5	In a relational database, which constraint ensures that a column cannot have NULL values?	FOREIGN KEY	UNIQUE	NOT NULL	DEFAULT	3	0
-b902294f-f1c9-46c5-a255-09403ec1bd0e	How many pointers at max are necessarily changed for the insertion in a singly linked list?	1	3	0	2	4	2
-ffd30f1b-7c36-4916-984f-e1dd1000857a	The type of pointer used to point to the address of the next element in a singly linked list?	Pointer to Char	Pointer to Int	Pointer to Node	Pointer to String	3	2
-1b5787e5-d587-4e16-89e1-2e65300b03f2	Which of the following is not the application of stack?	Data Transfer between two asynchronous process	Compiler Syntax Analyzer	Tracking of local variables at run time	A parentheses balancing program	1	2
-644fe588-9930-4a97-8928-e241bfd3b2df	What is the value of the postfix expression 8 11 7 4 + – *?	0	-33	33	-9	1	2
-5cea61ee-b099-4eba-913d-4f15a95e9bab	What is the purpose of the SQL query shown in the snippet? `SELECT * FROM employees WHERE department = 'Sales';`	Insert new employee records	Update existing employee records	Retrieve employee records from the 'Sales' department	Delete employee records from the 'Sales' department	3	2
-d101b02d-991a-404a-b75d-72ceb99ae0c4	What is a null pointer reference? (Hint: CrowdStrike suffered a lot because of this)	Pointer to a memory address that has been deallocated	A default variable called "null" to initialise a constructor in C++.	A pointer that has been declared but not initialised	A pointer that could be used to reference more than one locations at the same time.	1	2
-58ae92d2-aa2b-4dd3-8051-f1c45eba7371	Which of these is a postfix expression?	a+c-d	ab+ cd- *	ab(cd+)- *	*ab-+cde	2	2
-e8df756c-121c-4cee-822b-41ced4f2d7ee	Which of These is **NOT** an AWS service?	S3	ABS	RDS	EC2	2	2
-83f39ae4-795e-45e2-971f-38bd5a064634	Which of These is **NOT** a Page Replacement Algorithm	FIFO	LRU	LIFO	Optimal Page Replacement	3	2
-41393653-323f-4e9b-b830-1a06f9df281c	Which of the following is a non-preemptive scheduling algorithm?	Round Robin	Shortest Job First (SJF)	Priority Scheduling	First-Come, First-Served (FCFS)	4	2
-da68948c-0f1b-4b17-b816-861ce353ce64	What is the output of the following Java code? `public class Main{      public static void main(String []args){         int x = 10;         int y = 5;         int z = (x > y) ? x : y;         System.out.println(z);      } }`	10	5	15	syntax error	1	2
-184d6b0c-634e-475e-9434-64d8ee2bc6d2	Which of the following algorithms is specifically used for finding the shortest path in a graph?	Depth-First Search (DFS)	Breadth-First Search (BFS)	Dijkstra’s Algorithm	Heuristic Search	3	2
-e6270dc0-94ae-4465-9f4f-b2c132fc1252	Which of the following sorting algorithms is not stable?	Merge Sort	Bubble Sort	Quick Sort	Insertion Sort	3	2
-5c6c4305-ed1b-433d-9c99-045c9315b5d1	Which SQL keyword is used to remove duplicate records in a query result?	UNIQUE	DELETE	SELECT	DISTINCT	4	2
-f5fa6173-e6ab-445f-8c5a-58334714881c	Which of the following algorithms is NOT used for encryption?	AES	RSA	SHA-256	Blowfish	3	2
-0e89fc88-e7b5-48ba-8ab3-20ac6f0e6d14	What is the worst-case time complexity of quicksort?	O(n)	O(log n)	O(n log n)	O(n²)	4	2
-7b8d0255-9209-4499-a91b-15a3ff75e1d8	What is Bob doing here in the 8th episode of the 2nd season of Stranger Things ![](https://martin-m.org/images/Stranger-Things-S1E8-Code-Closeup.png)	Developing a web application for storing passwords	Running away from Demogorgons and brute-forcing a 3-digit password	Running away from Demogorgons and brute-forcing a 4-digit password	Training a model for classifying Demogorgons	3	2
-caefb812-2daf-4708-9267-d10ecf6d000c	(2^2^2^2^2^2^2^2^2^2^2^2^2^2^2^2) mod 10 is? (a^b is read as "a raised to the power of b")	3	8	6	2	3	4
-e527492e-ad50-45ce-843d-18ca0a8d1141	There are 23 people, labelled from 1 to 23, in a circle. '1' has a knife (chaku) and kills the person next to him (2) and passes the knife to 3, 3 kills 4 and gives the knife to 5. This carries on until there is only one person alive (by god's grace).	1	15	8	23	4	4
-3722f931-9438-45b4-9845-56cc056f879c	In object-oriented programming, what is the concept of polymorphism?	Polymorphism is the process by which a class (the child or subclass) acquires attributes and behaviors from another class (the parent or superclass), allowing for code reuse and the creation of hierarchical relationships between classes.	Polymorphism is the process by which a single class can inherit properties and behaviors from multiple parent classes, combining the functionality of all the parent classes into one.	Polymorphism is the technique of encapsulating data and methods within a class to protect the internal state of the object and prevent unauthorized access from outside code.	Polymorphism describes the ability of a function to change its behavior based on the number and type of parameters passed to it, enabling flexible function definitions.	4	2
-b9fdfbcb-a7e4-474a-9bc4-a7efe886f201	What does the term "latency" refer to in networking?	The amount of data that can be transferred in a given time	The time taken for a data packet to travel from source to destination	The number of errors per unit of time	The frequency of data collisions	2	2
-92cd725c-b05b-4c3b-8c2e-94858efae21b	Which of the following algorithms is typically used in the TCP protocol to prevent network congestion?	RSA	Dijkstra's Algorithm	Sliding Window Protocol	Slow Start	4	2
-750caf23-ad65-4632-af03-c2a5ecfa5648	What is the output of the following C++ code? `#include <iostream> using namespace std;  int main() {     int a = 10;     int b = a++ + ++a;     cout << b;     return 0; }`	21	20	22	19	3	3
-9270e626-a441-494e-b392-5460b0b84b3d	You are tasked with optimizing the performance of a web application. Which technique involves storing frequently accessed data in a store, reducing the need to fetch it from the original source and potentially improving response times?	Load Balancing	Compression	Minification	Caching	4	3
-fe77033f-2fec-4829-8f98-34ca1c794476	In operating systems, what is the name of the memory management technique that divides memory into fixed-size blocks called pages?	Segmentation	Swapping	Paging	Thrashing	3	3
-1fe1cf73-8912-4862-9037-e616815f3641	Consider a scenario where you need to design a fault-tolerant system that can continue operating even if some of its components fail. Which architectural pattern involves replicating critical components and distributing them across multiple nodes to ensure high availability and resilience?	Microservices Architecture	Monolithic Architecture	Distributed Architecture	Layered Architecture	3	3
-eb105f20-f9ee-44f1-9692-0a750985d1e9	Which of the following is a type of cyber attack that involves tricking users into revealing sensitive information?	Malware	Ransomware	Phishing	Denial of Service (DoS)	3	3
-6fd6856b-beae-4379-b008-3c8d160e3b77	What is the output of the following Python code snippet? `x = [1, 2, 3, 4] y = x.copy() y.append(5) print(x, y) `	`[1, 2, 3, 4] [1, 2, 3, 4, 5]`: The `copy()` method creates a shallow copy, so modifying `y` does not affect `x`	`[1, 2, 3, 4] [1, 2, 3, 4]`: Both lists are references to the same object, so changes to`y` are reflected in `x`.	`[1, 2, 3, 4, 5] [1, 2, 3, 4, 5]`: Both `x` and `y` are updated simultaneously because `copy()` is not used.	Error: The `copy()` method is not valid for lists.	1	3
-1f723e16-dd93-4149-94b2-e75b799c2a80	Which of these is **NOT** a method to exit the Vim text editor?	:q!	ZZ	ZQ	:w	4	3
-21665f84-ab8b-4548-b133-aced02f81c28	What is the purpose of load balancing in system design?	To encrypt data	To compress data for faster transmission	To cache frequently accessed data	To distribute traffic across multiple servers	4	3
-70b95916-6d2e-4f90-95fc-73827cd332c2	What programming concept is demonstrated in the provided code snippet? `def calculate_factorial(n):     if n == 0:         return 1     else:         return n * calculate_factorial(n - 1)`	Iterative	 Recursion	Polymorphism	Encapsulation	2	3
-8625edda-297b-4deb-867b-a3166f90c3d5	Which of these HTTP methods should not be used while sending a request body?	PUT	GET	POST	PATCH	2	3
-72fa0746-cae1-4f18-a13b-d3a2a081f803	Which of these is not a defining feature of Redis?	Multithreading	In-memory caching	Pub/sub	Support for linear data structures	1	3
-3c6455c7-c0c1-476e-a5d6-9a6120b7858e	What is the output of the following code snippet:  `int x = 5;  int y = x++ + ++x;  std::cout << y;` ? 	10	12	11	13	2	3
-29949d6d-be7c-42e9-96e5-71aa24c446f6	What would be the optimal time complexity for generating Fibonacci series?	O(logn)	O(n)	O(2^n)	O(n^2)	1	3
-a3767171-b3ce-40fa-858f-b2fd0249dabc	Which of the following HTTP status codes indicates that the request was successful and the server returned the requested data?	200	301	404	500	1	3
-fa24e896-af6b-4fc7-8903-a6f6ef93f5f8	What will be the output of the following C++ code? `#include <iostream> using namespace std;  int main() {     int a = 5, b = 10, c = 15;     int x = (a > b) ? (b > c) ? b : c : (a > c) ? a : c;     cout << x;     return 0; }`	5	10	15	Compilation error	3	3
-851cac5c-ca59-48b9-a535-233348ca94e7	What programming concept is demonstrated in the following Python code snippet? `class Animal:     def make_sound(self):         print("Animal sound")  class Mammal(Animal):     def has_fur(self):         print("Has fur")  class Dog(Mammal):     def bark(self):         print("Woof!")` 	Multilevel Inheritance	Multiple Inheritance	Hierarchical Inheritance	Single Inheritance	1	3
-f09f57f1-4d2a-433a-836b-d90ed6902b52	In a relational database, what is the purpose of a primary key?	A primary key is used to define the data type of a table and ensure that each record in the table is stored in sequential order based on the primary key values.	A primary key uniquely identifies each record in a table, ensuring that no two rows have the same primary key value, and it cannot contain NULL values.	A primary key is a special key that is used to group records together in a table, often used for sorting and filtering data efficiently.	A primary key is an optional field in a table that can be used to create a relationship between two or more tables in the database.	2	3
-d58dfd2f-d406-4d99-88c1-d44a16698753	What is a candidate key in relational databases?	It is any group of keys that can be a candidate for uniquely identifying the tuple	It has information about candidates in a table	It is the minimal group of keys that can be a candidate for uniquely identifying the tuple	It is all the attributes in the table barring the primary key	3	3
-7d19f3ae-83e6-41c9-81bc-32c5e92be597	Which of the following protocols is used for secure communication over an untrusted network like the Internet?	HTTP	FTP	SSH	Telnet	3	3
-45d9087e-7deb-44b8-a477-af09db8f9548	In Python, what will be the output of the following code snippet? `def func(x, y=[]):     y.append(x)     return y  print(func(1)) print(func(2))`	[1] [2]	[1] [1, 2]	[1, 2] [1, 2]	[1, 2] [2]	2	3
-35c4cbbe-ca16-45e6-b638-57e0eeff0ec9	.-- .... .- - / .. ... / .---- .-.-. .----	.----	...--	..---	....-	3	4
-af527c8f-48d4-49fa-8d90-97fc9cc86ec0	A Caesar Cipher is an encryption technique that was famously used by, you guessed it right, Julius Caesar! In this technique, you shift the input characters 3 places forward. "A" becomes "D" ("A"->"B"->"C"->"D"), "G" becomes "J" ("G"->"H"->"I"->"J") and "Z" becomes "C" ("Z"->"A"->"B"->"C") due to rotation. Thus, "TECH HUNT" would become "WHFK KXQW". Find the Caesar Cipher for the GFG motto. Make sure only Julius Caesar can decode the glorious motto of GFG!	OHDEQ, SUDFGLFH, NQG HKFRO	OHDUQ, SUDFWLFH, DQG HAFHO	YRNEA, CENPGVPR, NAQ RKPRY	YHNUA, SEDPWVFR, DAG RAPHY	2	4
-8255b41d-28ab-4ae0-8896-7c8bd94ea66f	Given the numbers [999, 1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020], find the maximum number of times you will have to remove sets of any 3 numbers such that their greatest common divisor is 1 until there are no such sets remaining.	3	4	5	6	3	4
-b7efdfc7-7664-4d22-ba85-d66e0c0d8ad7	You are given a list of integers where every element appears twice except for one. You need to find that single element in the most efficient way. Which of the following algorithms would you choose?	Sort the array and compare adjacent elements.	Use a hash map to count the frequency of each element.	Use the XOR bitwise operation on all elements.	Iterate through the list comparing each element with every other element. give answer	3	4
-6c922d85-d1a1-4495-9376-ec17f67e3e84	Which data structure is best suited for implementing a priority queue?	Array	Linked List	Stack	Heap	4	1
+d00f390a-58f8-4ee9-8be1-1a3fac5c201a	Which of the following is NOT a type of computer memory?	CPU	ROM	RAM	Cache	1	2
+02d5a3e5-472a-4846-9f8d-fc250bd0359c	Given the decimal number 15, how can we represent this number in binary form?	1111	1100	1010	1001	1	2
+d5c20334-e9e3-4210-a432-ebc140f5071a	1) git add 2) git commit 3) git _______?	pull	push	pullout	clone	2	2
+6580f59e-3f2f-4657-9f92-b8eba557203f	Which of the following is NOT a high-level programming language?	Python	Assembly	Java	C++	2	2
+6294e12d-b972-4b0e-ba77-006d8fc9ea09	How do you delete everything in a directory in Linux?	rm -rf ./	rm -d ./	rm --all	rm --all ./	1	2
+65d72c23-8d4f-4a65-95aa-ac37e0dd7349	What is the process of converting plaintext into ciphertext called?	Decryption	Encryption	Hashing	Encoding	2	2
+82b7e98c-114b-4be3-a434-50e42437ab3c	Which technology is used for wireless communication over *very* short distances?	Bluetooth	Wifi	Cellular	Satellite	1	2
+3203bc1f-e211-4a4c-a88a-3ff8a8567959	What will be the output of the following Python code: ```print(15 // 4)```	3	3.75	4	3.5	1	2
+e3dc6bca-51b9-489d-980c-2ca1f3dac953	Which of these is not a searching algorithm?	DFS	A-Star	Dijkstra	Kadane's Algorithm	4	2
+f7994ed1-bf01-4b04-a529-a9f8336190c9	What is the core component of an Artificial Neural Network?	Synapse	Dendrite	Neuron	Axon	3	2
+16c804a3-0dc3-4c0c-89af-dcf1249ac656	Which data structure is best suited for implementing a priority queue?	Array	Linked List	Stack	Heap	4	2
+2c5b76d7-6cad-45ed-8e7c-f4b139c03bf0	What is the purpose of a hash function in a hash table?	To sort the data	To map keys to indices	To encrypt the data	To compress the data	2	2
+c4fb528d-fd84-4b6a-956f-f83934119ece	In a binary search tree, which traversal method produces a sorted output?	Inorder	Preorder	Postorder	Any one of the above	1	2
+631be8e7-b71f-40a1-b352-54f515021b4f	Which of these is a cloud computing service model?	Infrastructure as a Service (IaaS)	Platform as a Service (PaaS)	Software as a Service (SaaS)	All of the above	4	2
+b4428d5c-19c6-42a7-82d4-6fee2d9bb3e2	Which of the following is a divide-and-conquer algorithm?	Bubble Sort	Selection Sort	Merge Sort	Insertion Sort	3	2
+82e95da3-fcb7-49eb-8955-06a556ee7ddd	What does the following list comprehension in Python yield: `[i for i in range(10)]`	[-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]	[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]	3	2
+2497c4f1-dfc7-4bd4-8e00-f1b07b78a14d	Which of the following is not a feature of Object-Oriented Programming (OOP)?	Encapsulation	Inheritance	Polymorphism	Recursion	4	2
+437842bc-31dc-4cc6-90eb-452909544030	In SQL, which of the following commands is used to remove a table from a database?	DELETE	DROP	REMOVE	ERASE	2	2
+8dc63b27-c118-4c55-8918-d69cecfbb242	The minimum number of stacks needed to implement a queue is	3	1	2	4	3	2
+1a7ee7a1-ce88-466d-86bc-78672c80c118	In the context of version control, what does "Git" primarily manage?	Database transactions	File versions	Networking protocols	Web sessions	2	2
+fdd5e8d2-e462-4435-86c2-6c22cb03baa5	What language did WhatsApp use in their launching phase to scale to millions of users with a small team of engineers?	Erlang	C++	Java	Python	1	1
+c2aeda89-8e75-4548-9e21-fe6ba572410a	What is the output of this list comprehension? ```[char for char in "Python" if char.isupper()]```	["P", "y", "t", "h", "o", "n"], 	["P", "y", "t", "h"]	["P"]	["P", "n"]	3	1
+760be1b0-56d1-4dec-9ac8-745c8156bd50	Which of the following is a key characteristic of a relational database?	 Hierarchical data structure	Data is organized in tables (relations)	Network data model	 Data is stored as objects	2	1
+2e3f402f-8443-4682-97b1-ac31fa14cd34	Which of the following statements is true about Java?	Java supports multiple inheritance using classes.	Java uses pointers for memory management.	Java is platform-independent due to the JVM.	Java allows operator overloading.	3	1
+9c2b859e-afe4-4b9d-9763-4074fc9f63f8	In Java, which of the following is used to handle exceptions?	if-else	switch-case	try-catch	do while loop	3	1
+9f96af12-83e3-4935-9985-4e74c5f8445a	Which of the following is an advantage of a linked list over an array?	Random access of elements	Fixed size	Better cache locality	Dynamic size	4	1
+35b73e1a-2b05-4bb2-adc2-1b3b1c24b00a	What is the purpose of exception handling in programming?	To manage and respond to runtime errors.	To optimize code performance.	To log function calls and results.	To predefine input values for functions.	1	1
+41a50d93-e075-4db8-90ba-b1361c98baaa	 In Python, which of the following is not a valid data type?	List	Tuple	LinkedList	Integer	3	1
+4abe6502-2c56-41e8-8b7e-75e72fdbe5ca	VST stands for:	Virtualisation Software Technology	Visual SaaS Template	Virtual Studio Technology	Vacant Swapping Technique	3	1
+b89076f5-56d8-4189-a033-7a4ee6180378	 What is a "data structure" in programming?	A collection of functions for data transformation.	Organizing and storing data for efficient access and modification.	An algorithm for processing data.	Syntax for declaring variables and constants.	2	1
+ba642100-dc70-46ea-ae04-7ee9906ca76d	Which of the following is a valid declaration of a pointer in C?	int ptr;	int *ptr;	int &ptr;	pointer int ptr;	2	1
+aa22c0df-f8db-400e-9351-ee1fac082147	In Java, which method is used to start a thread?	run()	start()	init()	execute()	2	1
+7e8d7a31-1752-46df-9f12-bedc7d08d012	Which of the following code has the fastest execution time?	O(nlog n)	O(n)	O(n!)	O(log n)	4	1
+917f09ca-0f24-4a0e-ada0-7d9edcf5b12b	What is "recursion" in programming?	Optimizing function execution through loops.	Predefining input values for functions.	A function calling itself to solve smaller sub-problems.	Incrementing and Repeated execution of code until a condition is met.	3	1
+62550331-83bc-403f-a82c-de15a02a58bf	What does ACID stand for in the context of databases?	Atomicity, Consistency, Isolation, Durability	 Atomicity, Concurrency, Integrity, Durability	Aggregation, Consistency, Isolation, Durability	Abstraction, Consistency, Isolation, Data	1	1
+75870391-37c0-490a-95b4-fa6a8a662d14	How do you execute a python file?	`run <filename>.py` in the terminal.	`execute <filename>.py` in the shell.	`python <filename>.py` in the command line.	`python3 run <filename>.py` in the command line.	3	1
+56bf713e-566c-4e03-9d96-b828d0e51168	What is the time complexity of binary search in a sorted array?	O(n)	O(log n)	O(n log n)	O(n²)	2	1
+408de064-39a3-4b49-a972-6574eb152339	What does BFS stand for?	Binary-First Search	Breadth-First Search	Binary-Finding System	Breadth-Finding Strategy	2	1
+4119de89-a95e-4515-9232-7256a32c7b79	What does SQL stand for?	Standard Query Language	System Query Language	Structured Query Language	System Query Language	3	1
+aec849c4-552f-4cdd-9cdd-68a84dc7f8b1	In a relational database, which constraint ensures that a column cannot have NULL values?	FOREIGN KEY	UNIQUE	NOT NULL	DEFAULT	3	1
+54b7e2be-5989-40b8-a2bb-9734609b6836	How many pointers at max are necessarily changed for the insertion in a singly linked list?	1	3	0	2	4	3
+99be7db2-9bbb-4c9d-972a-c465a007fd01	The type of pointer used to point to the address of the next element in a singly linked list?	Pointer to Char	Pointer to Int	Pointer to Node	Pointer to String	3	3
+da4dabc8-6206-4b44-a56f-2762c7ecb41e	Which of the following is not the application of stack?	Data Transfer between two asynchronous process	Compiler Syntax Analyzer	Tracking of local variables at run time	A parentheses balancing program	1	3
+3cd9d2c9-e6d1-44ce-bf9f-3eace65589c1	What is the value of the postfix expression 8 11 7 4 + – *?	0	-33	33	-9	1	3
+f341360b-dbf1-4254-8bef-c709779d9d4e	What is the purpose of the SQL query shown in the snippet? `SELECT * FROM employees WHERE department = 'Sales';`	Insert new employee records	Update existing employee records	Retrieve employee records from the 'Sales' department	Delete employee records from the 'Sales' department	3	3
+88247eae-395c-43bd-bd13-9ab046016e30	What is a null pointer reference? (Hint: CrowdStrike suffered a lot because of this)	Pointer to a memory address that has been deallocated	A default variable called "null" to initialise a constructor in C++.	A pointer that has been declared but not initialised	A pointer that could be used to reference more than one locations at the same time.	1	3
+158905be-9ee4-43a6-8111-c0069a9f92fb	Which of these is a postfix expression?	a+c-d	ab+ cd- *	ab(cd+)- *	*ab-+cde	2	3
+62938952-9912-4715-afef-0f2fab418234	Which of These is **NOT** an AWS service?	S3	ABS	RDS	EC2	2	3
+265d802a-1937-4106-87f7-7eb8a1fd8c99	Which of These is **NOT** a Page Replacement Algorithm	FIFO	LRU	LIFO	Optimal Page Replacement	3	3
+50f6c8b3-2457-4cad-b7f9-6db7791ae43b	Which of the following is a non-preemptive scheduling algorithm?	Round Robin	Shortest First  Job (SFJ)	Priority Scheduling	First-Come, First-Served (FCFS)	4	3
+159fd675-be19-4f36-9054-9d8278f9b9db	Which of the following algorithms is specifically used for finding the shortest path in a graph?	Depth-First Search (DFS)	Breadth-First Search (BFS)	Dijkstra’s Algorithm	Heuristic Search	3	3
+4caa0a53-44b3-4f70-a2a9-7e0c113f3262	Which of the following sorting algorithms is not stable?	Merge Sort	Bubble Sort	Quick Sort	Insertion Sort	3	3
+37f5fd3f-0da5-44df-8d3d-62148f0fc47d	Which SQL keyword is used to remove duplicate records in a query result?	UNIQUE	DELETE	SELECT	DISTINCT	4	3
+83884f3e-32fe-40e1-9a92-5b9e7b1bbb15	Which of the following algorithms is NOT used for encryption?	AES	RSA	SHA-256	Blowfish	3	3
+807c5bde-2616-44f9-a00b-f3dafc44637e	What is the worst-case time complexity of quicksort?	O(n)	O(log n)	O(n log n)	O(n²)	4	3
+cb96f6df-09ba-4294-b86c-5b65c68123c5	What is Bob doing here in the 8th episode of the 2nd season of Stranger Things ![](/assets/bob.png)	Developing a web application for storing passwords	Running away from Demogorgons and brute-forcing a 3-digit password	Running away from Demogorgons and brute-forcing a 4-digit password	Training a model for classifying Demogorgons	3	3
+4540f31d-d8f3-4776-8639-29c9d2732299	In object-oriented programming, what is the concept of polymorphism?	Same Parameter Name, different Constructor 	Same Constructor Name, different Parameter	Same Parameters Name, different function 	Same Function Name, different Parameters	4	3
+2c5c5c9e-9549-49b6-8844-d61f8ef06128	What does the term "latency" refer to in networking?	The amount of data that can be transferred in a given time	The time taken for a data packet to travel from source to destination	The number of errors per unit of time	The frequency of data collisions	2	3
+e9173190-e37f-4089-b3b0-6a6470bf0614	Which of the following algorithms is typically used in the TCP protocol to prevent network congestion?	RSA	Dijkstra's Algorithm	Sliding Window Protocol	Slow Start	4	3
+d4657c6d-93a4-4df0-b40c-f0be3ad2449e	You are tasked with optimizing the performance of a web application. Which technique involves storing frequently accessed data in a store, reducing the need to fetch it from the original source and potentially improving response times?	Load Balancing	Compression	Minification	Caching	4	4
+bb574d85-3298-4f6d-8cd4-f2f21c870afa	In operating systems, what is the name of the memory management technique that divides memory into fixed-size blocks called pages?	Segmentation	Swapping	Paging	Thrashing	3	4
+ac2eb4b3-c117-49b1-9a3e-1a638527e95e	Consider a scenario where you need to design a fault-tolerant system that can continue operating even if some of its components fail. Which architectural pattern involves replicating critical components and distributing them across multiple nodes to ensure high availability and resilience?	Microservices Architecture	Monolithic Architecture	Distributed Architecture	Layered Architecture	3	4
+82e27c56-63c2-4e91-b666-d4368caeee2f	Which of the following is a type of cyber attack that involves tricking users into revealing sensitive information?	Malware	Ransomware	Phishing	Denial of Service (DoS)	3	4
+36bc4d89-f950-44fa-9fda-6071ab7ffe40	Which of these is **NOT** a method to exit the Vim text editor?	:q!	ZZ	ZQ	:w	4	4
+a1bd6ebc-b9f1-4238-8ad4-75e7a2c95c5e	What is the purpose of load balancing in system design?	To encrypt data	To compress data for faster transmission	To cache frequently accessed data	To distribute traffic across multiple servers	4	4
+6c9caa9a-ba98-4c99-ae87-37517f8a57cf	Which of these HTTP methods should not be used while sending a request body?	PUT	GET	POST	PATCH	2	4
+f5664de0-a8ea-4c37-aca5-cdf2216c258b	Which of these is not a defining feature of Redis?	Multithreading	In-memory caching	Pub/sub	Support for linear data structures	1	4
+f67b2f1b-4ed7-48c4-b0b5-ca9192ec5633	What would be the optimal time complexity for generating Fibonacci series?	O(logn)	O(n)	O(2^n)	O(n^2)	1	4
+b6189127-96f8-4634-8648-010a64ca0d8b	Which of the following HTTP status codes indicates that the request was successful and the server returned the requested data?	200	301	404	500	1	4
+1c9fe053-3990-49e7-825b-27231ff6134b	What is the output of the following C++ code?\n```\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10;\n    int b = a++ + ++a;\n    cout << b;\n    return 0;\n}```	21	20	22	19	3	4
+b9234578-a302-4e83-bf4e-0f70a8e029d7	What is the output of the following Python code snippet?\n```\nx = [1, 2, 3, 4]\ny = x.copy()\ny.append(5)\nprint(x, y)\n```	`[1, 2, 3, 4] [1, 2, 3, 4, 5]`	`[1, 2, 3, 4] [1, 2, 3, 4]`	`[1, 2, 3, 4, 5] [1, 2, 3, 4, 5]`	Error: The `copy()` method is not valid for lists.	1	4
+7d0d1c8d-5727-42e8-8e37-4a03efc9d214	What programming concept is demonstrated in the provided code snippet?\n```\ndef calculate_factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * calculate_factorial(n - 1)\n```	Iterative	 Recursion	Polymorphism	Encapsulation	2	4
+0136cc4a-a09f-4cd3-8416-0789a870f863	What is the output of the following code snippet: \n```\nint x = 5; \nint y = x++ + ++x; \nstd::cout << y;\n```	10	12	11	13	2	4
+2b157365-47fb-4cba-93b1-4159ffbd0cf9	What will be the output of the following C++ code?\n```\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5, b = 10, c = 15;\n    int x = (a > b) ? (b > c) ? b : c : (a > c) ? a : c;\n    cout << x;\n    return 0;\n}\n```	5	10	15	Compilation error	3	4
+ff3d0c0c-a261-43b4-a942-5c555b72832d	What programming concept is demonstrated in the following Python code snippet?\n```\nclass Animal:\n    def make_sound(self):\n        print("Animal sound")\n\nclass Mammal(Animal):\n    def has_fur(self):\n        print("Has fur")\n\nclass Dog(Mammal):\n    def bark(self):\n        print("Woof!")\n```	Multilevel Inheritance	Multiple Inheritance	Hierarchical Inheritance	Single Inheritance	1	4
+d2201163-cb43-4810-97b4-3c25981e3310	In a relational database, what is the purpose of a primary key?	define the data type of a table and order table sequentially	Uniquely identify each record in a table, so that no two rows have the same primary key. Also primary keys can't be NULL	A primary key is a special key that is used to group records together in a table, often used for sorting and filtering data efficiently.	An optional field in a table used to create a relationship between two or more tables in the database.	2	4
+458e8b39-9647-4ee8-a84c-5914ed2666a5	What is a candidate key in relational databases?	Any group of keys that can be a candidate for uniquely identifying the tuple	It has information about the candidates in a table	The minimal group of keys that can be candidate for uniquely identifying the tuple	All the attributes in the table barring the primary key	3	4
+e44cb8e9-e34d-4d2d-ad16-c5b937fd0276	Which of the following protocols is used for secure communication over an untrusted network like the Internet?	HTTP	FTP	SSH	Telnet	3	4
+9fe76a7a-7766-4282-aea9-fb9c26da8e6a	A Caesar Cipher is an encryption technique that was famously used by, you guessed it right, Julius Caesar! In this technique, you shift the input characters 3 places forward. "A" becomes "D" ("A"->"B"->"C"->"D"), "G" becomes "J" ("G"->"H"->"I"->"J") and "Z" becomes "C" ("Z"->"A"->"B"->"C") due to rotation. Thus, "TECH HUNT" would become "WHFK KXQW". Find the Caesar Cipher for the GFG motto. Make sure only Julius Caesar can decode the glorious motto of GFG! (Hint: You may search for the GFG motto!)	OHDEQ, SUDFGLFH, NQG HKFRO	OHDUQ, SUDFWLFH, DQG HAFHO	YRNEA, CENPGVPR, NAQ RKPRY	YHNUA, SEDPWVFR, DAG RAPHY	2	5
+f2972db1-1ed8-4c1d-9f9a-e3f66c40ba29	(2^2^2^2^2^2^2^2^2^2^2^2^2^2^2^2) mod 10 is? (a^b is read as "a raised to the power of b")	3	8	6	2	3	5
+3c502fa6-a020-43ac-9c0d-4eebe9a44ee8	There are 23 people, labelled from 1 to 23, in a circle. '1' has a knife (chaku) and kills the person next to him (2) and passes the knife to 3, 3 kills 4 and gives the knife to 5. This carries on until there is only one person alive (by god's grace).	1	15	8	23	4	5
+7d8c1d22-fccc-4d0f-a8f6-9003dbe6e5fe	Given the numbers [999, 1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020], find the maximum number of times you will have to remove sets of any 3 numbers such that their greatest common divisor is 1 until there are no such sets remaining.	3	4	5	6	3	5
+e9c5b19f-33ee-42ed-809d-04178ebaa518	You are given a list of integers where every element appears twice except for one. You need to find that single element in the most efficient way. Which of the following algorithms would you choose?	Sort the array and compare adjacent elements.	Use a hash map to count the frequency of each element.	Use the XOR bitwise operation on all elements.	Iterate through the list comparing each element with every other element. give answer	3	5
+dfdf30e5-d2eb-438d-9aa5-5d46e36eb32e	How many distinct 9-digit numbers can be formed using the digits 1, 1, 2, 2, 2, 3, 3, 4, 4 such that the two 1’s are never adjacent?	7560	45360	90720	15120	2	5
+c1c91f61-58d2-4bab-b29a-5676fc7eb950	You are in a room with 3 light switches, each of which controls one of three bulbs in another room. You cannot see the bulbs from where the switches are. You can only enter the room with the bulbs once. How do you determine which switch controls which bulb?	Turn on all the switches and then turn off one, check which bulb is still warm.	Turn on one switch, wait, then turn it off. Turn on the second switch and enter the room.	Turn on one switch for a few minutes, then turn it off. Turn on another and go into the room.	Turn on two switches, and go to the other room to check the bulbs' positions.	3	5
+d212b249-f6d7-4c62-ab72-975c6ebeb64b	What is the output of the following Java code?\n```\npublic class Main{\n     public static void main(String []args){\n        int x = 10;\n        int y = 5;\n        int z = (x > y) ? x : y;\n        System.out.println(z);\n     }\n}\n```	10	5	15	syntax error	1	3
+81f6694a-6bb2-4d41-8625-c8af117500a0	In Python, what will be the output of the following code snippet?\n```\ndef func(x, y=[]):\n    y.append(x)\n    return y\n\nprint(func(1))\nprint(func(2))\n```	[1] [2]	[1] [1, 2]	[1, 2] [1, 2]	[1, 2] [2]	2	4
+e532acff-e801-4cb1-afd5-69b8bbdb9029	What is the output of the following C code?\n#include <stdio.h>\n```\nint fun(int a) {\n    if(a > 100)\n        return a - 10;\n    else\n        return fun(fun(a + 11));\n}\n\nint main() {\n    printf("%d\\n", fun(95));\n    return 0;\n}\n```	91	100	105	Infinite Recursion	1	5
 \.
 
 
@@ -549,38 +551,38 @@ f37b5add-b32b-4c0f-8311-2bfa58f744a3	0	2024-09-07 01:11:57.532217	f
 --
 
 COPY public.users (user_id, team_name, key) FROM stdin;
-90e3c6f3-43bc-4464-9ef4-fe87257de68d	Team#1	js8f3k9mn7dl
-a76084e2-6c59-40bd-ac66-781740b11ee4	Team#2	7d8lsf2m90fk
-f37b5add-b32b-4c0f-8311-2bfa58f744a3	Team#3	8djs9f3k7mla
-7e01c64c-ddbf-4aa9-98fa-38223bc37ead	Team#4	7dfk29sm83la
-50ddf17a-490e-425c-b406-99456392e9e1	Team#5	8j2kf7s9mdla
-4fe16b5e-86ad-4e22-846b-c1217900e20a	Team#6	f8k2jd7sm9la
-132f91ff-e426-4ef8-a18a-a88fb2ed0472	Team#7	jf2lk8n30sd7
-59c130d1-f386-463e-ae7f-4e36771d3b51	Team#8	j9f2ks8mld7a
-8348c298-0ea7-4a4a-8b43-aa3d7da3de2d	Team#9	4ksm8f2dj7la
-8d732863-fc7a-43e9-8102-adb90c3e0800	Team#11	js9f2ld7n8k3
-5f1adcaf-9836-48e9-b003-54981b1112cc	Team#12	k9fn7d8js6ma
-27979cb0-1b73-4e65-9523-231e38c185a0	Team#13	2kdj7s94lfm8
-839b756c-143e-4c60-8232-794a6a8d57aa	Team#14	js7k29f8ldm4
-9439b071-cd92-4a85-b492-a7eaad8d48cd	Team#15	93nskf72ndlf
-08c64cf9-a684-42c4-9452-5d895e90957c	Team#16	js9f8k2m7lda
-b0fc951e-cecf-4f8b-a971-a3041560cc2c	Team#17	hs8kd9f2j4sm
-b27eb79a-97c4-4103-a399-66d528e63e62	Team#18	f2kd83s9lm7a
-616e0893-388c-473f-b5cc-df803242e6fb	Team#19	9fj2kd8sm7l3
-15c050ca-4244-4318-b262-989b9fd6c591	Team#20	4dkf8j2ms93a
-c8403bd6-ebbb-41f7-b232-1542fdc50bfd	Team#21	p9fn8k3sld2a
-0c040bf3-613b-453e-8395-d4e22cd37dd0	Team#22	m2jf7sl8a3dc
-7d000ba8-ce5d-4441-aadd-bbe99d94b7b9	Team#23	m3k7djf9ls8a
-43c2c4ba-38ef-4060-bde3-dfc8bed814d1	Team#24	v8k7djs3l9fn
-87ff6a06-1d0b-4006-9c22-a5808014c7ac	Team#25	4dkf7j2s9mla
-3fcf0fa5-ea9c-4b9d-8d99-55175637b573	Team#26	fj3kd84hs92a
-e4ebb98c-c0a1-4923-9ba2-f9aba4ca6b98	Team#27	f4kd7s8j9mla
-4635beff-63ef-4370-83d1-4cc98c43c58d	Team#28	v7dkl93js82a
-cbfdf7a9-a076-4f7d-a94a-8e2e5964e6d5	Team#29	9fj2ksm5l8a3
-949a382f-0bac-4cf9-9a0f-aeb33ea37328	Team#30	9dj3kf7s8m2a
-c4f2365f-1323-4c2f-8b3b-840f1f07f1dd	Team#31	4djs8f3km92l
-eadf82d8-61d1-4767-890f-4e76b33ae342	Team#32	k8fn7js39adl
-f7baaa5a-50c8-4b71-aacd-2259243470cb	Team#10	k9fj2d7slm8a
+90e3c6f3-43bc-4464-9ef4-fe87257de68d	Team#1(Isha_Latey_GYP)	js8f3k9mn7dl
+a76084e2-6c59-40bd-ac66-781740b11ee4	Team#2(Nisarg_Desai_UDICT)	7d8lsf2m90fk
+f37b5add-b32b-4c0f-8311-2bfa58f744a3	Team#3(Pooja_Jadhav_SOET)	8djs9f3k7mla
+7e01c64c-ddbf-4aa9-98fa-38223bc37ead	Team#4(Ananta_Sonawane_GYP)	7dfk29sm83la
+50ddf17a-490e-425c-b406-99456392e9e1	Team#5(Pranav_Niware_JNEC)	8j2kf7s9mdla
+4fe16b5e-86ad-4e22-846b-c1217900e20a	Team#6(Riddhi_Lakade_JNEC)	f8k2jd7sm9la
+132f91ff-e426-4ef8-a18a-a88fb2ed0472	Team#7(Bhakti_Jadhav_GYP)	jf2lk8n30sd7
+59c130d1-f386-463e-ae7f-4e36771d3b51	Team#8(Manasvi_Tambe_JNEC)	j9f2ks8mld7a
+8348c298-0ea7-4a4a-8b43-aa3d7da3de2d	Team#9(Shaikh_Nadeem_SOET)	4ksm8f2dj7la
+8d732863-fc7a-43e9-8102-adb90c3e0800	Team#11(Shaikh_Danish_UDICT)	js9f2ld7n8k3
+f7baaa5a-50c8-4b71-aacd-2259243470cb	Team#10(Ved_Dhanokar_UDICT)	k9fj2d7slm8a
+5f1adcaf-9836-48e9-b003-54981b1112cc	Team#12(Riddhi_Salunke_GYP)	k9fn7d8js6ma
+27979cb0-1b73-4e65-9523-231e38c185a0	Team#13(Faiz_Shaikh_JNEC)	2kdj7s94lfm8
+839b756c-143e-4c60-8232-794a6a8d57aa	Team#14(Archit_Mahajan_GYP)	js7k29f8ldm4
+9439b071-cd92-4a85-b492-a7eaad8d48cd	Team#15(Aniruddha_Shebe_SOET)	93nskf72ndlf
+08c64cf9-a684-42c4-9452-5d895e90957c	Team#16(Madiha_Ansari_JNEC)	js9f8k2m7lda
+b0fc951e-cecf-4f8b-a971-a3041560cc2c	Team#17(Om_Deshmukh_JNEC)	hs8kd9f2j4sm
+b27eb79a-97c4-4103-a399-66d528e63e62	Team#18(Rahul_Sharma_JNEC)	f2kd83s9lm7a
+616e0893-388c-473f-b5cc-df803242e6fb	Team#19(Jay_Sawant_JNEC)	9fj2kd8sm7l3
+15c050ca-4244-4318-b262-989b9fd6c591	Team#20(Vansh_Joshi_SOET)	4dkf8j2ms93a
+c8403bd6-ebbb-41f7-b232-1542fdc50bfd	Team#21(Hemant_Parmar_JNEC)	p9fn8k3sld2a
+0c040bf3-613b-453e-8395-d4e22cd37dd0	Team#22(Aashadip_Kachole_GYP)	m2jf7sl8a3dc
+7d000ba8-ce5d-4441-aadd-bbe99d94b7b9	Team#23(Syed_Umair_JNEC)	m3k7djf9ls8a
+43c2c4ba-38ef-4060-bde3-dfc8bed814d1	Team#24(Ayush_Kamble_SOET)	v8k7djs3l9fn
+87ff6a06-1d0b-4006-9c22-a5808014c7ac	Team#25(Asjad_Pathan_UDICT)	4dkf7j2s9mla
+3fcf0fa5-ea9c-4b9d-8d99-55175637b573	Team#26(Vaishnavi_Jambagi_JNEC)	fj3kd84hs92a
+e4ebb98c-c0a1-4923-9ba2-f9aba4ca6b98	Team#27(Anushree_Kasture_JNEC)	f4kd7s8j9mla
+4635beff-63ef-4370-83d1-4cc98c43c58d	Team#28(Rushiraj_Kharate_JNEC)	v7dkl93js82a
+cbfdf7a9-a076-4f7d-a94a-8e2e5964e6d5	Team#29(Samarpan_Daniel_JNEC)	9fj2ksm5l8a3
+949a382f-0bac-4cf9-9a0f-aeb33ea37328	Team#30(Bhumika_Patil_UDICT)	9dj3kf7s8m2a
+c4f2365f-1323-4c2f-8b3b-840f1f07f1dd	Team#31(Bhumika_Munot_JNEC)	4djs8f3km92l
+eadf82d8-61d1-4767-890f-4e76b33ae342	Team#32(Akram_Shaikh_UDICT)	k8fn7js39adl
 \.
 
 
