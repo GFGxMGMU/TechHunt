@@ -122,12 +122,7 @@ func (app *Application) DashboardView(c echo.Context) error {
 	}
 	if out.RoundNum == 0 {
 		if !app.Start {
-			message := Message{
-				Message:  `Game not started yet. Wait for the admin to start it. Keep refreshing. Best of luck.`,
-				LinkText: "Go to the dashboard",
-				Link:     "/hunt/dashboard",
-			}
-			return c.Render(http.StatusNotFound, "message", BaseTemplateConfig(c, message))
+			return c.Render(http.StatusNotFound, "notstarted", BaseTemplateConfig(c, ""))
 		}
 		if time.Now().Before(app.StartTime) {
 			message := Message{
